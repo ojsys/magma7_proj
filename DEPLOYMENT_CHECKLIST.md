@@ -70,7 +70,7 @@ Use this checklist to ensure a smooth deployment to cPanel.
 
 ### 6. Test Local Requirements
 - [ ] All dependencies in `requirements.txt`
-- [ ] `mysqlclient` added to requirements if needed
+- [ ] `PyMySQL` added to requirements (for MySQL support)
 - [ ] No syntax errors in code
 - [ ] Migrations up to date
 
@@ -113,12 +113,13 @@ Choose one method:
 cd /home/username/magma7
 source virtualenv/bin/activate
 pip install -r requirements.txt
-pip install mysqlclient  # For MySQL support
+# PyMySQL is already in requirements.txt
 ```
 
 - [ ] Dependencies installed successfully
 - [ ] No error messages
 - [ ] Virtual environment activated
+- [ ] PyMySQL installed (verify with: pip list | grep PyMySQL)
 
 ### 10. Configure .env Permissions
 ```bash

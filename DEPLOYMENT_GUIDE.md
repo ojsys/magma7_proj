@@ -159,18 +159,9 @@ source virtualenv/bin/activate
 
 ```bash
 pip install -r requirements.txt
-
-# If using MySQL, also install the MySQL client
-pip install mysqlclient
 ```
 
-**Note**: If you encounter issues with `mysqlclient`, you may need to install system dependencies:
-```bash
-# Contact your hosting provider if you don't have sudo access
-sudo yum install mysql-devel python3-devel gcc  # For CentOS/RHEL
-# OR
-sudo apt-get install libmysqlclient-dev python3-dev  # For Ubuntu/Debian
-```
+**Note**: The project uses PyMySQL (pure Python MySQL driver) which is already included in `requirements.txt`. No system-level dependencies are required.
 
 ---
 
