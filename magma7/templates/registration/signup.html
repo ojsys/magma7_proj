@@ -1,0 +1,138 @@
+{% extends 'auth_base.html' %}
+{% block title %}Join Magma7Fitness • Professional Gym Management{% endblock %}
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-layout">
+
+    <!-- Left Side - Image for Desktop -->
+    <div class="auth-image">
+      <div class="auth-image-overlay">
+        <div class="auth-brand">
+          <h1>{{ site_settings.brand_name|default:"Magma7Fitness" }}</h1>
+          <p>Transform Your Body, Transform Your Life</p>
+        </div>
+        <div class="auth-stats">
+          <div class="auth-stat">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">Active Members</span>
+          </div>
+          <div class="auth-stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Gym Access</span>
+          </div>
+          <div class="auth-stat">
+            <span class="stat-number">Expert</span>
+            <span class="stat-label">Trainers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Signup Form -->
+    <div class="auth-form-container">
+      <div class="auth-form">
+
+        <!-- Header -->
+        <div class="auth-header">
+          <h2>Start Your Fitness Journey</h2>
+          <p>Join thousands of members transforming their lives at Magma7Fitness</p>
+        </div>
+
+        <!-- Signup Form -->
+        <form method="post" class="auth-form-content">
+          {% csrf_token %}
+
+          <!-- Name Fields -->
+          <div class="auth-row">
+            <div class="auth-field has-icon">
+              <i class="material-icons">person_outline</i>
+              <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}" placeholder="First Name" required>
+            </div>
+            <div class="auth-field">
+              <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}" placeholder="Last Name" required>
+            </div>
+          </div>
+
+          <!-- Username Field -->
+          <div class="auth-field has-icon">
+            <i class="material-icons">account_circle</i>
+            <input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" placeholder="Username" required>
+            {% if form.username.errors %}
+              <span class="auth-error">{{ form.username.errors.0 }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Email Field -->
+          <div class="auth-field has-icon">
+            <i class="material-icons">email</i>
+            <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}" placeholder="Email Address" required>
+            {% if form.email.errors %}
+              <span class="auth-error">{{ form.email.errors.0 }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Password Fields -->
+          <div class="auth-row">
+            <div class="auth-field has-icon">
+              <i class="material-icons">lock_outline</i>
+              <input type="password" name="password" id="id_password" placeholder="Password" required>
+              {% if form.password.errors %}
+                <span class="auth-error">{{ form.password.errors.0 }}</span>
+              {% endif %}
+            </div>
+            <div class="auth-field">
+              <input type="password" name="password_confirm" id="id_password_confirm" placeholder="Confirm Password" required>
+              {% if form.password_confirm.errors %}
+                <span class="auth-error">{{ form.password_confirm.errors.0 }}</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Terms and Conditions -->
+          <div class="auth-checkbox">
+            <label>
+              <input type="checkbox" name="terms" required>
+              <span>I agree to the <a href="/terms/">Terms & Conditions</a> and <a href="/privacy/">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="auth-btn auth-btn-primary">
+            <i class="material-icons left">person_add</i>Create My Account
+          </button>
+
+        </form>
+
+        <!-- Login Link -->
+        <div class="auth-footer">
+          <p>Already have an account?</p>
+          <a href="/accounts/login/" class="auth-link">Sign In</a>
+        </div>
+
+        <!-- Benefits Preview -->
+        <div class="auth-benefits">
+          <h4>What You Get as a Member</h4>
+          <div class="benefits-grid">
+            <div class="benefit-item">
+              <i class="material-icons">fitness_center</i>
+              <span>Premium Equipment</span>
+            </div>
+            <div class="benefit-item">
+              <i class="material-icons">groups</i>
+              <span>Expert Training</span>
+            </div>
+            <div class="benefit-item">
+              <i class="material-icons">schedule</i>
+              <span>24/7 Access</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

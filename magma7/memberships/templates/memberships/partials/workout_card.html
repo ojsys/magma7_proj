@@ -1,0 +1,39 @@
+<div style="display: flex; gap: 20px; padding: 25px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+  <div style="flex-shrink: 0;">
+    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+      <i class="material-icons" style="color: white; font-size: 1.8rem;">{{ icon }}</i>
+    </div>
+  </div>
+  <div style="flex: 1;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;">
+      <h5 style="margin: 0; font-weight: 700; font-size: 1.3rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h5>
+      <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">
+        {{ workout.date|date:"M d, Y" }}
+      </span>
+    </div>
+    <div style="display: flex; gap: 25px; margin: 12px 0; flex-wrap: wrap;">
+      <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+        <i class="material-icons tiny" style="color: {{ border_color }};">schedule</i>
+        <span><strong>{{ workout.duration }}</strong> minutes</span>
+      </p>
+      {% if workout.calories %}
+      <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+        <i class="material-icons tiny" style="color: {{ border_color }};">local_fire_department</i>
+        <span><strong>{{ workout.calories }}</strong> calories</span>
+      </p>
+      {% endif %}
+      <p style="margin: 0; color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
+        <i class="material-icons tiny">access_time</i>
+        <span>{{ workout.created_at|timesince }} ago</span>
+      </p>
+    </div>
+    {% if workout.notes %}
+    <div style="margin-top: 12px; padding: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; border-left: 2px solid {{ border_color }};">
+      <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; font-style: italic;">
+        <i class="material-icons tiny" style="vertical-align: middle; color: {{ border_color }};">notes</i>
+        {{ workout.notes }}
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>

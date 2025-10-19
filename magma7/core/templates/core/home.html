@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% block title %}Home • Magma7Fitness{% endblock %}
+{% block content %}
+  <section class="hero">
+    <!-- Hero Background Slider -->
+    <div class="hero-slider">
+      {% if hero_slides %}
+        {% for slide in hero_slides %}
+          <div class="hero-slide {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" style="background-image: url('{{ slide.image_url }}'), linear-gradient(135deg, #0b6e4f 0%, #064d39 100%);"></div>
+        {% endfor %}
+      {% else %}
+        <!-- Default placeholder background if no slides configured -->
+        <div class="hero-slide active" data-slide="0" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop'), linear-gradient(135deg, #0b6e4f 0%, #064d39 100%);"></div>
+      {% endif %}
+    </div>
+
+    <!-- Hero Background Overlay -->
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>{{ site_settings.hero_headline|default:'Transform Your Body' }}</h1>
+          <p>{{ site_settings.hero_subtext|default:'Discover the simple 3 Steps that I Discovered to Build Strength and Endurance' }}</p>
+
+          <div class="hero-buttons">
+            <a href="{{ site_settings.hero_cta_url|default:'/memberships/plans/' }}" class="btn btn-primary waves-effect waves-light">
+              {{ site_settings.hero_cta_text|default:'Get Started' }}
+            </a>
+            <a href="/cms/testimonials/" class="btn btn-outline waves-effect">
+              Learn More
+            </a>
+          </div>
+
+          <!-- Hero Stats -->
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <i class="material-icons">groups</i>
+              <span class="hero-stat-number">970+</span>
+              <span class="hero-stat-label">Members</span>
+            </div>
+            <div class="hero-stat">
+              <i class="material-icons">sports_gymnastics</i>
+              <span class="hero-stat-number">135+</span>
+              <span class="hero-stat-label">Programs</span>
+            </div>
+            <div class="hero-stat">
+              <i class="material-icons">workspace_premium</i>
+              <span class="hero-stat-number">105+</span>
+              <span class="hero-stat-label">Trainers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Navigation Dots -->
+    {% if hero_slides and hero_slides.count > 1 %}
+    <div class="hero-slider-dots">
+      {% for slide in hero_slides %}
+        <span class="slider-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center" style="margin-bottom: 60px;">
+          <h2>The Best Programs We Offer</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            We offer a wide range of comprehensive fitness programs designed for all fitness levels and goals.
+          </p>
+        </div>
+      </div>
+      <div class="row" style="display: flex; flex-wrap: wrap;">
+        {% for p in programs %}
+          <div class="col s12 m6 l3" style="display: flex;">
+            <div class="card hoverable" style="width: 100%; display: flex; flex-direction: column;">
+              <div class="card-content" style="padding: 30px; flex: 1; display: flex; flex-direction: column;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                  <i class="material-icons" style="color: var(--primary-coral); font-size: 3rem;">{{ p.icon|default:'fitness_center' }}</i>
+                </div>
+                <h5 class="card-title" style="text-align: center; margin-bottom: 15px;">{{ p.title }}</h5>
+                <p style="text-align: center; color: var(--text-secondary); flex: 1;">{{ p.description }}</p>
+              </div>
+              <div class="card-action" style="text-align: center; padding: 20px 30px;">
+                <a class="btn btn-outline" href="/about/">Learn More</a>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col s12"><div class="card-panel">No programs yet.</div></div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center" style="margin-bottom: 60px;">
+          <h2>Why Choose {{ SITE_NAME|default:'Magma7Fitness' }}</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem;">
+            Experience the difference with our professional approach to fitness
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        {% for s in services %}
+          <div class="col s12 m6">
+            <div class="card" style="padding: 30px; text-align: center;">
+              <h5 style="color: var(--primary-navy); margin-bottom: 15px; font-weight: 700;">{{ s.title }}</h5>
+              <p style="color: var(--text-secondary); margin: 0;">{{ s.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing section-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center" style="margin-bottom: 60px;">
+          <h2>Choose the Best Plan</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem;">Simple pricing & no hidden charges.</p>
+        </div>
+      </div>
+      <div class="row">
+        {% for plan in plans %}
+          <div class="col s12 m4">
+            <div class="card {% if plan.is_featured %}featured{% endif %}">
+              <div class="card-content" style="padding: 40px 30px; text-align: center;">
+                <h4 class="card-title" style="margin-bottom: 10px; font-weight: 800;">{{ plan.name }}</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">{{ plan.price_period }}</p>
+                <h3 style="margin: 20px 0; color: var(--primary-coral); font-weight: 900; font-size: 2.5rem;">{{ CURRENCY_SYMBOL }}{{ plan.price }}</h3>
+                <div style="text-align: left; margin-bottom: 30px;">
+                  {% for f in plan.features.all %}
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                      <i class="material-icons" style="color: var(--success); margin-right: 10px; font-size: 1.2rem;">check_circle</i>
+                      <span>{{ f.text }}</span>
+                    </div>
+                  {% empty %}
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                      <i class="material-icons" style="color: var(--success); margin-right: 10px; font-size: 1.2rem;">check_circle</i>
+                      <span>Access to all facilities</span>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="card-action" style="text-align: center; padding: 30px;">
+                <a class="btn btn-primary" href="{% url 'memberships:subscribe' plan.id %}" style="width: 100%;">Choose Plan</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center" style="margin-bottom: 60px;">
+          <h2>What Our Happy Clients Say</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px;">
+            Average Rating: <strong style="color: var(--primary-coral);">{{ avg_rating|default:"4.9" }}</strong> / 5
+          </p>
+          <div class="testimonial-actions" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="/cms/testimonials/" class="btn btn-outline waves-effect waves-light" style="display: inline-flex; align-items: center; gap: 8px;">
+              <i class="material-icons" style="font-size: 1.2rem;">rate_review</i>
+              Read All Reviews
+            </a>
+            {% if user.is_authenticated %}
+              <a href="/cms/testimonials/submit/" class="btn btn-primary waves-effect waves-light" style="display: inline-flex; align-items: center; gap: 8px;">
+                <i class="material-icons" style="font-size: 1.2rem;">edit</i>
+                Write a Review
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        {% for t in testimonials %}
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-content" style="padding: 30px; text-align: center;">
+                <div style="margin-bottom: 20px; white-space: nowrap; display: inline-flex; gap: 6px;">
+                  {% for i in "12345"|slice:":" %}
+                    {% if forloop.counter <= t.rating %}
+                      <i class="material-icons" style="color: var(--accent-gold); font-size: 1.2rem;">star</i>
+                    {% else %}
+                      <i class="material-icons" style="color: var(--text-light); font-size: 1.2rem;">star_border</i>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                  "{{ t.quote }}"
+                </p>
+                <div>
+                  <strong style="color: var(--text-primary);">{{ t.name }}</strong>
+                  <p style="color: var(--text-muted); font-size: 0.9rem; margin: 5px 0 0 0;">{{ t.role }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

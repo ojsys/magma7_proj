@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% block title %}Testimonials • Magma7Fitness{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 60vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary-green) 0%, #063d2b 100%); text-align: center; position: relative; overflow: hidden; padding: 120px 20px 60px;">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+    <div style="margin-bottom: 20px;">
+      <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.15); padding: 10px 25px; border-radius: 50px;">
+        {% for i in "12345" %}
+        <i class="material-icons" style="color: var(--accent-gold); font-size: 1.5rem;">star</i>
+        {% endfor %}
+      </div>
+    </div>
+
+    <h1 style="font-size: 4rem; font-weight: 900; color: white; margin: 0 auto 1.5rem auto; text-transform: uppercase;">
+      Member Testimonials
+    </h1>
+
+    <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.5rem; max-width: 700px; margin: 0 auto 10px;">
+      Average Rating: <span style="color: var(--accent-gold); font-weight: 800;">{{ avg_rating }}</span> / 5
+    </p>
+
+    <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.1rem;">
+      Real stories from our amazing community
+    </p>
+
+    {% if user.is_authenticated %}
+    <div style="margin-top: 30px;">
+      <button onclick="document.getElementById('testimonialModal').style.display='flex'" class="btn btn-large"
+         style="background: white; color: var(--primary-green); padding: 18px 40px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; cursor: pointer;">
+        <i class="material-icons left">rate_review</i>Write Your Review
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Testimonials Grid -->
+<section class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container">
+    {% if testimonials %}
+    <div class="row" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+      {% for t in testimonials %}
+      <div class="col s12 m6 l4" style="display: flex;">
+        <div class="card hoverable" style="width: 100%; display: flex; flex-direction: column; transition: all 0.3s ease;">
+          <!-- Rating Stars -->
+          <div style="padding: 25px 25px 15px; background: linear-gradient(135deg, rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1) 100%);">
+            <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+              {% for i in "12345" %}
+                {% if forloop.counter <= t.rating %}
+                  <i class="material-icons" style="color: var(--accent-gold); font-size: 1.3rem;">star</i>
+                {% else %}
+                  <i class="material-icons" style="color: #ddd; font-size: 1.3rem;">star_border</i>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <!-- Quote -->
+            <p style="color: var(--text-primary); font-size: 1.05rem; line-height: 1.7; font-style: italic; margin: 0;">
+              "{{ t.quote }}"
+            </p>
+          </div>
+
+          <!-- Author Info -->
+          <div style="padding: 20px 25px; display: flex; align-items: center; gap: 15px; margin-top: auto; border-top: 1px solid var(--border-color);">
+            {% if t.avatar_url %}
+            <img src="{{ t.avatar_url }}" alt="{{ t.name }}"
+                 style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-green);">
+            {% else %}
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-green); display: flex; align-items: center; justify-content: center;">
+              <span style="color: white; font-weight: 700; font-size: 1.2rem;">{{ t.name|first|upper }}</span>
+            </div>
+            {% endif %}
+
+            <div style="flex: 1;">
+              <h5 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 3px 0;">{{ t.name }}</h5>
+              {% if t.role %}
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">{{ t.role }}</p>
+              {% endif %}
+            </div>
+
+            <i class="material-icons" style="color: var(--primary-green); font-size: 1.5rem;">format_quote</i>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div style="text-align: center; padding: 60px 20px;">
+      <i class="material-icons" style="font-size: 5rem; color: var(--text-muted); margin-bottom: 20px;">chat_bubble_outline</i>
+      <h3 style="color: var(--text-secondary); font-size: 1.5rem; margin-bottom: 15px;">No testimonials yet</h3>
+      <p style="color: var(--text-muted);">Be the first to share your experience!</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- CTA Section -->
+{% if not user.is_authenticated %}
+<section style="padding: 0; margin: 80px 0;">
+  <div class="container">
+    <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); border-radius: 20px; padding: 80px 40px; text-align: center; box-shadow: var(--shadow-lg);">
+      <h2 style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 20px; text-transform: uppercase;">
+        Join Our Community
+      </h2>
+      <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px auto;">
+        Become a member and share your own success story
+      </p>
+      <a href="/accounts/signup/" class="btn btn-large"
+         style="background: white; color: var(--primary-green); padding: 20px 50px; font-size: 1.2rem; font-weight: 700; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+        <i class="material-icons left">person_add</i>Sign Up Now
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Testimonial Submission Modal -->
+{% if user.is_authenticated %}
+<div id="testimonialModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px);">
+  <div style="background: var(--card-bg); border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative;">
+    <!-- Modal Header -->
+    <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); padding: 40px 30px; border-radius: 20px 20px 0 0; position: relative;">
+      <button onclick="document.getElementById('testimonialModal').style.display='none'"
+              style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+        <i class="material-icons">close</i>
+      </button>
+
+      <div style="text-align: center;">
+        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+          <i class="material-icons" style="font-size: 3rem; color: white;">star</i>
+        </div>
+        <h2 style="color: white; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;">Share Your Experience</h2>
+        <p style="color: rgba(255,255,255,0.9); margin: 0;">Help others by sharing your fitness journey</p>
+      </div>
+    </div>
+
+    <!-- Modal Form -->
+    <form method="POST" action="{% url 'cms:submit_testimonial' %}" style="padding: 40px 30px;">
+      {% csrf_token %}
+
+      <!-- Rating Section -->
+      <div style="margin-bottom: 30px;">
+        <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 15px; font-size: 1.1rem;">
+          <i class="material-icons tiny" style="color: var(--accent-gold);">star</i> Your Rating
+        </label>
+        <div id="ratingStars" style="display: flex; gap: 10px; margin-bottom: 10px;">
+          <i class="material-icons rating-star" data-rating="1" style="font-size: 2.5rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+          <i class="material-icons rating-star" data-rating="2" style="font-size: 2.5rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+          <i class="material-icons rating-star" data-rating="3" style="font-size: 2.5rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+          <i class="material-icons rating-star" data-rating="4" style="font-size: 2.5rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+          <i class="material-icons rating-star" data-rating="5" style="font-size: 2.5rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+        </div>
+        <input type="hidden" name="rating" id="ratingValue" value="5" required>
+        <p id="ratingText" style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Click to rate (5/5)</p>
+      </div>
+
+      <!-- Name Field -->
+      <div style="margin-bottom: 25px;">
+        <label style="display: block; color: var(--text-primary); font-weight: 600; margin-bottom: 10px;">
+          <i class="material-icons tiny">person</i> Your Name
+        </label>
+        <input type="text" name="name" value="{{ user.get_full_name|default:user.username }}"
+               style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; background: var(--light-bg); color: var(--text-primary); transition: border 0.3s;"
+               onfocus="this.style.borderColor='var(--primary-green)'"
+               onblur="this.style.borderColor='var(--border-color)'">
+      </div>
+
+      <!-- Role Field -->
+      <div style="margin-bottom: 25px;">
+        <label style="display: block; color: var(--text-primary); font-weight: 600; margin-bottom: 10px;">
+          <i class="material-icons tiny">work</i> Your Role/Occupation (Optional)
+        </label>
+        <input type="text" name="role" placeholder="e.g., Fitness Enthusiast, Member since 2023"
+               style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; background: var(--light-bg); color: var(--text-primary); transition: border 0.3s;"
+               onfocus="this.style.borderColor='var(--primary-green)'"
+               onblur="this.style.borderColor='var(--border-color)'">
+      </div>
+
+      <!-- Review Field -->
+      <div style="margin-bottom: 25px;">
+        <label style="display: block; color: var(--text-primary); font-weight: 600; margin-bottom: 10px;">
+          <i class="material-icons tiny">chat</i> Your Review *
+        </label>
+        <textarea name="quote" required rows="5" placeholder="Share your experience with Magma7Fitness..."
+                  style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; background: var(--light-bg); color: var(--text-primary); resize: vertical; font-family: inherit; transition: border 0.3s;"
+                  onfocus="this.style.borderColor='var(--primary-green)'"
+                  onblur="this.style.borderColor='var(--border-color)'"></textarea>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 5px 0 0 0;">Minimum 10 characters</p>
+      </div>
+
+      <!-- Avatar URL Field -->
+      <div style="margin-bottom: 30px;">
+        <label style="display: block; color: var(--text-primary); font-weight: 600; margin-bottom: 10px;">
+          <i class="material-icons tiny">image</i> Avatar URL (Optional)
+        </label>
+        <input type="url" name="avatar_url" placeholder="https://example.com/your-photo.jpg"
+               style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; background: var(--light-bg); color: var(--text-primary); transition: border 0.3s;"
+               onfocus="this.style.borderColor='var(--primary-green)'"
+               onblur="this.style.borderColor='var(--border-color)'">
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 5px 0 0 0;">If not provided, we'll use your initials</p>
+      </div>
+
+      <!-- Submit Buttons -->
+      <div style="display: flex; gap: 15px;">
+        <button type="button" onclick="document.getElementById('testimonialModal').style.display='none'"
+                class="btn-flat"
+                style="flex: 1; padding: 15px; font-size: 1rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
+          Cancel
+        </button>
+        <button type="submit" class="btn"
+                style="flex: 2; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 15px; font-size: 1rem; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(11, 110, 79, 0.3);">
+          <i class="material-icons left">send</i>Submit Review
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// Rating star functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('.rating-star');
+  const ratingValue = document.getElementById('ratingValue');
+  const ratingText = document.getElementById('ratingText');
+
+  let currentRating = 5;
+
+  stars.forEach(star => {
+    star.addEventListener('click', function() {
+      currentRating = parseInt(this.dataset.rating);
+      ratingValue.value = currentRating;
+      updateStars(currentRating);
+      ratingText.textContent = `You rated ${currentRating}/5`;
+    });
+
+    star.addEventListener('mouseenter', function() {
+      const hoverRating = parseInt(this.dataset.rating);
+      updateStars(hoverRating, true);
+    });
+  });
+
+  document.getElementById('ratingStars').addEventListener('mouseleave', function() {
+    updateStars(currentRating);
+  });
+
+  function updateStars(rating, isHover = false) {
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.textContent = 'star';
+        star.style.color = 'var(--accent-gold)';
+        if (isHover) {
+          star.style.transform = 'scale(1.1)';
+        } else {
+          star.style.transform = 'scale(1)';
+        }
+      } else {
+        star.textContent = 'star_border';
+        star.style.color = '#ddd';
+        star.style.transform = 'scale(1)';
+      }
+    });
+  }
+
+  // Initialize with 5 stars
+  updateStars(5);
+
+  // Close modal on outside click
+  document.getElementById('testimonialModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('testimonialModal').style.display = 'none';
+    }
+  });
+});
+</script>
+
+<style>
+.rating-star:hover {
+  transform: scale(1.2) !important;
+}
+
+#testimonialModal input:focus,
+#testimonialModal textarea:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #testimonialModal > div {
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+    height: 100%;
+  }
+}
+</style>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+{% block title %}{{ about_page.hero_title|default:"About Us" }} • Magma7Fitness{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 85vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); text-align: center; position: relative; overflow: hidden; padding: 120px 20px 80px;">
+  {% if about_page.hero_image_url %}
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.2; background: url('{{ about_page.hero_image_url }}') center/cover; background-attachment: fixed;"></div>
+  {% endif %}
+
+  <!-- Animated background pattern -->
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.05;">
+    <div style="position: absolute; width: 500px; height: 500px; border-radius: 50%; background: white; top: -250px; right: -250px;"></div>
+    <div style="position: absolute; width: 300px; height: 300px; border-radius: 50%; background: white; bottom: -150px; left: -150px;"></div>
+  </div>
+
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+    <div style="margin-bottom: 30px;">
+      <span style="display: inline-block; background: rgba(255, 255, 255, 0.2); color: white; padding: 10px 30px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; backdrop-filter: blur(10px);">
+        Welcome to Magma7
+      </span>
+    </div>
+
+    <h1 style="font-size: 4.5rem; font-weight: 900; color: white; margin: 0 auto 2rem auto; text-transform: uppercase; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+      {{ about_page.hero_title|default:"About Magma7Fitness" }}
+    </h1>
+
+    {% if about_page.hero_subtitle %}
+    <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.4rem; max-width: 900px; margin: 0 auto 3rem auto; line-height: 1.8; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+      {{ about_page.hero_subtitle }}
+    </p>
+    {% endif %}
+
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <a href="/memberships/plans/" class="btn btn-large" style="background: white; color: var(--primary-green); padding: 20px 45px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); transition: all 0.3s ease;">
+        <i class="material-icons left">fitness_center</i>Join Our Community
+      </a>
+      <a href="#story" class="btn btn-large" style="background: transparent; color: white; border: 2px solid white; padding: 20px 45px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+        <i class="material-icons left">arrow_downward</i>Learn More
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 3;">
+    <div style="width: 30px; height: 50px; border: 2px solid rgba(255,255,255,0.5); border-radius: 20px; position: relative;">
+      <div style="width: 6px; height: 10px; background: white; border-radius: 3px; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); animation: scroll 2s infinite;"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes scroll {
+  0%, 100% { opacity: 0; top: 8px; }
+  50% { opacity: 1; top: 15px; }
+}
+
+/* Responsive styles for hero section */
+@media only screen and (max-width: 768px) {
+  section[style*="min-height: 85vh"] h1 {
+    font-size: 3rem !important;
+  }
+
+  section[style*="min-height: 85vh"] p {
+    font-size: 1.1rem !important;
+  }
+
+  section[style*="min-height: 85vh"] .btn {
+    padding: 16px 30px !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section[style*="min-height: 85vh"] {
+    min-height: 100vh !important;
+    padding: 100px 15px 60px !important;
+  }
+
+  section[style*="min-height: 85vh"] h1 {
+    font-size: 2.5rem !important;
+  }
+
+  section[style*="min-height: 85vh"] p {
+    font-size: 1rem !important;
+  }
+}
+
+/* Statistics responsive styles */
+@media only screen and (max-width: 768px) {
+  section[style*="margin-top: -50px"] > .container > div[style*="flex-wrap: nowrap"] {
+    flex-wrap: wrap !important;
+  }
+}
+
+/* Gallery responsive styles */
+@media only screen and (max-width: 992px) {
+  .container > div[style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-auto-rows: 180px !important;
+  }
+
+  .container > div[style*="grid-template-columns: repeat(12"] > div[style*="grid-column: span 6"] {
+    grid-column: span 6 !important;
+  }
+
+  .container > div[style*="grid-template-columns: repeat(12"] > div[style*="grid-column: span 4"],
+  .container > div[style*="grid-template-columns: repeat(12"] > div[style*="grid-column: span 3"] {
+    grid-column: span 3 !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .container > div[style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 150px !important;
+    gap: 10px !important;
+  }
+
+  .container > div[style*="grid-template-columns: repeat(12"] > div {
+    grid-column: span 2 !important;
+    grid-row: span 1 !important;
+  }
+}
+</style>
+
+<!-- Statistics Section -->
+{% if statistics %}
+<section style="padding: 0; margin-top: -50px; position: relative; z-index: 10;">
+  <div class="container">
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: nowrap; overflow-x: auto;">
+      {% for stat in statistics %}
+      <div style="flex: 1; min-width: 200px; max-width: 280px;">
+        <div class="card" style="text-align: center; padding: 40px 20px; background: var(--card-bg); border: 2px solid var(--border-color); transition: all 0.3s ease; height: 100%;">
+          <i class="material-icons" style="font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 15px;">{{ stat.icon }}</i>
+          <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--primary-green); margin-bottom: 10px; line-height: 1;">{{ stat.value }}</h3>
+          <p style="color: var(--text-secondary); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin: 0;">{{ stat.label }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Our Story Section -->
+{% if about_page.story_content %}
+<section id="story" class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container">
+    <div class="row" style="display: flex; align-items: center; gap: 60px;">
+      {% if about_page.story_image_url %}
+      <div class="col s12 m6" style="order: 1;">
+        <img src="{{ about_page.story_image_url }}" alt="{{ about_page.story_title }}"
+             style="width: 100%; height: 500px; object-fit: cover; border-radius: 0; box-shadow: var(--shadow-lg);">
+      </div>
+      {% endif %}
+      <div class="col s12 {% if about_page.story_image_url %}m6{% else %}m12{% endif %}" style="order: 2;">
+        <h2 style="font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin-bottom: 30px; text-transform: uppercase;">
+          {{ about_page.story_title|default:"Our Story" }}
+        </h2>
+        <div style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.8;">
+          {{ about_page.story_content|linebreaks }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Mission & Vision Section -->
+<section class="section" style="padding: 80px 0; background: var(--section-bg);">
+  <div class="container">
+    <div class="row">
+      <!-- Mission -->
+      <div class="col s12 m6">
+        <div class="card" style="padding: 50px 40px; height: 100%; border-left: 5px solid var(--primary-green);">
+          <div style="display: flex; align-items: center; margin-bottom: 25px;">
+            <i class="material-icons" style="font-size: 3.5rem; color: var(--primary-green); margin-right: 20px;">{{ about_page.mission_icon|default:"track_changes" }}</i>
+            <h3 style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0; text-transform: uppercase;">
+              {{ about_page.mission_title|default:"Our Mission" }}
+            </h3>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin: 0;">
+            {{ about_page.mission_content|default:"At Magma7 Fitness Center, our mission is to empower individuals to lead healthy and active lifestyles by providing a welcoming and inclusive environment that offers a range of fitness and wellness services." }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Vision -->
+      <div class="col s12 m6">
+        <div class="card" style="padding: 50px 40px; height: 100%; border-left: 5px solid var(--accent-gold);">
+          <div style="display: flex; align-items: center; margin-bottom: 25px;">
+            <i class="material-icons" style="font-size: 3.5rem; color: var(--accent-gold); margin-right: 20px;">{{ about_page.vision_icon|default:"visibility" }}</i>
+            <h3 style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0; text-transform: uppercase;">
+              {{ about_page.vision_title|default:"Our Vision" }}
+            </h3>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin: 0;">
+            {{ about_page.vision_content|default:"Our vision is to be the leading fitness center in Kaduna, known for providing exceptional facilities and services that enable our members to achieve their health and fitness goals." }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Values Section -->
+{% if core_values %}
+<section class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">Our Core Values</h2>
+      <p style="color: var(--text-secondary); font-size: 1.2rem; max-width: 700px; margin: 0 auto;">The principles that guide everything we do</p>
+    </div>
+
+    <div class="row" style="display: flex; flex-wrap: wrap;">
+      {% for value in core_values %}
+      <div class="col s12 m6 l4" style="display: flex; margin-bottom: 30px;">
+        <div class="card hoverable" style="padding: 40px 30px; width: 100%; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column;">
+          <i class="material-icons" style="font-size: 4rem; color: var(--accent-gold); margin-bottom: 20px; display: block;">{{ value.icon }}</i>
+          <h4 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 15px; min-height: 60px; display: flex; align-items: center; justify-content: center;">{{ value.title }}</h4>
+          <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin: 0; flex: 1;">{{ value.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Why Choose Us Section -->
+{% if why_choose_items %}
+<section class="section" style="padding: 80px 0; background: var(--section-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">
+        {{ about_page.why_choose_title|default:"Why Choose Us" }}
+      </h2>
+      {% if about_page.why_choose_description %}
+      <p style="color: var(--text-secondary); font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+        {{ about_page.why_choose_description }}
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="row" style="display: flex; flex-wrap: wrap;">
+      {% for item in why_choose_items %}
+      <div class="col s12 m6 l4" style="display: flex; margin-bottom: 30px;">
+        <div class="card hoverable" style="padding: 35px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease;">
+          {% if item.image_url %}
+          <div style="flex-shrink: 0; margin-bottom: 25px;">
+            <img src="{{ item.image_url }}" alt="{{ item.title }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: var(--shadow-md);">
+          </div>
+          {% else %}
+          <div style="flex-shrink: 0; width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: var(--shadow-md);">
+            <i class="material-icons" style="font-size: 3rem; color: white;">{{ item.icon }}</i>
+          </div>
+          {% endif %}
+          <div style="flex: 1; width: 100%;">
+            <h4 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 15px; min-height: 48px; display: flex; align-items: center; justify-content: center;">{{ item.title }}</h4>
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin: 0;">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Gallery Section -->
+{% if gallery_images %}
+<section class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">
+        {{ about_page.gallery_title|default:"Our World-Class Facility" }}
+      </h2>
+      {% if about_page.gallery_description %}
+      <p style="color: var(--text-secondary); font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+        {{ about_page.gallery_description }}
+      </p>
+      {% endif %}
+    </div>
+
+    <!-- Collage Gallery Grid -->
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 200px; gap: 15px; max-width: 1400px; margin: 0 auto;">
+      {% for image in gallery_images %}
+        {% if forloop.counter0 == 0 %}
+          <!-- First image: Large feature (spans 6 columns, 2 rows) -->
+          <div style="grid-column: span 6; grid-row: span 2; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-lg); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 30px;">
+                <h5 style="font-size: 1.5rem; font-weight: 700; margin: 0 0 8px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 1rem; margin: 0; color: rgba(255,255,255,0.95);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elif forloop.counter0 == 1 %}
+          <!-- Second image: Tall (spans 3 columns, 2 rows) -->
+          <div style="grid-column: span 3; grid-row: span 2; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;">
+                <h5 style="font-size: 1.2rem; font-weight: 700; margin: 0 0 5px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 0.85rem; margin: 0; color: rgba(255,255,255,0.9);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elif forloop.counter0 == 2 %}
+          <!-- Third image: Square (spans 3 columns, 1 row) -->
+          <div style="grid-column: span 3; grid-row: span 1; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 15px;">
+                <h5 style="font-size: 1rem; font-weight: 700; margin: 0 0 3px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 0.8rem; margin: 0; color: rgba(255,255,255,0.9);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elif forloop.counter0 == 3 %}
+          <!-- Fourth image: Wide (spans 6 columns, 1 row) -->
+          <div style="grid-column: span 6; grid-row: span 1; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;">
+                <h5 style="font-size: 1.2rem; font-weight: 700; margin: 0 0 5px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 0.9rem; margin: 0; color: rgba(255,255,255,0.9);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elif forloop.counter0 == 4 %}
+          <!-- Fifth image: Medium (spans 4 columns, 1 row) -->
+          <div style="grid-column: span 4; grid-row: span 1; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;">
+                <h5 style="font-size: 1.1rem; font-weight: 700; margin: 0 0 5px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 0.85rem; margin: 0; color: rgba(255,255,255,0.9);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elif forloop.counter0 == 5 %}
+          <!-- Sixth image: Medium (spans 4 columns, 1 row) -->
+          <div style="grid-column: span 4; grid-row: span 1; position: relative; overflow: hidden; cursor: pointer; box-shadow: var(--shadow-md); transition: all 0.3s ease;"
+               onmouseover="this.querySelector('img').style.transform='scale(1.1)'; this.querySelector('.overlay').style.opacity='1'"
+               onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.overlay').style.opacity='0'">
+            <img src="{{ image.image_url }}" alt="{{ image.title }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9)); opacity: 0; transition: opacity 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;">
+                <h5 style="font-size: 1.1rem; font-weight: 700; margin: 0 0 5px 0; color: white;">{{ image.title }}</h5>
+                {% if image.description %}
+                <p style="font-size: 0.85rem; margin: 0; color: rgba(255,255,255,0.9);">{{ image.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+{% if about_page %}
+<section style="padding: 0; margin: 80px 0;">
+  <div class="container">
+    <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); {% if about_page.cta_image_url %}background-image: linear-gradient(rgba(11, 110, 79, 0.9), rgba(11, 110, 79, 0.9)), url('{{ about_page.cta_image_url }}'); background-size: cover; background-position: center;{% endif %} border-radius: 20px; padding: 80px 40px; text-align: center; box-shadow: var(--shadow-lg);">
+      <h2 style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 20px; text-transform: uppercase;">
+        {{ about_page.cta_title|default:"Ready to Transform?" }}
+      </h2>
+      <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
+        {{ about_page.cta_description|default:"Join our community today and start your fitness journey" }}
+      </p>
+      <a href="{{ about_page.cta_button_url|default:'/memberships/plans/' }}"
+         class="btn btn-large"
+         style="background: white; color: var(--primary-green); padding: 20px 50px; font-size: 1.2rem; font-weight: 700; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+        <i class="material-icons left">arrow_forward</i>{{ about_page.cta_button_text|default:"Get Started" }}
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<script>
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+</script>
+
+{% endblock %}

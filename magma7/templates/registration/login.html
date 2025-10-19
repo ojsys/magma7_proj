@@ -1,0 +1,102 @@
+{% extends 'auth_base.html' %}
+{% block title %}Login • Magma7Fitness{% endblock %}
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-layout">
+
+    <!-- Left Side - Image for Desktop -->
+    <div class="auth-image">
+      <div class="auth-image-overlay">
+        <div class="auth-brand">
+          <h1>{{ site_settings.brand_name|default:"Magma7Fitness" }}</h1>
+          <p>Welcome Back to Your Fitness Journey</p>
+        </div>
+        <div class="auth-stats">
+          <div class="auth-stat">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">Active Members</span>
+          </div>
+          <div class="auth-stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Gym Access</span>
+          </div>
+          <div class="auth-stat">
+            <span class="stat-number">Expert</span>
+            <span class="stat-label">Trainers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div class="auth-form-container">
+      <div class="auth-form">
+
+        <!-- Header -->
+        <div class="auth-header">
+          <h2>Welcome Back</h2>
+          <p>Sign in to access your fitness dashboard</p>
+        </div>
+
+        <!-- Login Form -->
+        <form method="post" class="auth-form-content">
+          {% csrf_token %}
+
+          {% if form.errors %}
+            <div class="auth-error-message">
+              <i class="material-icons">warning</i>
+              <span>Please check your credentials and try again.</span>
+            </div>
+          {% endif %}
+
+          <!-- Username Field -->
+          <div class="auth-field has-icon">
+            <i class="material-icons">person</i>
+            <input type="text" name="username" id="id_username" placeholder="Username" required>
+          </div>
+
+          <!-- Password Field -->
+          <div class="auth-field has-icon">
+            <i class="material-icons">lock</i>
+            <input type="password" name="password" id="id_password" placeholder="Password" required>
+          </div>
+
+          <!-- Remember Me -->
+          <div class="auth-checkbox">
+            <label>
+              <input type="checkbox" name="remember_me">
+              <span>Remember me</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="auth-btn auth-btn-primary">
+            <i class="material-icons left">login</i>Sign In
+          </button>
+
+          <!-- Forgot Password -->
+          <div class="auth-forgot">
+            <a href="/accounts/password_reset/">Forgot your password?</a>
+          </div>
+
+        </form>
+
+        <!-- Sign Up Link -->
+        <div class="auth-footer">
+          <p>Don't have an account yet?</p>
+          <a href="/accounts/signup/" class="auth-link">Create Account</a>
+        </div>
+
+        <!-- Additional Help -->
+        <div class="auth-help">
+          <p>Need help? <a href="/about/">Contact Support</a></p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

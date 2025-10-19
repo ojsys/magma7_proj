@@ -1,0 +1,663 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}Dashboard • Magma7Fitness{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
+{% block page_subtitle %}Track your fitness journey and stay motivated{% endblock %}
+
+{% block content %}
+
+<!-- Log Workout Button -->
+<div style="margin-bottom: 25px;">
+  <button onclick="openWorkoutModal()" class="waves-effect" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 16px 30px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3); display: inline-flex; align-items: center; gap: 10px;">
+    <i class="material-icons">add_circle</i>
+    Log Workout
+  </button>
+</div>
+
+<!-- Fitness Stats Row -->
+<div class="row" style="margin-top: 0;">
+      <div class="col s12 m6 l3">
+        <div class="card hoverable" style="padding: 30px; text-align: center; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 15px; box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4); transition: all 0.3s ease; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative;">
+            <i class="material-icons" style="font-size: 2.5rem; color: white;">local_fire_department</i>
+          </div>
+          <div style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 10px;">
+            {{ calories_burned|default:"2,450" }}
+          </div>
+          <div style="color: rgba(255,255,255,0.9); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+            Calories Burned
+          </div>
+          <div style="margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.8rem;">This Week</div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="card hoverable" style="padding: 30px; text-align: center; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 15px; box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4); transition: all 0.3s ease; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative;">
+            <i class="material-icons" style="font-size: 2.5rem; color: white;">fitness_center</i>
+          </div>
+          <div style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 10px;">
+            {{ workouts_this_month|default:"18" }}
+          </div>
+          <div style="color: rgba(255,255,255,0.9); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+            Workouts
+          </div>
+          <div style="margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.8rem;">This Month</div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="card hoverable" style="padding: 30px; text-align: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 15px; box-shadow: 0 8px 30px rgba(240, 147, 251, 0.4); transition: all 0.3s ease; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative;">
+            <i class="material-icons" style="font-size: 2.5rem; color: white;">trending_up</i>
+          </div>
+          <div style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 10px;">
+            {{ streak_days|default:"12" }}
+          </div>
+          <div style="color: rgba(255,255,255,0.9); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+            Day Streak
+          </div>
+          <div style="margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.8rem;">🔥 Keep Going!</div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="card hoverable" style="padding: 30px; text-align: center; background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%); border-radius: 15px; box-shadow: 0 8px 30px rgba(255, 216, 155, 0.4); transition: all 0.3s ease; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative;">
+            <i class="material-icons" style="font-size: 2.5rem; color: white;">schedule</i>
+          </div>
+          <div style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 10px;">
+            {{ total_hours|default:"52" }}
+          </div>
+          <div style="color: rgba(255,255,255,0.9); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+            Training Hours
+          </div>
+          <div style="margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.8rem;">Total Time</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Row -->
+    <div class="row">
+      {% if subscription %}
+        <!-- Activity & Progress Section -->
+        <div class="col s12 l8">
+
+          <!-- Recent Activity -->
+          <div class="card hoverable" style="padding: 35px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg); margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+              <h4 style="margin: 0; font-weight: 800; font-size: 1.8rem; color: var(--text-primary);">
+                <i class="material-icons" style="vertical-align: middle; color: var(--primary-green); margin-right: 10px;">timeline</i>Recent Activity
+              </h4>
+              <a href="{% url 'memberships:all_activities' %}" style="color: var(--primary-green); font-weight: 600; text-decoration: none;">
+                View All <i class="material-icons tiny" style="vertical-align: middle;">arrow_forward</i>
+              </a>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              {% if recent_workouts %}
+                {% for workout in recent_workouts %}
+                  {% if workout.workout_type == 'cardio' %}
+                    {% with bg_color='rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.1)' border_color='#4facfe' icon='directions_run' label_bg='rgba(79, 172, 254, 0.2)' label_color='#4facfe' %}
+                      <div style="display: flex; gap: 20px; padding: 20px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+                        <div style="flex-shrink: 0;">
+                          <div style="width: 50px; height: 50px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="material-icons" style="color: white; font-size: 1.5rem;">{{ icon }}</i>
+                          </div>
+                        </div>
+                        <div style="flex: 1;">
+                          <h6 style="margin: 0 0 5px 0; font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h6>
+                          <p style="margin: 0 0 8px 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            {{ workout.duration }} minutes
+                            {% if workout.calories %}
+                              • {{ workout.calories }} calories burned
+                            {% endif %}
+                          </p>
+                          <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                            {{ workout.date|timesince }} ago
+                          </span>
+                        </div>
+                      </div>
+                    {% endwith %}
+                  {% elif workout.workout_type == 'strength' %}
+                    {% with bg_color='rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1)' border_color='var(--primary-green)' icon='fitness_center' label_bg='rgba(11, 110, 79, 0.2)' label_color='var(--primary-green)' %}
+                      <div style="display: flex; gap: 20px; padding: 20px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+                        <div style="flex-shrink: 0;">
+                          <div style="width: 50px; height: 50px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="material-icons" style="color: white; font-size: 1.5rem;">{{ icon }}</i>
+                          </div>
+                        </div>
+                        <div style="flex: 1;">
+                          <h6 style="margin: 0 0 5px 0; font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h6>
+                          <p style="margin: 0 0 8px 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            {{ workout.duration }} minutes
+                            {% if workout.calories %}
+                              • {{ workout.calories }} calories burned
+                            {% endif %}
+                          </p>
+                          <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                            {{ workout.date|timesince }} ago
+                          </span>
+                        </div>
+                      </div>
+                    {% endwith %}
+                  {% elif workout.workout_type == 'yoga' %}
+                    {% with bg_color='rgba(240, 147, 251, 0.05) 0%, rgba(245, 87, 108, 0.1)' border_color='#f093fb' icon='self_improvement' label_bg='rgba(240, 147, 251, 0.2)' label_color='#f093fb' %}
+                      <div style="display: flex; gap: 20px; padding: 20px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+                        <div style="flex-shrink: 0;">
+                          <div style="width: 50px; height: 50px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="material-icons" style="color: white; font-size: 1.5rem;">{{ icon }}</i>
+                          </div>
+                        </div>
+                        <div style="flex: 1;">
+                          <h6 style="margin: 0 0 5px 0; font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h6>
+                          <p style="margin: 0 0 8px 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            {{ workout.duration }} minutes
+                            {% if workout.calories %}
+                              • {{ workout.calories }} calories burned
+                            {% endif %}
+                          </p>
+                          <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                            {{ workout.date|timesince }} ago
+                          </span>
+                        </div>
+                      </div>
+                    {% endwith %}
+                  {% elif workout.workout_type == 'hiit' %}
+                    {% with bg_color='rgba(255, 107, 107, 0.05) 0%, rgba(238, 90, 111, 0.1)' border_color='#ff6b6b' icon='local_fire_department' label_bg='rgba(255, 107, 107, 0.2)' label_color='#ff6b6b' %}
+                      <div style="display: flex; gap: 20px; padding: 20px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+                        <div style="flex-shrink: 0;">
+                          <div style="width: 50px; height: 50px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="material-icons" style="color: white; font-size: 1.5rem;">{{ icon }}</i>
+                          </div>
+                        </div>
+                        <div style="flex: 1;">
+                          <h6 style="margin: 0 0 5px 0; font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h6>
+                          <p style="margin: 0 0 8px 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            {{ workout.duration }} minutes
+                            {% if workout.calories %}
+                              • {{ workout.calories }} calories burned
+                            {% endif %}
+                          </p>
+                          <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                            {{ workout.date|timesince }} ago
+                          </span>
+                        </div>
+                      </div>
+                    {% endwith %}
+                  {% else %}
+                    {% with bg_color='rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.1)' border_color='#4facfe' icon='sports_martial_arts' label_bg='rgba(79, 172, 254, 0.2)' label_color='#4facfe' %}
+                      <div style="display: flex; gap: 20px; padding: 20px; background: linear-gradient(135deg, {{ bg_color }} 100%); border-radius: 12px; border-left: 4px solid {{ border_color }};">
+                        <div style="flex-shrink: 0;">
+                          <div style="width: 50px; height: 50px; background: linear-gradient(135deg, {{ border_color }} 0%, {{ border_color }} 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="material-icons" style="color: white; font-size: 1.5rem;">{{ icon }}</i>
+                          </div>
+                        </div>
+                        <div style="flex: 1;">
+                          <h6 style="margin: 0 0 5px 0; font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">{{ workout.get_workout_type_display }}</h6>
+                          <p style="margin: 0 0 8px 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            {{ workout.duration }} minutes
+                            {% if workout.calories %}
+                              • {{ workout.calories }} calories burned
+                            {% endif %}
+                          </p>
+                          <span style="background: {{ label_bg }}; color: {{ label_color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                            {{ workout.date|timesince }} ago
+                          </span>
+                        </div>
+                      </div>
+                    {% endwith %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                  <i class="material-icons" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;">fitness_center</i>
+                  <p style="margin: 0;">No workouts logged yet. Start tracking your progress!</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Weekly Goals Progress -->
+          <div class="card hoverable" style="padding: 35px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg); margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+              <h4 style="margin: 0; font-weight: 800; font-size: 1.8rem; color: var(--text-primary);">
+                <i class="material-icons" style="vertical-align: middle; color: var(--accent-gold); margin-right: 10px;">emoji_events</i>Weekly Goals
+              </h4>
+              <a href="#" onclick="openGoalModal(); return false;" style="color: var(--primary-green); font-size: 0.9rem; font-weight: 600; text-decoration: none;">
+                <i class="material-icons tiny" style="vertical-align: middle;">add</i> Add Goal
+              </a>
+            </div>
+
+            {% if weekly_goals %}
+              {% for goal in weekly_goals %}
+                <!-- Goal Item -->
+                <div style="margin-bottom: {% if forloop.last %}0{% else %}25px{% endif %};">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-weight: 600; color: var(--text-primary);">
+                      {% if goal.goal_type == 'workouts' %}
+                        <i class="material-icons tiny" style="color: #4facfe; vertical-align: middle;">fitness_center</i> Workout Sessions
+                      {% elif goal.goal_type == 'calories' %}
+                        <i class="material-icons tiny" style="color: #ff6b6b; vertical-align: middle;">local_fire_department</i> Calories Burned
+                      {% else %}
+                        <i class="material-icons tiny" style="color: #f093fb; vertical-align: middle;">schedule</i> Active Minutes
+                      {% endif %}
+                    </span>
+                    <span style="font-weight: 700; color: {% if goal.goal_type == 'workouts' %}#4facfe{% elif goal.goal_type == 'calories' %}#ff6b6b{% else %}#f093fb{% endif %};">
+                      {{ goal.current_progress }} / {{ goal.target_value }}
+                    </span>
+                  </div>
+                  <div style="background: {% if goal.goal_type == 'workouts' %}rgba(79, 172, 254, 0.1){% elif goal.goal_type == 'calories' %}rgba(255, 107, 107, 0.1){% else %}rgba(240, 147, 251, 0.1){% endif %}; border-radius: 10px; height: 10px; overflow: hidden;">
+                    <div style="width: {{ goal.progress_percentage }}%; height: 100%; background: linear-gradient(90deg, {% if goal.goal_type == 'workouts' %}#4facfe 0%, #00f2fe{% elif goal.goal_type == 'calories' %}#ff6b6b 0%, #ee5a6f{% else %}#f093fb 0%, #f5576c{% endif %} 100%); border-radius: 10px;"></div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div style="text-align: center; padding: 30px 20px; color: var(--text-muted);">
+                <i class="material-icons" style="font-size: 3rem; opacity: 0.3;">emoji_events</i>
+                <p style="margin: 10px 0 0 0;">No goals set for this week. Add your first goal!</p>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Current Subscription Card -->
+          <div class="card hoverable" style="padding: 40px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg);">
+            <!-- Header with Status Badge -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+              <div>
+                <div style="display: inline-block; background: linear-gradient(135deg, rgba(11, 110, 79, 0.1) 0%, rgba(11, 110, 79, 0.2) 100%); padding: 8px 16px; border-radius: 8px; margin-bottom: 10px;">
+                  <span style="color: var(--primary-green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Current Membership</span>
+                </div>
+                <h3 style="margin: 0; font-weight: 900; font-size: 2.2rem; color: var(--text-primary);">{{ subscription.plan.name }} Plan</h3>
+              </div>
+              <div>
+                {% if subscription.status == 'active' %}
+                  <span style="background: linear-gradient(135deg, #0b6e4f 0%, #0a5940 100%); color: white; padding: 12px 24px; border-radius: 50px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(11, 110, 79, 0.3);">
+                    <i class="material-icons" style="font-size: 1.2rem;">check_circle</i>Active
+                  </span>
+                {% elif subscription.status == 'expired' %}
+                  <span style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 12px 24px; border-radius: 50px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);">
+                    <i class="material-icons" style="font-size: 1.2rem;">warning</i>Expired
+                  </span>
+                {% else %}
+                  <span style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 12px 24px; border-radius: 50px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);">
+                    <i class="material-icons" style="font-size: 1.2rem;">schedule</i>{{ subscription.get_status_display }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 30px;">
+              <div style="background: linear-gradient(135deg, rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1) 100%); padding: 25px; border-radius: 15px; border-left: 4px solid var(--primary-green);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <i class="material-icons" style="color: var(--primary-green); font-size: 1.5rem;">calendar_today</i>
+                  <h6 style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; margin: 0; letter-spacing: 1px; font-weight: 700;">Membership Period</h6>
+                </div>
+                <p style="font-size: 1.15rem; margin: 0; font-weight: 600; color: var(--text-primary);">{{ subscription.start_date|date:"M d, Y" }}</p>
+                <p style="font-size: 0.9rem; margin: 5px 0 0 0; color: var(--text-muted);">to {{ subscription.end_date|date:"M d, Y" }}</p>
+              </div>
+
+              <div style="background: linear-gradient(135deg, {% if subscription.days_remaining <= 7 %}rgba(220, 38, 38, 0.05) 0%, rgba(220, 38, 38, 0.1){% elif subscription.days_remaining <= 30 %}rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.1){% else %}rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1){% endif %} 100%); padding: 25px; border-radius: 15px; border-left: 4px solid {% if subscription.days_remaining <= 7 %}#dc2626{% elif subscription.days_remaining <= 30 %}#f59e0b{% else %}var(--primary-green){% endif %};">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <i class="material-icons" style="color: {% if subscription.days_remaining <= 7 %}#dc2626{% elif subscription.days_remaining <= 30 %}#f59e0b{% else %}var(--primary-green){% endif %}; font-size: 1.5rem;">hourglass_bottom</i>
+                  <h6 style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; margin: 0; letter-spacing: 1px; font-weight: 700;">Time Remaining</h6>
+                </div>
+                <p style="font-size: 1.8rem; margin: 0; font-weight: 900; color: {% if subscription.days_remaining <= 7 %}#dc2626{% elif subscription.days_remaining <= 30 %}#f59e0b{% else %}var(--primary-green){% endif %};">
+                  {{ subscription.days_remaining }}
+                </p>
+                <p style="font-size: 0.9rem; margin: 5px 0 0 0; color: var(--text-muted);">days left</p>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div style="margin: 30px 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h6 style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; margin: 0; letter-spacing: 1px; font-weight: 700;">Membership Progress</h6>
+                {% widthratio subscription.days_used subscription.plan.duration_days 100 as progress_percent %}
+                <span style="color: var(--primary-green); font-weight: 700; font-size: 0.9rem;">{{ progress_percent }}%</span>
+              </div>
+              <div style="background: rgba(11, 110, 79, 0.1); border-radius: 10px; height: 12px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="width: {{ progress_percent }}%; height: 100%; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); transition: width 0.5s ease; border-radius: 10px; position: relative; overflow: hidden;">
+                  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 2s infinite;"></div>
+                </div>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 8px;">{{ subscription.days_used }} of {{ subscription.plan.duration_days }} days completed</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px;">
+              <a href="{% url 'memberships:my_subscription' %}" class="waves-effect" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 18px 30px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(11, 110, 79, 0.3); transition: all 0.3s ease;">
+                <i class="material-icons">settings</i>Manage Membership
+              </a>
+              <a href="{% url 'memberships:plans' %}" class="waves-effect" style="background: rgba(11, 110, 79, 0.1); color: var(--primary-green); padding: 18px 30px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; border: 2px solid var(--primary-green); transition: all 0.3s ease;">
+                <i class="material-icons">upgrade</i>Upgrade Plan
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col s12 l4">
+
+          <!-- Upcoming Sessions -->
+          <div class="card hoverable" style="padding: 30px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg); margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h4 style="margin: 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">
+                <i class="material-icons" style="vertical-align: middle; color: var(--primary-green); margin-right: 8px;">event</i>Upcoming Sessions
+              </h4>
+              <a href="#" onclick="openSessionModal(); return false;" style="color: var(--primary-green); font-size: 0.9rem; font-weight: 600; text-decoration: none;">
+                <i class="material-icons tiny" style="vertical-align: middle;">add</i> Add
+              </a>
+            </div>
+
+            {% if upcoming_sessions %}
+              {% for session in upcoming_sessions %}
+                <!-- Session Item -->
+                <div style="padding: 18px; background: linear-gradient(135deg, {% if session.workout_type == 'cardio' %}rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.1){% elif session.workout_type == 'strength' %}rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1){% elif session.workout_type == 'yoga' %}rgba(240, 147, 251, 0.05) 0%, rgba(245, 87, 108, 0.1){% elif session.workout_type == 'hiit' %}rgba(255, 107, 107, 0.05) 0%, rgba(255, 107, 107, 0.1){% else %}rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.1){% endif %} 100%); border-radius: 12px; margin-bottom: {% if forloop.last %}0{% else %}15px{% endif %}; border-left: 3px solid {% if session.workout_type == 'cardio' %}#4facfe{% elif session.workout_type == 'strength' %}var(--primary-green){% elif session.workout_type == 'yoga' %}#f093fb{% elif session.workout_type == 'hiit' %}#ff6b6b{% else %}#4facfe{% endif %};">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <h6 style="margin: 0; font-weight: 700; color: var(--text-primary);">{{ session.title }}</h6>
+                    <span style="background: {% if session.workout_type == 'cardio' %}#4facfe{% elif session.workout_type == 'strength' %}var(--primary-green){% elif session.workout_type == 'yoga' %}#f093fb{% elif session.workout_type == 'hiit' %}#ff6b6b{% else %}#4facfe{% endif %}; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 700;">{{ session.session_date|date:"D" }}</span>
+                  </div>
+                  <p style="margin: 5px 0; color: var(--text-secondary); font-size: 0.85rem;">
+                    <i class="material-icons tiny" style="vertical-align: middle;">schedule</i> {{ session.session_time|time:"g:i A" }} ({{ session.duration }} min)
+                  </p>
+                  {% if session.trainer %}
+                  <p style="margin: 5px 0; color: var(--text-secondary); font-size: 0.85rem;">
+                    <i class="material-icons tiny" style="vertical-align: middle;">person</i> {{ session.trainer }}
+                  </p>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            {% else %}
+              <div style="text-align: center; padding: 30px 20px; color: var(--text-muted);">
+                <i class="material-icons" style="font-size: 3rem; opacity: 0.3;">event</i>
+                <p style="margin: 10px 0 0 0;">No upcoming sessions. Schedule your first session!</p>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Achievements -->
+          <div class="card hoverable" style="padding: 30px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg); margin-bottom: 25px;">
+            <h4 style="margin: 0 0 20px 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">
+              <i class="material-icons" style="vertical-align: middle; color: var(--accent-gold); margin-right: 8px;">workspace_premium</i>Achievements
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+              <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.2) 100%); border-radius: 12px;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">🏆</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);">30 Day Streak</p>
+              </div>
+              <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.2) 100%); border-radius: 12px;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">🔥</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);">Calorie Crusher</p>
+              </div>
+              <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(79, 172, 254, 0.2) 100%); border-radius: 12px;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">💪</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);">100 Workouts</p>
+              </div>
+              <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(240, 147, 251, 0.2) 100%); border-radius: 12px;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">⭐</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);">Early Bird</p>
+              </div>
+              <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(11, 110, 79, 0.1) 0%, rgba(11, 110, 79, 0.2) 100%); border-radius: 12px;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">🎯</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);">Goal Getter</p>
+              </div>
+              <div style="text-align: center; padding: 15px; background: rgba(200, 200, 200, 0.1); border-radius: 12px; opacity: 0.5;">
+                <div style="font-size: 2.5rem; margin-bottom: 5px;">🔒</div>
+                <p style="margin: 0; font-size: 0.7rem; font-weight: 600; color: var(--text-muted);">Locked</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Card -->
+          <div class="card hoverable" style="padding: 30px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg);">
+            <h4 style="margin: 0 0 20px 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">Quick Actions</h4>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="#" onclick="openWorkoutModal(); return false;" class="waves-effect" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 16px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);">
+                <i class="material-icons" style="color: white; font-size: 1.3rem;">add_circle</i>
+                <span style="color: white; font-weight: 700; font-size: 0.95rem;">Log Workout</span>
+              </a>
+
+              <a href="/facilities/" class="waves-effect" style="background: rgba(11, 110, 79, 0.08); padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; transition: all 0.3s ease;">
+                <i class="material-icons" style="color: var(--primary-green); font-size: 1.3rem;">fitness_center</i>
+                <span style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem;">View Facilities</span>
+              </a>
+
+              <a href="/team/" class="waves-effect" style="background: rgba(11, 110, 79, 0.08); padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; transition: all 0.3s ease;">
+                <i class="material-icons" style="color: var(--primary-green); font-size: 1.3rem;">groups</i>
+                <span style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem;">Book Trainer</span>
+              </a>
+
+              <a href="{% url 'memberships:my_subscription' %}" class="waves-effect" style="background: rgba(11, 110, 79, 0.08); padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; transition: all 0.3s ease;">
+                <i class="material-icons" style="color: var(--primary-green); font-size: 1.3rem;">card_membership</i>
+                <span style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem;">My Membership</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <!-- No Subscription State -->
+        <div class="col s12">
+          <div class="card hoverable" style="text-align: center; padding: 80px 40px; border-radius: 20px; box-shadow: var(--shadow-lg); background: var(--card-bg);">
+            <div style="width: 140px; height: 140px; background: linear-gradient(135deg, rgba(11, 110, 79, 0.1) 0%, rgba(11, 110, 79, 0.2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; box-shadow: 0 8px 30px rgba(11, 110, 79, 0.2);">
+              <i class="material-icons" style="font-size: 5rem; color: var(--primary-green);">fitness_center</i>
+            </div>
+            <h3 style="margin-bottom: 20px; font-weight: 900; font-size: 2.5rem; color: var(--text-primary);">Start Your Fitness Journey</h3>
+            <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+              You don't have an active membership yet. Choose from our premium plans and begin your transformation today.
+            </p>
+            <a href="{% url 'memberships:plans' %}" class="waves-effect" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 20px 50px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; font-size: 1.2rem; box-shadow: 0 6px 25px rgba(11, 110, 79, 0.4); transition: all 0.3s ease;">
+              <i class="material-icons" style="font-size: 1.5rem;">arrow_forward</i>Browse Membership Plans
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Motivational Banner -->
+    <div class="row" style="margin-top: 40px;">
+      <div class="col s12">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 50px 40px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);">
+          <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="position: absolute; bottom: -80px; left: -80px; width: 250px; height: 250px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+
+          <div style="position: relative; z-index: 2;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">💪</div>
+            <h3 style="color: white; font-weight: 900; font-size: 2rem; margin-bottom: 15px;">Keep Pushing Your Limits!</h3>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto 25px auto;">
+              You're only one workout away from a better mood. Keep going strong!
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+              <div style="background: rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 50px; backdrop-filter: blur(10px);">
+                <span style="color: white; font-weight: 700; font-size: 1.1rem;">🔥 {{ streak_days|default:"12" }} Day Streak</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 50px; backdrop-filter: blur(10px);">
+                <span style="color: white; font-weight: 700; font-size: 1.1rem;">⭐ Level {{ user_level|default:"5" }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Workout Logging Modal -->
+<div id="workoutModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background: white; border-radius: 24px; max-width: 500px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;">
+    <!-- Header -->
+    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 32px 30px; text-align: center; position: relative;">
+      <i class="material-icons" onclick="closeWorkoutModal()" style="position: absolute; top: 15px; right: 15px; cursor: pointer; color: white; background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; font-size: 1.3rem; transition: all 0.2s;">close</i>
+      <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+        <i class="material-icons" style="font-size: 2.5rem; color: white;">fitness_center</i>
+      </div>
+      <h3 style="margin: 0; font-weight: 800; color: white; font-size: 1.8rem;">Log Your Workout</h3>
+      <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 0.95rem;">Track your progress today</p>
+    </div>
+
+    <form id="workoutForm" method="POST" action="/memberships/log-workout/" style="padding: 35px 30px;">
+      {% csrf_token %}
+
+      <!-- Workout Type -->
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Workout Type</label>
+        <select name="workout_type" required style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+          <option value="" disabled selected>Choose your workout</option>
+          <option value="cardio">🏃 Cardio</option>
+          <option value="strength">💪 Strength Training</option>
+          <option value="yoga">🧘 Yoga</option>
+          <option value="hiit">🔥 HIIT</option>
+          <option value="sports">⚽ Sports</option>
+          <option value="other">🎯 Other</option>
+        </select>
+      </div>
+
+      <!-- Duration & Calories Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 24px;">
+        <div>
+          <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Duration</label>
+          <div style="position: relative;">
+            <input type="number" name="duration" required min="1" max="300" placeholder="45" style="width: 100%; padding: 15px; padding-right: 45px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+            <span style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #999; font-size: 0.85rem; font-weight: 600;">min</span>
+          </div>
+        </div>
+        <div>
+          <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Calories</label>
+          <div style="position: relative;">
+            <input type="number" name="calories" min="0" max="2000" placeholder="350" style="width: 100%; padding: 15px; padding-right: 45px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+            <span style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #999; font-size: 0.85rem; font-weight: 600;">kcal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div style="margin-bottom: 28px;">
+        <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Notes (Optional)</label>
+        <textarea name="notes" rows="3" placeholder="How did it go? Any achievements?" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; resize: vertical; transition: all 0.3s;"></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="waves-effect" style="width: 100%; background: linear-gradient(135deg, #0b6e4f 0%, #084537 100%); color: white; padding: 18px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(11, 110, 79, 0.3); transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <i class="material-icons" style="font-size: 1.3rem;">check_circle</i>
+        <span>Log Workout</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_head %}
+<style>
+/* Dashboard specific styles */
+.card.hoverable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+}
+
+/* Progress bar shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Workout Modal Form Styles */
+#workoutModal select:focus,
+#workoutModal input:focus,
+#workoutModal textarea:focus {
+  outline: none;
+  border-color: #4facfe !important;
+  background: white !important;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1) !important;
+}
+
+#workoutModal select:hover,
+#workoutModal input:hover,
+#workoutModal textarea:hover {
+  border-color: #4facfe !important;
+}
+
+#workoutModal button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(11, 110, 79, 0.4) !important;
+}
+
+#workoutModal button[type="submit"]:active {
+  transform: translateY(0px);
+}
+
+#workoutModal .material-icons.close:hover {
+  background: rgba(255,255,255,0.3) !important;
+  transform: rotate(90deg);
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 600px) {
+  .card[style*="padding: 40px"] {
+    padding: 25px !important;
+  }
+
+  .card[style*="padding: 35px"] {
+    padding: 20px !important;
+  }
+
+  .card[style*="padding: 30px"] {
+    padding: 20px !important;
+  }
+
+  #workoutModal {
+    padding: 10px !important;
+  }
+
+  #workoutModal > div {
+    max-height: 95vh !important;
+  }
+}
+</style>
+
+<script>
+function openWorkoutModal() {
+  document.getElementById('workoutModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // Initialize Materialize select dropdown
+  setTimeout(function() {
+    const selects = document.querySelectorAll('#workoutModal select');
+    M.FormSelect.init(selects);
+  }, 100);
+}
+
+function closeWorkoutModal() {
+  document.getElementById('workoutModal').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Close modal on backdrop click
+document.getElementById('workoutModal')?.addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeWorkoutModal();
+  }
+});
+
+// Close modal on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeWorkoutModal();
+  }
+});
+
+// Initialize select on page load (in case modal is already open)
+document.addEventListener('DOMContentLoaded', function() {
+  const selects = document.querySelectorAll('#workoutModal select');
+  M.FormSelect.init(selects);
+});
+</script>
+{% endblock %}
+

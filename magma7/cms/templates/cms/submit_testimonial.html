@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% block title %}Write a Review • Magma7Fitness{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section style="padding: 100px 20px 60px; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px;">
+      <i class="material-icons" style="font-size: 4rem; color: white;">rate_review</i>
+    </div>
+    <h1 style="color: white; font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase;">Share Your Experience</h1>
+    <p style="color: rgba(255,255,255,0.95); font-size: 1.3rem; max-width: 600px; margin: 0 auto;">
+      Your feedback helps others make informed decisions and motivates our team to continue delivering excellence
+    </p>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section style="padding: 80px 20px; background: var(--light-bg);">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div class="card" style="padding: 50px 40px; box-shadow: var(--shadow-lg);">
+      <form method="POST">
+        {% csrf_token %}
+
+        <!-- Rating Section -->
+        <div style="margin-bottom: 40px; text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(11, 110, 79, 0.05) 0%, rgba(11, 110, 79, 0.1) 100%); border-radius: 15px;">
+          <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 20px; font-size: 1.3rem;">
+            <i class="material-icons" style="color: var(--accent-gold); vertical-align: middle;">star</i> Rate Your Experience
+          </label>
+          <div id="ratingStars" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 15px;">
+            <i class="material-icons rating-star" data-rating="1" style="font-size: 3rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+            <i class="material-icons rating-star" data-rating="2" style="font-size: 3rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+            <i class="material-icons rating-star" data-rating="3" style="font-size: 3rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+            <i class="material-icons rating-star" data-rating="4" style="font-size: 3rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+            <i class="material-icons rating-star" data-rating="5" style="font-size: 3rem; color: #ddd; cursor: pointer; transition: all 0.2s;">star_border</i>
+          </div>
+          <input type="hidden" name="rating" id="ratingValue" value="5" required>
+          <p id="ratingText" style="color: var(--primary-green); font-size: 1.1rem; font-weight: 700; margin: 0;">Excellent (5/5)</p>
+        </div>
+
+        <!-- Name Field -->
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 12px; font-size: 1.1rem;">
+            <i class="material-icons tiny" style="color: var(--primary-green); vertical-align: middle;">person</i> Your Name
+          </label>
+          <input type="text" name="name" value="{{ user.get_full_name|default:user.username }}"
+                 style="width: 100%; padding: 18px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1.05rem; background: var(--section-bg); color: var(--text-primary); transition: all 0.3s;"
+                 onfocus="this.style.borderColor='var(--primary-green)'; this.style.background='var(--light-bg)'"
+                 onblur="this.style.borderColor='var(--border-color)'; this.style.background='var(--section-bg)'">
+        </div>
+
+        <!-- Role Field -->
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 12px; font-size: 1.1rem;">
+            <i class="material-icons tiny" style="color: var(--primary-green); vertical-align: middle;">work</i> Role or Occupation
+            <span style="font-weight: 400; color: var(--text-muted); font-size: 0.9rem;">(Optional)</span>
+          </label>
+          <input type="text" name="role" placeholder="e.g., Fitness Enthusiast, Member since 2023"
+                 style="width: 100%; padding: 18px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1.05rem; background: var(--section-bg); color: var(--text-primary); transition: all 0.3s;"
+                 onfocus="this.style.borderColor='var(--primary-green)'; this.style.background='var(--light-bg)'"
+                 onblur="this.style.borderColor='var(--border-color)'; this.style.background='var(--section-bg)'">
+        </div>
+
+        <!-- Review Field -->
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 12px; font-size: 1.1rem;">
+            <i class="material-icons tiny" style="color: var(--primary-green); vertical-align: middle;">chat</i> Your Review
+            <span style="color: var(--accent-gold);">*</span>
+          </label>
+          <textarea name="quote" required rows="6" placeholder="Tell us about your experience at Magma7Fitness. What do you love most? How has it changed your life?"
+                    style="width: 100%; padding: 18px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1.05rem; background: var(--section-bg); color: var(--text-primary); resize: vertical; font-family: inherit; line-height: 1.6; transition: all 0.3s;"
+                    onfocus="this.style.borderColor='var(--primary-green)'; this.style.background='var(--light-bg)'"
+                    onblur="this.style.borderColor='var(--border-color)'; this.style.background='var(--section-bg)'"></textarea>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin: 8px 0 0 0;">
+            <i class="material-icons tiny">info</i> Minimum 10 characters. Be specific and helpful!
+          </p>
+        </div>
+
+        <!-- Avatar URL Field -->
+        <div style="margin-bottom: 40px;">
+          <label style="display: block; color: var(--text-primary); font-weight: 700; margin-bottom: 12px; font-size: 1.1rem;">
+            <i class="material-icons tiny" style="color: var(--primary-green); vertical-align: middle;">image</i> Profile Photo URL
+            <span style="font-weight: 400; color: var(--text-muted); font-size: 0.9rem;">(Optional)</span>
+          </label>
+          <input type="url" name="avatar_url" placeholder="https://example.com/your-photo.jpg"
+                 style="width: 100%; padding: 18px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1.05rem; background: var(--section-bg); color: var(--text-primary); transition: all 0.3s;"
+                 onfocus="this.style.borderColor='var(--primary-green)'; this.style.background='var(--light-bg)'"
+                 onblur="this.style.borderColor='var(--border-color)'; this.style.background='var(--section-bg)'">
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin: 8px 0 0 0;">
+            <i class="material-icons tiny">info</i> If not provided, we'll generate an avatar with your initials
+          </p>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="{% url 'cms:testimonials' %}" class="btn-flat"
+             style="flex: 1; min-width: 150px; padding: 18px; font-size: 1.05rem; font-weight: 600; border-radius: 12px; text-align: center; transition: all 0.3s; border: 2px solid var(--border-color);">
+            <i class="material-icons left">arrow_back</i>Cancel
+          </a>
+          <button type="submit" class="btn"
+                  style="flex: 2; min-width: 200px; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 18px; font-size: 1.1rem; font-weight: 700; border-radius: 12px; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(11, 110, 79, 0.4);">
+            <i class="material-icons left">send</i>Submit Your Review
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Help Text -->
+    <div style="text-align: center; margin-top: 30px; padding: 20px;">
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        <i class="material-icons tiny" style="color: var(--primary-green);">lock</i>
+        Your review will be publicly visible after submission. We respect your privacy and never share your personal information.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Rating star functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('.rating-star');
+  const ratingValue = document.getElementById('ratingValue');
+  const ratingText = document.getElementById('ratingText');
+
+  const ratingLabels = {
+    1: 'Poor (1/5)',
+    2: 'Fair (2/5)',
+    3: 'Good (3/5)',
+    4: 'Very Good (4/5)',
+    5: 'Excellent (5/5)'
+  };
+
+  let currentRating = 5;
+
+  stars.forEach(star => {
+    star.addEventListener('click', function() {
+      currentRating = parseInt(this.dataset.rating);
+      ratingValue.value = currentRating;
+      updateStars(currentRating);
+      ratingText.textContent = ratingLabels[currentRating];
+    });
+
+    star.addEventListener('mouseenter', function() {
+      const hoverRating = parseInt(this.dataset.rating);
+      updateStars(hoverRating, true);
+      ratingText.textContent = ratingLabels[hoverRating];
+    });
+  });
+
+  document.getElementById('ratingStars').addEventListener('mouseleave', function() {
+    updateStars(currentRating);
+    ratingText.textContent = ratingLabels[currentRating];
+  });
+
+  function updateStars(rating, isHover = false) {
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.textContent = 'star';
+        star.style.color = 'var(--accent-gold)';
+        if (isHover) {
+          star.style.transform = 'scale(1.15) rotate(10deg)';
+        } else {
+          star.style.transform = 'scale(1)';
+        }
+      } else {
+        star.textContent = 'star_border';
+        star.style.color = '#ddd';
+        star.style.transform = 'scale(1)';
+      }
+    });
+  }
+
+  // Initialize with 5 stars
+  updateStars(5);
+});
+</script>
+
+<style>
+.rating-star {
+  transition: all 0.2s ease !important;
+}
+
+.rating-star:hover {
+  transform: scale(1.2) rotate(10deg) !important;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .btn-flat, .btn {
+    flex: 1 1 100% !important;
+  }
+}
+</style>
+
+{% endblock %}

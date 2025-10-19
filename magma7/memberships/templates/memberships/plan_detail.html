@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}{{ plan.name }} Plan • Magma7Fitness{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="section">
+    <div class="row">
+      <div class="col s12 m8">
+        <h3 class="deep-orange-text text-darken-2">{{ plan.name }}</h3>
+        <p class="grey-text">Duration: {{ plan.duration_days }} days</p>
+        {% if plan.description %}
+          <p>{{ plan.description }}</p>
+        {% endif %}
+
+        <h5 class="deep-orange-text text-darken-2">What you get</h5>
+        <ul class="collection">
+          <li class="collection-item">Full access to gym facilities</li>
+          <li class="collection-item">Group classes (Yoga, Pilates, Zumba, Kickboxing)</li>
+          <li class="collection-item">Women-only studio access</li>
+          <li class="collection-item">Community events and wellness tips</li>
+        </ul>
+
+        <h5 class="deep-orange-text text-darken-2">FAQ</h5>
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">help</i>Can I pause my membership?</div>
+            <div class="collapsible-body"><span>Yes, contact support to arrange a pause for travel or health reasons.</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">help</i>Is there a student discount?</div>
+            <div class="collapsible-body"><span>We offer periodic promotions; bring a valid ID to inquire at the front desk.</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">help</i>How do renewals work?</div>
+            <div class="collapsible-body"><span>Renew from your dashboard before expiry; reminders are sent automatically.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="col s12 m4">
+        <div class="card sticky-action">
+          <div class="card-content">
+            <span class="card-title">{{ plan.name }}</span>
+            <p><span class="chip deep-orange lighten-5 deep-orange-text text-darken-2">{{ CURRENCY_SYMBOL }}{{ plan.price }}</span></p>
+            <p class="grey-text">{{ plan.duration_days }}-day access</p>
+          </div>
+          <div class="card-action">
+            {% if user.is_authenticated %}
+              <a class="btn deep-orange" href="{% url 'memberships:subscribe' plan.id %}">Get Started</a>
+            {% else %}
+              <a class="btn deep-orange" href="/accounts/signup/">Create Account</a>
+            {% endif %}
+            <a class="btn-flat" href="{% url 'memberships:plans' %}">Back to plans</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(elems);
+  });
+</script>
+{% endblock %}
+

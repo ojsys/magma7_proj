@@ -1,0 +1,126 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}My Profile • Magma7Fitness{% endblock %}
+
+{% block page_title %}My Profile{% endblock %}
+{% block page_subtitle %}Update your personal information{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col s12 l8 offset-l2">
+    <!-- Profile Card -->
+    <div class="card" style="padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: var(--card-bg);">
+      <!-- Profile Header -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 25px rgba(11, 110, 79, 0.3);">
+          <span style="color: white; font-size: 3rem; font-weight: 900;">{{ user.first_name.0|default:user.username.0|upper }}</span>
+        </div>
+        <h3 style="margin: 0 0 5px 0; font-weight: 800; color: var(--text-primary);">{{ user.get_full_name|default:user.username }}</h3>
+        <p style="margin: 0; color: var(--text-secondary);">Member since {{ user.date_joined|date:"M Y" }}</p>
+      </div>
+
+      <!-- Profile Form -->
+      <form method="POST" action="{% url 'memberships:profile' %}">
+        {% csrf_token %}
+
+        <!-- First Name -->
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="material-icons tiny" style="vertical-align: middle; color: var(--primary-green);">person</i>
+            First Name
+          </label>
+          <input type="text" name="first_name" value="{{ user.first_name }}" placeholder="Enter your first name" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+        </div>
+
+        <!-- Last Name -->
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="material-icons tiny" style="vertical-align: middle; color: var(--primary-green);">badge</i>
+            Last Name
+          </label>
+          <input type="text" name="last_name" value="{{ user.last_name }}" placeholder="Enter your last name" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+        </div>
+
+        <!-- Email -->
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="material-icons tiny" style="vertical-align: middle; color: var(--primary-green);">email</i>
+            Email Address
+          </label>
+          <input type="email" name="email" value="{{ user.email }}" placeholder="your.email@example.com" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+        </div>
+
+        <!-- Username (readonly) -->
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="material-icons tiny" style="vertical-align: middle; color: var(--text-muted);">account_circle</i>
+            Username
+          </label>
+          <input type="text" value="{{ user.username }}" readonly style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #e9ecef; color: #6c757d; cursor: not-allowed;">
+          <small style="color: var(--text-muted); font-size: 0.85rem;">Username cannot be changed</small>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+          <button type="submit" class="waves-effect" style="flex: 1; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 18px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(11, 110, 79, 0.3); transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="material-icons">save</i>
+            <span>Save Changes</span>
+          </button>
+          <a href="{% url 'memberships:dashboard' %}" style="flex: 1; background: rgba(11, 110, 79, 0.1); color: var(--primary-green); padding: 18px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;">
+            <i class="material-icons">cancel</i>
+            <span>Cancel</span>
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Quick Links Card -->
+    <div class="card" style="padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: var(--card-bg); margin-top: 25px;">
+      <h5 style="margin: 0 0 20px 0; font-weight: 700; color: var(--text-primary);">Quick Links</h5>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="{% url 'memberships:settings' %}" style="padding: 15px; background: rgba(11, 110, 79, 0.05); border-radius: 10px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: all 0.3s;">
+          <i class="material-icons" style="color: var(--primary-green);">settings</i>
+          <span style="color: var(--text-primary); font-weight: 600;">Account Settings</span>
+          <i class="material-icons" style="margin-left: auto; color: var(--text-muted);">arrow_forward</i>
+        </a>
+        <a href="{% url 'memberships:my_subscription' %}" style="padding: 15px; background: rgba(11, 110, 79, 0.05); border-radius: 10px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: all 0.3s;">
+          <i class="material-icons" style="color: var(--primary-green);">card_membership</i>
+          <span style="color: var(--text-primary); font-weight: 600;">My Membership</span>
+          <i class="material-icons" style="margin-left: auto; color: var(--text-muted);">arrow_forward</i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-green) !important;
+  background: white !important;
+  box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.1) !important;
+}
+
+input:hover, textarea:hover {
+  border-color: var(--primary-green) !important;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(11, 110, 79, 0.4) !important;
+}
+
+a[href]:hover {
+  background: rgba(11, 110, 79, 0.1) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    padding: 25px !important;
+  }
+
+  button[type="submit"], a {
+    font-size: 0.95rem !important;
+  }
+}
+</style>
+{% endblock %}

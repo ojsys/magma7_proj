@@ -1,0 +1,220 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}Settings • Magma7Fitness{% endblock %}
+
+{% block page_title %}Settings{% endblock %}
+{% block page_subtitle %}Manage your account preferences{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col s12 l8 offset-l2">
+    <!-- Change Password Card -->
+    <div class="card" style="padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: var(--card-bg); margin-bottom: 25px;">
+      <h4 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">
+        <i class="material-icons" style="vertical-align: middle; color: var(--primary-green); margin-right: 8px;">lock</i>
+        Change Password
+      </h4>
+      <p style="margin: 0 0 30px 0; color: var(--text-secondary);">Update your password to keep your account secure</p>
+
+      <form method="POST" action="{% url 'memberships:settings' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="change_password">
+
+        <!-- Current Password -->
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            Current Password
+          </label>
+          <input type="password" name="old_password" required placeholder="Enter your current password" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+        </div>
+
+        <!-- New Password -->
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            New Password
+          </label>
+          <input type="password" name="new_password1" required placeholder="Enter new password" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+          <small style="color: var(--text-muted); font-size: 0.85rem;">Must be at least 8 characters long</small>
+        </div>
+
+        <!-- Confirm New Password -->
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            Confirm New Password
+          </label>
+          <input type="password" name="new_password2" required placeholder="Confirm new password" style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; background: #f8f9fa; color: #333; transition: all 0.3s;">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="waves-effect" style="width: 100%; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); color: white; padding: 18px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(11, 110, 79, 0.3); transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <i class="material-icons">check_circle</i>
+          <span>Update Password</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Account Information Card -->
+    <div class="card" style="padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: var(--card-bg); margin-bottom: 25px;">
+      <h4 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">
+        <i class="material-icons" style="vertical-align: middle; color: var(--primary-green); margin-right: 8px;">info</i>
+        Account Information
+      </h4>
+      <p style="margin: 0 0 30px 0; color: var(--text-secondary);">Your account details</p>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Email -->
+        <div style="padding: 20px; background: rgba(11, 110, 79, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-green);">
+          <p style="margin: 0 0 5px 0; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Email Address</p>
+          <p style="margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">{{ user.email }}</p>
+        </div>
+
+        <!-- Username -->
+        <div style="padding: 20px; background: rgba(11, 110, 79, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-green);">
+          <p style="margin: 0 0 5px 0; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Username</p>
+          <p style="margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">{{ user.username }}</p>
+        </div>
+
+        <!-- Member Since -->
+        <div style="padding: 20px; background: rgba(11, 110, 79, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-green);">
+          <p style="margin: 0 0 5px 0; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Member Since</p>
+          <p style="margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">{{ user.date_joined|date:"F d, Y" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Preferences Card -->
+    <div class="card" style="padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: var(--card-bg); margin-bottom: 25px;">
+      <h4 style="margin: 0 0 10px 0; font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">
+        <i class="material-icons" style="vertical-align: middle; color: var(--primary-green); margin-right: 8px;">notifications</i>
+        Notification Preferences
+      </h4>
+      <p style="margin: 0 0 30px 0; color: var(--text-secondary);">Choose what notifications you want to receive</p>
+
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="padding: 15px; background: rgba(11, 110, 79, 0.03); border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <p style="margin: 0 0 3px 0; font-weight: 600; color: var(--text-primary);">Workout Reminders</p>
+            <small style="color: var(--text-muted);">Get notified about your scheduled sessions</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div style="padding: 15px; background: rgba(11, 110, 79, 0.03); border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <p style="margin: 0 0 3px 0; font-weight: 600; color: var(--text-primary);">Membership Updates</p>
+            <small style="color: var(--text-muted);">Get notified about your subscription</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div style="padding: 15px; background: rgba(11, 110, 79, 0.03); border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <p style="margin: 0 0 3px 0; font-weight: 600; color: var(--text-primary);">Goal Achievements</p>
+            <small style="color: var(--text-muted);">Get notified when you complete goals</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="display: flex; gap: 15px; margin-top: 30px;">
+      <a href="{% url 'memberships:profile' %}" style="flex: 1; background: rgba(11, 110, 79, 0.1); color: var(--primary-green); padding: 18px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;">
+        <i class="material-icons">person</i>
+        <span>Edit Profile</span>
+      </a>
+      <a href="{% url 'memberships:dashboard' %}" style="flex: 1; background: rgba(11, 110, 79, 0.1); color: var(--primary-green); padding: 18px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;">
+        <i class="material-icons">dashboard</i>
+        <span>Dashboard</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-green);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Form Styles */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-green) !important;
+  background: white !important;
+  box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.1) !important;
+}
+
+input:hover, textarea:hover {
+  border-color: var(--primary-green) !important;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(11, 110, 79, 0.4) !important;
+}
+
+a:hover {
+  background: rgba(11, 110, 79, 0.15) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    padding: 25px !important;
+  }
+
+  button[type="submit"], a {
+    font-size: 0.95rem !important;
+  }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,48 @@
+# Django cPanel .htaccess configuration
+# This file handles URL rewriting and static file serving
+
+# Enable RewriteEngine
+RewriteEngine On
+
+# Serve static files directly (without going through Django)
+RewriteCond %{REQUEST_URI} ^/static/ [OR]
+RewriteCond %{REQUEST_URI} ^/media/
+RewriteRule ^(.*)$ - [L]
+
+# All other requests go through the WSGI application
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,PT,L]
+
+# Set environment variable for production
+SetEnv DJANGO_SETTINGS_MODULE magma7.settings
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^(\.env|\.git|db\.sqlite3|.*\.py|.*\.pyc)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow access to passenger_wsgi.py
+<Files "passenger_wsgi.py">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Enable Gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

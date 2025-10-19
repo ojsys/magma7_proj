@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Notifications • Magma7Fitness{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="section">
+    <h4 class="deep-orange-text text-darken-2">Notifications</h4>
+    <div class="right" style="margin-top:-42px;">
+      <a class="btn-flat" href="{% url 'notifications:mark_all_read' %}"><i class="material-icons left">done_all</i>Mark all read</a>
+    </div>
+    <ul class="collection">
+      {% for n in notifications %}
+        <li class="collection-item">
+          <span class="title"><b>{{ n.title }}</b> <small class="grey-text">{{ n.created_at|date:"M j, Y H:i" }}</small></span>
+          <p>{{ n.body }}</p>
+        </li>
+      {% empty %}
+        <li class="collection-item">No notifications yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

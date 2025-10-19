@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block title %}{{ facilities_page.hero_title|default:"Our Facilities" }} • Magma7Fitness{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 70vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0a3d2c 0%, var(--primary-dark) 100%); text-align: center; position: relative; overflow: hidden; padding: 120px 20px 80px;">
+  {% if facilities_page.hero_image_url %}
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; background: url('{{ facilities_page.hero_image_url }}') center/cover; background-attachment: fixed;"></div>
+  {% endif %}
+
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+    <div style="margin-bottom: 25px;">
+      <span style="display: inline-block; background: rgba(255, 255, 255, 0.15); color: white; padding: 8px 25px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
+        World-Class Amenities
+      </span>
+    </div>
+
+    <h1 style="font-size: 4rem; font-weight: 900; color: white; margin: 0 auto 1.5rem auto; text-transform: uppercase; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+      {{ facilities_page.hero_title|default:"Our World-Class Facilities" }}
+    </h1>
+
+    {% if facilities_page.hero_subtitle %}
+    <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.3rem; max-width: 800px; margin: 0 auto; line-height: 1.7;">
+      {{ facilities_page.hero_subtitle }}
+    </p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Introduction Section -->
+{% if facilities_page.intro_content %}
+<section class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container" style="text-align: center; max-width: 900px;">
+    <h2 style="font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin-bottom: 25px; text-transform: uppercase;">
+      {{ facilities_page.intro_title|default:"Everything You Need" }}
+    </h2>
+    <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.8;">
+      {{ facilities_page.intro_content }}
+    </p>
+  </div>
+</section>
+{% endif %}
+
+<!-- Featured Facilities -->
+{% if featured_facilities %}
+<section class="section" style="padding: 80px 0; background: var(--section-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">Featured Facilities</h2>
+      <p style="color: var(--text-secondary); font-size: 1.2rem;">Our most popular amenities</p>
+    </div>
+
+    <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+      {% for facility in featured_facilities %}
+      <div class="col s12 m6 l4" style="display: flex;">
+        <div class="card hoverable" style="width: 100%; overflow: hidden; transition: all 0.3s ease;">
+          {% if facility.image_url %}
+          <div style="height: 250px; overflow: hidden; position: relative;">
+            <img src="{{ facility.image_url }}" alt="{{ facility.name }}"
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+                 onmouseover="this.style.transform='scale(1.1)'"
+                 onmouseout="this.style.transform='scale(1)'">
+            <div style="position: absolute; top: 20px; right: 20px; background: var(--primary-green); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+              FEATURED
+            </div>
+          </div>
+          {% endif %}
+          <div class="card-content" style="padding: 30px;">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
+                <i class="material-icons" style="font-size: 2rem; color: white;">{{ facility.icon }}</i>
+              </div>
+              <h4 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0;">{{ facility.name }}</h4>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin-bottom: 20px;">
+              {{ facility.description|truncatewords:25 }}
+            </p>
+            {% if facility.get_features_list %}
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              {% for feature in facility.get_features_list|slice:":3" %}
+              <li style="color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center;">
+                <i class="material-icons" style="font-size: 1rem; color: var(--accent-gold); margin-right: 10px;">check_circle</i>
+                {{ feature }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- All Facilities Grid -->
+{% if facilities %}
+<section class="section" style="padding: 80px 0; background: var(--light-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">All Facilities</h2>
+      <p style="color: var(--text-secondary); font-size: 1.2rem;">Complete range of amenities for your fitness journey</p>
+    </div>
+
+    <div class="row" style="display: flex; flex-wrap: wrap;">
+      {% for facility in facilities %}
+      <div class="col s12 m6 l3" style="display: flex; margin-bottom: 25px;">
+        <div class="card hoverable" style="width: 100%; padding: 30px; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column;">
+          <div style="width: 80px; height: 80px; background: rgba(11, 110, 79, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i class="material-icons" style="font-size: 2.5rem; color: var(--primary-green);">{{ facility.icon }}</i>
+          </div>
+          <h4 style="font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">{{ facility.name }}</h4>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0; flex: 1;">{{ facility.description|truncatewords:15 }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+{% if facilities_page %}
+<section style="padding: 0; margin: 80px 0;">
+  <div class="container">
+    <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); border-radius: 20px; padding: 80px 40px; text-align: center; box-shadow: var(--shadow-lg);">
+      <h2 style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 20px; text-transform: uppercase;">
+        {{ facilities_page.cta_title|default:"Ready to Experience It?" }}
+      </h2>
+      <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px auto;">
+        {{ facilities_page.cta_description|default:"Visit us for a free tour" }}
+      </p>
+      <a href="{{ facilities_page.cta_button_url|default:'/contact/' }}"
+         class="btn btn-large"
+         style="background: white; color: var(--primary-green); padding: 20px 50px; font-size: 1.2rem; font-weight: 700; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+        <i class="material-icons left">event</i>{{ facilities_page.cta_button_text|default:"Book a Tour" }}
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
