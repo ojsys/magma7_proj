@@ -12,27 +12,23 @@ try:
 except ImportError:
     pass
 
-# Add your project directory to the sys.path
-# IMPORTANT: Update this path to match your cPanel directory structure
-# Example: /home/username/magma7fitness.com/magma7
+# Get the absolute path to the project directory
+# This file should be in: /home/username/magma7_proj/passenger_wsgi.py
 project_home = os.path.dirname(os.path.abspath(__file__))
+
+# Add project directory to sys.path so Python can find the magma7 package
 if project_home not in sys.path:
     sys.path.insert(0, project_home)
-
-# Add the parent directory to sys.path (if needed)
-parent_dir = os.path.dirname(project_home)
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
 
 # Set the DJANGO_SETTINGS_MODULE environment variable to use production settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'magma7.settings.production')
 
-# Activate virtual environment
-# IMPORTANT: Update this path to match your virtualenv location on cPanel
-# Example: /home/username/virtualenv/magma7fitness.com/3.9/bin/activate_this.py
-VIRTUALENV = os.path.join(parent_dir, 'virtualenv', 'bin', 'activate_this.py')
-if os.path.exists(VIRTUALENV):
-    exec(open(VIRTUALENV).read(), {'__file__': VIRTUALENV})
+# Activate virtual environment if needed
+# cPanel usually handles this automatically when you set up the Python app
+# But if you need manual activation, uncomment and update this:
+# VIRTUALENV = '/home/username/virtualenv/magma7_proj/3.12/bin/activate_this.py'
+# if os.path.exists(VIRTUALENV):
+#     exec(open(VIRTUALENV).read(), {'__file__': VIRTUALENV})
 
 # Import Django's WSGI handler
 from django.core.wsgi import get_wsgi_application
