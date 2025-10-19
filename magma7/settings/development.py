@@ -79,6 +79,9 @@ LOGGING = {
 # Development-specific settings
 # CORS_ALLOW_ALL_ORIGINS = True  # If using Django CORS headers
 
-print("🚀 Running in DEVELOPMENT mode")
-print(f"📁 Database: {DATABASES['default']['NAME']}")
-print(f"📧 Email backend: {EMAIL_BACKEND}")
+print("=" * 60)
+print("DEVELOPMENT MODE - Django Application Starting")
+print("=" * 60)
+print(f"Database: {DATABASES['default']['NAME']}")
+print(f"Email backend: {EMAIL_BACKEND}")
+print("=" * 60)
