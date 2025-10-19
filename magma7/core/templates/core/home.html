@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %}Home • Magma7Fitness{% endblock %}
 {% block content %}
   <section class="hero">
@@ -135,7 +136,7 @@
               <div class="card-content" style="padding: 40px 30px; text-align: center;">
                 <h4 class="card-title" style="margin-bottom: 10px; font-weight: 800;">{{ plan.name }}</h4>
                 <p style="color: var(--text-secondary); margin-bottom: 20px;">{{ plan.price_period }}</p>
-                <h3 style="margin: 20px 0; color: var(--primary-coral); font-weight: 900; font-size: 2.5rem;">{{ CURRENCY_SYMBOL }}{{ plan.price }}</h3>
+                <h3 style="margin: 20px 0; color: var(--primary-coral); font-weight: 900; font-size: 2.5rem;">{{ CURRENCY_SYMBOL }}{{ plan.price|floatformat:"0"|intcomma }}</h3>
                 <div style="text-align: left; margin-bottom: 30px;">
                   {% for f in plan.features.all %}
                     <div style="display: flex; align-items: center; margin-bottom: 10px;">

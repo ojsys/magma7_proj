@@ -17,8 +17,8 @@ parent_dir = os.path.dirname(project_home)
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-# Set the DJANGO_SETTINGS_MODULE environment variable
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'magma7.settings')
+# Set the DJANGO_SETTINGS_MODULE environment variable to use production settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'magma7.settings.production')
 
 # Activate virtual environment
 # IMPORTANT: Update this path to match your virtualenv location on cPanel
