@@ -2,6 +2,13 @@
 import os
 import sys
 
+# Configure PyMySQL to work as MySQLdb replacement
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'magma7.settings.development')

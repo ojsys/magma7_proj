@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Magma7 - Your Application">
+    <title>Welcome to Magma7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .info {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .info h2 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        .info ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .info li {
+            padding: 8px 0;
+            color: #6b7280;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info li:last-child {
+            border-bottom: none;
+        }
+
+        .info li strong {
+            color: #374151;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status">Online</div>
+        <h1>Magma7</h1>
+        <p>Your application is successfully deployed and running.</p>
+
+        <div class="info">
+            <h2>System Information</h2>
+            <ul>
+                <li><strong>Framework:</strong> Django 5.1.4</li>
+                <li><strong>Status:</strong> Active</li>
+                <li><strong>Environment:</strong> Production</li>
+                <li><strong>Server:</strong> cPanel/Apache</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Magma7. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,6 +5,13 @@ This file is used by Passenger (the WSGI server used by cPanel) to serve the Dja
 import os
 import sys
 
+# Configure PyMySQL to work as MySQLdb replacement
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
 # Add your project directory to the sys.path
 # IMPORTANT: Update this path to match your cPanel directory structure
 # Example: /home/username/magma7fitness.com/magma7
