@@ -163,6 +163,8 @@ EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.Email
 if not DEBUG:
     for template_engine in TEMPLATES:
         if template_engine['BACKEND'] == 'django.template.backends.django.DjangoTemplates':
+            # When setting custom loaders, APP_DIRS must be False
+            template_engine['APP_DIRS'] = False
             template_engine.setdefault('OPTIONS', {})
             template_engine['OPTIONS']['loaders'] = [
                 ('django.template.loaders.cached.Loader', [
