@@ -1,3 +1,10 @@
+# Django Application Configuration for cPanel/Passenger
+# This file should be in: /home/username/public_html/.htaccess
+
+# Enable Passenger (Python WSGI server)
+PassengerEnabled On
+PassengerAppRoot /home/username/magma7_proj
+
 # Allow access to public directory
 Options +FollowSymLinks -Indexes
 
