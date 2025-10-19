@@ -173,8 +173,11 @@ if not DEBUG:
                 ]),
             ]
 
-print("🔒 Running in PRODUCTION mode")
-print(f"🌐 Allowed hosts: {', '.join(ALLOWED_HOSTS)}")
-print(f"🗄️  Database: {DATABASES['default']['ENGINE']} - {DATABASES['default']['NAME']}")
-print(f"📧 Email backend: {EMAIL_BACKEND}")
-print(f"🔐 SSL Redirect: {SECURE_SSL_REDIRECT}")
+print("=" * 60)
+print("PRODUCTION MODE - Django Application Starting")
+print("=" * 60)
+print(f"Allowed hosts: {', '.join(ALLOWED_HOSTS)}")
+print(f"Database: {DATABASES['default']['ENGINE']} - {DATABASES['default']['NAME']}")
+print(f"Email backend: {EMAIL_BACKEND}")
+print(f"SSL Redirect: {SECURE_SSL_REDIRECT}")
+print("=" * 60)
