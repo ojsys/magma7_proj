@@ -7,8 +7,75 @@ from .models import (
 )
 
 
+def _to_bool(value):
+    """Best-effort coercion of string/int values like '1'/'0' to Python bool."""
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        s = value.strip().lower()
+        if s in {"1", "true", "t", "yes", "y", "on"}:
+            return True
+        if s in {"0", "false", "f", "no", "n", "off", ""}:
+            return False
+        return bool(s)
+    return bool(value)
+
+
+class SafeBooleanAdminMixin:
+    """Mixin to safely display boolean-like fields even when DB stores '0'/'1' as TEXT.
+    Replaces raw boolean fields in list_display with *_icon methods when inline editing
+    isn't available (field not in list_editable) or when the user lacks change permission.
+    """
+
+    boolean_fields = ("is_active", "is_featured", "is_approved")
+
+    def get_list_display(self, request):
+        cols = list(getattr(self, "list_display", ()))
+        editable = set(getattr(self, "list_editable", ()))
+
+        def to_icon(name):
+            return f"{name}_icon"
+
+        # Replace problematic booleans with icon methods when appropriate
+        replaced = []
+        for i, name in enumerate(cols):
+            if name in self.boolean_fields:
+                needs_icon = (name not in editable) or (not self.has_change_permission(request))
+                if needs_icon:
+                    cols[i] = to_icon(name)
+                    replaced.append(name)
+
+        # If any replacements happened, ensure corresponding methods exist
+        return tuple(cols)
+
+    # Generic icon renderers (used if field exists on the object)
+    def is_active_icon(self, obj):
+        return _to_bool(getattr(obj, "is_active", False))
+
+    is_active_icon.boolean = True
+    is_active_icon.short_description = "Active"
+    is_active_icon.admin_order_field = "is_active"
+
+    def is_featured_icon(self, obj):
+        return _to_bool(getattr(obj, "is_featured", False))
+
+    is_featured_icon.boolean = True
+    is_featured_icon.short_description = "Featured"
+    is_featured_icon.admin_order_field = "is_featured"
+
+    def is_approved_icon(self, obj):
+        return _to_bool(getattr(obj, "is_approved", False))
+
+    is_approved_icon.boolean = True
+    is_approved_icon.short_description = "Approved"
+    is_approved_icon.admin_order_field = "is_approved"
+
 @admin.register(MediaAsset)
-class MediaAssetAdmin(admin.ModelAdmin):
+class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("thumbnail_preview", "title", "asset_type", "usage", "file_size_display", "dimensions_display", "created_at", "is_active")
     list_filter = ("asset_type", "usage", "is_active", "created_at")
     search_fields = ("title", "description", "alt_text")
@@ -82,7 +149,7 @@ class MediaAssetAdmin(admin.ModelAdmin):
 
 
 @admin.register(HeroSlide)
-class HeroSlideAdmin(admin.ModelAdmin):
+class HeroSlideAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("title", "image_preview", "order", "is_active", "created_at")
     list_editable = ("order", "is_active")
     list_filter = ("is_active", "created_at")
@@ -116,6 +183,8 @@ class HeroSlideAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="max-width: 600px; max-height: 300px; border: 1px solid #ddd; padding: 5px;" />', url)
         return 'No image uploaded or URL provided yet'
     image_preview_large.short_description = 'Image Preview'
+
+    # SafeBooleanAdminMixin handles list display swapping/icon rendering
 
 
 @admin.register(SiteSettings)
@@ -189,7 +258,7 @@ class PartnerAdmin(admin.ModelAdmin):
 
 
 @admin.register(Testimonial)
-class TestimonialAdmin(admin.ModelAdmin):
+class TestimonialAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("name", "rating", "is_approved", "created_at")
     list_filter = ("is_approved", "rating")
     search_fields = ("name", "quote")
@@ -237,7 +306,7 @@ class AboutPageAdmin(admin.ModelAdmin):
 
 
 @admin.register(CoreValue)
-class CoreValueAdmin(admin.ModelAdmin):
+class CoreValueAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("title", "icon", "order", "is_active")
     list_editable = ("order", "is_active")
     list_filter = ("is_active",)
@@ -245,7 +314,7 @@ class CoreValueAdmin(admin.ModelAdmin):
 
 
 @admin.register(WhyChooseUsItem)
-class WhyChooseUsItemAdmin(admin.ModelAdmin):
+class WhyChooseUsItemAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("title", "icon", "order", "is_active")
     list_editable = ("order", "is_active")
     list_filter = ("is_active",)
@@ -253,7 +322,7 @@ class WhyChooseUsItemAdmin(admin.ModelAdmin):
 
 
 @admin.register(AboutGalleryImage)
-class AboutGalleryImageAdmin(admin.ModelAdmin):
+class AboutGalleryImageAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("title", "order", "is_active")
     list_editable = ("order", "is_active")
     list_filter = ("is_active",)
@@ -261,7 +330,7 @@ class AboutGalleryImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(AboutStatistic)
-class AboutStatisticAdmin(admin.ModelAdmin):
+class AboutStatisticAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("label", "value", "icon", "order", "is_active")
     list_editable = ("order", "is_active")
     list_filter = ("is_active",)
@@ -269,7 +338,7 @@ class AboutStatisticAdmin(admin.ModelAdmin):
 
 
 @admin.register(Facility)
-class FacilityAdmin(admin.ModelAdmin):
+class FacilityAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("name", "icon", "order", "is_featured", "is_active")
     list_editable = ("order", "is_featured", "is_active")
     list_filter = ("is_featured", "is_active")
@@ -277,7 +346,7 @@ class FacilityAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamMember)
-class TeamMemberAdmin(admin.ModelAdmin):
+class TeamMemberAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("name", "role", "role_category", "experience_years", "order", "is_featured", "is_active")
     list_editable = ("order", "is_featured", "is_active")
     list_filter = ("role_category", "is_featured", "is_active")

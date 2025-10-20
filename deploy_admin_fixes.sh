@@ -48,36 +48,111 @@ echo "---------------------------------------"
 python manage.py shell << 'PYEOF'
 from django.db import connection
 
-with connection.cursor() as cursor:
-    # Fix memberships_plan boolean fields
-    print("Fixing memberships_plan table...")
-
-    # Fix is_featured field
-    cursor.execute("UPDATE memberships_plan SET is_featured = 0 WHERE is_featured = '0' OR is_featured = '' OR is_featured IS NULL;")
-    print(f"  Fixed is_featured (set to 0): {cursor.rowcount} rows")
-
-    cursor.execute("UPDATE memberships_plan SET is_featured = 1 WHERE is_featured = '1';")
-    print(f"  Fixed is_featured (set to 1): {cursor.rowcount} rows")
-
-    # Fix is_active field
-    cursor.execute("UPDATE memberships_plan SET is_active = 0 WHERE is_active = '0' OR is_active = '' OR is_active IS NULL;")
-    print(f"  Fixed is_active (set to 0): {cursor.rowcount} rows")
-
-    cursor.execute("UPDATE memberships_plan SET is_active = 1 WHERE is_active = '1';")
-    print(f"  Fixed is_active (set to 1): {cursor.rowcount} rows")
-
-    # Fix cms_errorlog boolean field
-    print("\nFixing cms_errorlog table...")
+def upd(cursor, sql, label):
     try:
-        cursor.execute("UPDATE cms_errorlog SET resolved = 0 WHERE resolved = '0' OR resolved = '' OR resolved IS NULL;")
-        print(f"  Fixed resolved (set to 0): {cursor.rowcount} rows")
-
-        cursor.execute("UPDATE cms_errorlog SET resolved = 1 WHERE resolved = '1';")
-        print(f"  Fixed resolved (set to 1): {cursor.rowcount} rows")
+        cursor.execute(sql)
+        print(f"  {label}: {cursor.rowcount} row(s)")
     except Exception as e:
-        print(f"  Note: {e}")
+        print(f"  {label}: {e}")
 
-print("\n✓ Boolean fields fixed!")
+print("Normalizing boolean values (strings -> integers)...")
+with connection.cursor() as cursor:
+    # memberships_plan
+    print("\nFix: memberships_plan")
+    upd(cursor, "UPDATE memberships_plan SET is_featured = 0 WHERE is_featured IN ('0','false','False','') OR is_featured IS NULL;", "is_featured -> 0")
+    upd(cursor, "UPDATE memberships_plan SET is_featured = 1 WHERE is_featured IN ('1','true','True');", "is_featured -> 1")
+    upd(cursor, "UPDATE memberships_plan SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE memberships_plan SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # memberships_weeklygoal
+    print("\nFix: memberships_weeklygoal")
+    upd(cursor, "UPDATE memberships_weeklygoal SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE memberships_weeklygoal SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_errorlog
+    print("\nFix: cms_errorlog")
+    upd(cursor, "UPDATE cms_errorlog SET resolved = 0 WHERE resolved IN ('0','false','False','') OR resolved IS NULL;", "resolved -> 0")
+    upd(cursor, "UPDATE cms_errorlog SET resolved = 1 WHERE resolved IN ('1','true','True');", "resolved -> 1")
+
+    # cms_heroslide
+    print("\nFix: cms_heroslide")
+    upd(cursor, "UPDATE cms_heroslide SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_heroslide SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_aboutgalleryimage
+    print("\nFix: cms_aboutgalleryimage")
+    upd(cursor, "UPDATE cms_aboutgalleryimage SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_aboutgalleryimage SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_corevalue
+    print("\nFix: cms_corevalue")
+    upd(cursor, "UPDATE cms_corevalue SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_corevalue SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_whychooseusitem
+    print("\nFix: cms_whychooseusitem")
+    upd(cursor, "UPDATE cms_whychooseusitem SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_whychooseusitem SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_aboutstatistic
+    print("\nFix: cms_aboutstatistic")
+    upd(cursor, "UPDATE cms_aboutstatistic SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_aboutstatistic SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+
+    # cms_facility
+    print("\nFix: cms_facility")
+    upd(cursor, "UPDATE cms_facility SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_facility SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+    upd(cursor, "UPDATE cms_facility SET is_featured = 0 WHERE is_featured IN ('0','false','False','') OR is_featured IS NULL;", "is_featured -> 0")
+    upd(cursor, "UPDATE cms_facility SET is_featured = 1 WHERE is_featured IN ('1','true','True');", "is_featured -> 1")
+
+    # cms_teammember
+    print("\nFix: cms_teammember")
+    upd(cursor, "UPDATE cms_teammember SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE cms_teammember SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+    upd(cursor, "UPDATE cms_teammember SET is_featured = 0 WHERE is_featured IN ('0','false','False','') OR is_featured IS NULL;", "is_featured -> 0")
+    upd(cursor, "UPDATE cms_teammember SET is_featured = 1 WHERE is_featured IN ('1','true','True');", "is_featured -> 1")
+
+    # cms_testimonial
+    print("\nFix: cms_testimonial")
+    upd(cursor, "UPDATE cms_testimonial SET is_approved = 0 WHERE is_approved IN ('0','false','False','') OR is_approved IS NULL;", "is_approved -> 0")
+    upd(cursor, "UPDATE cms_testimonial SET is_approved = 1 WHERE is_approved IN ('1','true','True');", "is_approved -> 1")
+
+print("\n✓ Boolean values normalized")
+PYEOF
+
+echo ""
+echo "Step 1b: Converting TEXT boolean columns to TINYINT(1) ..."
+echo "---------------------------------------"
+python manage.py shell << 'PYEOF'
+from django.db import connection
+
+def ddl(cursor, sql):
+    try:
+        cursor.execute(sql)
+        print(f"  OK: {sql}")
+    except Exception as e:
+        print(f"  SKIP: {sql} -> {e}")
+
+with connection.cursor() as cursor:
+    # memberships
+    ddl(cursor, "ALTER TABLE memberships_plan MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE memberships_plan MODIFY is_featured TINYINT(1) NOT NULL DEFAULT 0;")
+    ddl(cursor, "ALTER TABLE memberships_weeklygoal MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+
+    # cms tables
+    ddl(cursor, "ALTER TABLE cms_heroslide MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_aboutgalleryimage MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_corevalue MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_whychooseusitem MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_aboutstatistic MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_facility MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_facility MODIFY is_featured TINYINT(1) NOT NULL DEFAULT 0;")
+    ddl(cursor, "ALTER TABLE cms_teammember MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE cms_teammember MODIFY is_featured TINYINT(1) NOT NULL DEFAULT 0;")
+    ddl(cursor, "ALTER TABLE cms_testimonial MODIFY is_approved TINYINT(1) NOT NULL DEFAULT 1;")
+
+print("\n✓ Column types converted where needed")
 PYEOF
 
 echo ""
