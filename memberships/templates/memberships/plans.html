@@ -3,35 +3,95 @@
 {% block title %}Membership Plans • Magma7Fitness{% endblock %}
 
 <style>
-/* Fix for featured card overlay issue on production */
-.card.featured {
-    background: var(--card-bg) !important;
-    position: relative !important;
-}
+/* EMERGENCY FIX: Remove all yellow overlays from pricing cards */
 
-.card.featured::before,
-.card.featured::after {
-    display: none !important;
-}
-
-.card.featured .card-content {
+/* Remove overlays from ALL cards on this page */
+.pricing .card,
+.pricing .card *,
+.card.featured,
+.card.featured *,
+.card,
+.card * {
     background: transparent !important;
-    position: relative !important;
-    z-index: 2 !important;
 }
 
-/* Ensure all text is visible */
-.card h4,
-.card .card-title,
-.card .card-title a,
-.card span,
-.card p {
+/* Set proper card background */
+.pricing .card,
+.card {
+    background: white !important;
+    background-color: white !important;
+}
+
+/* Remove ALL pseudo-elements that could create overlays */
+.pricing .card::before,
+.pricing .card::after,
+.card.featured::before,
+.card.featured::after,
+.card::before,
+.card::after,
+.pricing .card *::before,
+.pricing .card *::after,
+.card *::before,
+.card *::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Force white background on card content areas */
+.card-content,
+.pricing .card-content {
+    background: white !important;
+    background-color: white !important;
     position: relative !important;
     z-index: 10 !important;
 }
 
-.pricing .card {
-    background: var(--card-bg) !important;
+/* Ensure ALL text is visible with dark color */
+.pricing .card h4,
+.pricing .card .card-title,
+.pricing .card .card-title a,
+.pricing .card span,
+.pricing .card p,
+.pricing .card div,
+.card h4,
+.card .card-title,
+.card .card-title a,
+.card span:not(.material-icons),
+.card p {
+    color: #333 !important;
+    position: relative !important;
+    z-index: 100 !important;
+    background: transparent !important;
+}
+
+/* Price should be green */
+.pricing .card span[style*="color: var(--primary-green)"],
+.card span[style*="font-size: 2.5rem"] {
+    color: #0b6e4f !important;
+}
+
+/* Buttons should be visible */
+.card-action,
+.pricing .card-action {
+    background: #f5f5f5 !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Featured badge */
+div[style*="Most Popular"] {
+    background: #d4af37 !important;
+    color: white !important;
+    z-index: 1000 !important;
+}
+
+/* Remove any gold/yellow backgrounds */
+.card [style*="background: var(--accent-gold)"],
+.card [style*="background-color: var(--accent-gold)"] {
+    background: transparent !important;
 }
 </style>
 
