@@ -351,7 +351,8 @@ class ErrorLogAdmin(admin.ModelAdmin):
     search_fields = ('message', 'path', 'user', 'exception_type', 'traceback')
     readonly_fields = ('timestamp', 'severity', 'message', 'path', 'method', 'user', 'ip_address',
                       'user_agent', 'exception_type', 'traceback_display', 'resolved_at', 'resolved_by')
-    date_hierarchy = 'timestamp'
+    ordering = ('-timestamp',)  # Show newest errors first
+    # date_hierarchy = 'timestamp'  # Disabled: requires MySQL timezone tables
 
     fieldsets = (
         ('Error Information', {
