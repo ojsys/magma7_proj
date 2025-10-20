@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Dashboard • Magma7Fitness{% endblock %}</title>
+  <title>{% block title %}Dashboard • {{ site_settings.brand_name|default:"Magma7Fitness" }}{% endblock %}</title>
+
+  <!-- Favicon -->
+  {% if site_settings.get_favicon_url %}
+  <link rel="icon" type="image/x-icon" href="{{ site_settings.get_favicon_url }}">
+  {% endif %}
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +52,16 @@
       padding: 30px 20px;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-logo img {
+      max-width: 240px;
+      max-height: 120px;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      object-fit: contain;
     }
 
     .sidebar-logo h2 {
@@ -641,8 +656,12 @@
     <!-- Sidebar -->
     <aside class="dashboard-sidebar" id="dashboardSidebar">
       <div class="sidebar-logo">
-        <h2>Magma7Fitness</h2>
-        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 5px 0 0 0;">Member Portal</p>
+        {% if site_settings.get_logo_url %}
+          <img src="{{ site_settings.get_logo_url }}" alt="{{ site_settings.brand_name|default:'Magma7Fitness' }}">
+        {% else %}
+          <h2>{{ site_settings.brand_name|default:"Magma7Fitness" }}</h2>
+        {% endif %}
+        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; margin: 10px 0 0 0;">Member Portal</p>
       </div>
 
       <nav class="sidebar-nav">
