@@ -1,303 +1,546 @@
 {% extends 'base.html' %}
 {% load humanize %}
-{% block title %}Membership Plans • Magma7Fitness{% endblock %}
+{% block title %}Membership Plans • {{ site_settings.brand_name|default:"Magma7Fitness" }}{% endblock %}
 
+{% block content %}
 <style>
-/* EMERGENCY FIX: Remove all yellow overlays from pricing cards */
-
-/* Remove overlays from ALL cards on this page */
-.pricing .card,
-.pricing .card *,
-.card.featured,
-.card.featured *,
-.card,
-.card * {
-    background: transparent !important;
+/* Clean, modern pricing cards - no overlays */
+.pricing-section {
+  background: #f7f5f3;
+  padding: 60px 0 80px 0;
 }
 
-/* Set proper card background */
-.pricing .card,
-.card {
-    background: white !important;
-    background-color: white !important;
+.pricing-hero {
+  background: linear-gradient(135deg, #0b6e4f 0%, #064d39 100%);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
 }
 
-/* Remove ALL pseudo-elements that could create overlays */
-.pricing .card::before,
-.pricing .card::after,
-.card.featured::before,
-.card.featured::after,
-.card::before,
-.card::after,
-.pricing .card *::before,
-.pricing .card *::after,
-.card *::before,
-.card *::after {
-    display: none !important;
-    content: none !important;
-    background: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
+.pricing-hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0 0 1rem 0;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
 }
 
-/* Force white background on card content areas */
-.card-content,
-.pricing .card-content {
-    background: white !important;
-    background-color: white !important;
-    position: relative !important;
-    z-index: 10 !important;
+.pricing-hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.95;
+  line-height: 1.6;
 }
 
-/* Ensure ALL text is visible with dark color */
-.pricing .card h4,
-.pricing .card .card-title,
-.pricing .card .card-title a,
-.pricing .card span,
-.pricing .card p,
-.pricing .card div,
-.card h4,
-.card .card-title,
-.card .card-title a,
-.card span:not(.material-icons),
-.card p {
-    color: #333 !important;
-    position: relative !important;
-    z-index: 100 !important;
-    background: transparent !important;
+.pricing-cards-container {
+  max-width: 1200px;
+  margin: -50px auto 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
 }
 
-/* Price should be green */
-.pricing .card span[style*="color: var(--primary-green)"],
-.card span[style*="font-size: 2.5rem"] {
-    color: #0b6e4f !important;
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
 }
 
-/* Buttons should be visible */
-.card-action,
-.pricing .card-action {
-    background: #f5f5f5 !important;
-    position: relative !important;
-    z-index: 10 !important;
+.pricing-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-/* Featured badge */
-div[style*="Most Popular"] {
-    background: #d4af37 !important;
-    color: white !important;
-    z-index: 1000 !important;
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Remove any gold/yellow backgrounds */
-.card [style*="background: var(--accent-gold)"],
-.card [style*="background-color: var(--accent-gold)"] {
-    background: transparent !important;
+.pricing-card.featured {
+  border: 3px solid #d4af37;
+  transform: scale(1.05);
+}
+
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #d4af37;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.pricing-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pricing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.pricing-card:hover .pricing-image img {
+  transform: scale(1.05);
+}
+
+.pricing-content {
+  padding: 40px 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pricing-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin: 0 0 8px 0;
+}
+
+.pricing-duration {
+  color: #718096;
+  font-size: 1rem;
+  margin: 0 0 20px 0;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.pricing-amount {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #0b6e4f;
+  line-height: 1;
+}
+
+.pricing-period {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  display: block;
+}
+
+.pricing-features {
+  flex: 1;
+  margin-bottom: 30px;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding: 8px 0;
+}
+
+.pricing-feature i {
+  color: #48bb78;
+  margin-right: 12px;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.pricing-feature span {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.pricing-actions {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pricing-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.pricing-btn-primary {
+  background: #0b6e4f;
+  color: white;
+  border-color: #0b6e4f;
+}
+
+.pricing-btn-primary:hover {
+  background: #064d39;
+  border-color: #064d39;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(11, 110, 79, 0.3);
+  color: white;
+}
+
+.pricing-btn-secondary {
+  background: transparent;
+  color: #0b6e4f;
+  border-color: #0b6e4f;
+}
+
+.pricing-btn-secondary:hover {
+  background: #f7f5f3;
+  color: #064d39;
+}
+
+.pricing-btn i {
+  font-size: 1.1rem;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Benefits Section */
+.benefits-section {
+  max-width: 1200px;
+  margin: 80px auto 0 auto;
+  padding: 0 20px;
+}
+
+.benefits-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.benefits-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin: 0 0 15px 0;
+}
+
+.benefits-header p {
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.benefit-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px auto;
+  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon i {
+  font-size: 2.5rem;
+  color: white;
+}
+
+.benefit-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 15px 0;
+}
+
+.benefit-card p {
+  color: #718096;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 100px 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.empty-state i {
+  font-size: 5rem;
+  color: #cbd5e0;
+  margin-bottom: 25px;
+}
+
+.empty-state h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 15px 0;
+}
+
+.empty-state p {
+  color: #718096;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pricing-hero h1 {
+    font-size: 2rem;
+  }
+
+  .pricing-hero p {
+    font-size: 1rem;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card.featured {
+    transform: scale(1);
+  }
+
+  .pricing-amount {
+    font-size: 2.5rem;
+  }
+
+  .benefits-header h2 {
+    font-size: 2rem;
+  }
 }
 </style>
 
-{% block content %}
-
 <!-- Hero Section -->
-<section class="hero-simple" style="padding: 80px 20px; background: var(--light-bg); text-align: center;">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <h1 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin: 0 auto 1.5rem auto; text-transform: uppercase;">Choose Your Plan</h1>
-    <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.6;">Transform your body and mind with our flexible membership options designed for every fitness level and goal.</p>
-  </div>
-</section>
+<div class="pricing-hero">
+  <h1>Choose Your Plan</h1>
+  <p>Transform your body and mind with our flexible membership options designed for every fitness level and goal.</p>
+</div>
 
-<div class="container animate-fade-up">
-  <div class="section" style="padding: 60px 0;">
+<!-- Pricing Section -->
+<section class="pricing-section">
+  <div class="pricing-cards-container">
 
-    <!-- Pricing Toggle (if needed in future) -->
-    <div class="row">
-      <div class="col s12 center" style="margin-bottom: 50px;">
-        <p style="color: var(--text-secondary); font-size: 1.1rem;">
-          All plans include access to our state-of-the-art facilities and expert guidance
-        </p>
-      </div>
+    <!-- Info Text -->
+    <div style="text-align: center; margin-bottom: 50px;">
+      <p style="color: #4a5568; font-size: 1.1rem;">
+        All plans include access to our state-of-the-art facilities and expert guidance
+      </p>
     </div>
 
     <!-- Plans Grid -->
-    <div class="row pricing" style="display: flex; flex-wrap: wrap;">
+    <div class="pricing-grid">
       {% for plan in plans %}
-        <div class="col s12 m6 l4" style="display: flex;">
-          <div class="card hoverable {% if plan.is_featured %}featured{% endif %}" style="width: 100%; display: flex; flex-direction: column; overflow: hidden;">
+        <div class="pricing-card {% if plan.is_featured %}featured{% endif %}">
 
-            <!-- Featured Image -->
-            {% if plan.image_url %}
-              <div style="width: 100%; height: 220px; overflow: hidden; position: relative;">
-                <img src="{{ plan.image_url }}" alt="{{ plan.name }}" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
-                {% if plan.is_featured %}
-                  <div style="position: absolute; top: 15px; right: 15px; background: var(--accent-gold); color: white; padding: 8px 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; box-shadow: var(--shadow-md);">
-                    Most Popular
-                  </div>
-                {% endif %}
+          <!-- Featured Badge -->
+          {% if plan.is_featured %}
+            <div class="pricing-badge">Most Popular</div>
+          {% endif %}
+
+          <!-- Plan Image -->
+          {% if plan.image_url %}
+            <div class="pricing-image">
+              <img src="{{ plan.image_url }}" alt="{{ plan.name }}">
+            </div>
+          {% endif %}
+
+          <!-- Card Content -->
+          <div class="pricing-content">
+
+            <!-- Header -->
+            <div class="pricing-header">
+              <h3 class="pricing-name">{{ plan.name }}</h3>
+              <p class="pricing-duration">{{ plan.get_humanized_duration }}</p>
+
+              <div class="pricing-price">
+                <span class="pricing-amount">{{ CURRENCY_SYMBOL }}{{ plan.price|intcomma }}</span>
               </div>
-            {% endif %}
-
-            <div class="card-content" style="padding: 40px 30px 30px 30px; flex: 1; display: flex; flex-direction: column;">
-
-              <!-- Plan Name & Duration -->
-              <div style="text-align: center; margin-bottom: 30px;">
-                <h4 class="card-title" style="margin-bottom: 10px; font-weight: 800; font-size: 1.8rem;">
-                  <a href="{% url 'memberships:plan_detail' plan.id %}" style="color: var(--text-primary); text-decoration: none;">{{ plan.name }}</a>
-                </h4>
-                <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 20px;">
-                  {{ plan.get_humanized_duration }}
-                </p>
-
-                <!-- Price -->
-                <div style="margin-bottom: 25px;">
-                  <span style="font-size: 2.5rem; font-weight: 900; color: var(--primary-green); line-height: 1.1;">
-                    {{ CURRENCY_SYMBOL }}{{ plan.price|intcomma }}
-                  </span>
-                  <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">
-                    {{ plan.price_period|lower }}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Features List -->
-              <div style="margin-bottom: 30px; flex: 1;">
-                {% for f in plan.features.all %}
-                  <div style="display: flex; align-items: center; margin-bottom: 14px;">
-                    <i class="material-icons" style="color: var(--success); margin-right: 12px; font-size: 1.3rem;">check_circle</i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5;">{{ f.text }}</span>
-                  </div>
-                {% empty %}
-                  <div style="display: flex; align-items: center; margin-bottom: 14px;">
-                    <i class="material-icons" style="color: var(--success); margin-right: 12px; font-size: 1.3rem;">check_circle</i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5;">Access to all facilities</span>
-                  </div>
-                  <div style="display: flex; align-items: center; margin-bottom: 14px;">
-                    <i class="material-icons" style="color: var(--success); margin-right: 12px; font-size: 1.3rem;">check_circle</i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5;">Professional trainer guidance</span>
-                  </div>
-                  <div style="display: flex; align-items: center; margin-bottom: 14px;">
-                    <i class="material-icons" style="color: var(--success); margin-right: 12px; font-size: 1.3rem;">check_circle</i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5;">Group fitness classes</span>
-                  </div>
-                  <div style="display: flex; align-items: center; margin-bottom: 14px;">
-                    <i class="material-icons" style="color: var(--success); margin-right: 12px; font-size: 1.3rem;">check_circle</i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5;">24/7 gym access</span>
-                  </div>
-                {% endfor %}
-              </div>
+              <span class="pricing-period">{{ plan.price_period|lower }}</span>
             </div>
 
-            <!-- Card Actions -->
-            <div class="card-action" style="padding: 20px 30px 30px 30px; text-align: center; background: var(--section-bg);">
+            <!-- Features -->
+            <div class="pricing-features">
+              {% for f in plan.features.all %}
+                <div class="pricing-feature">
+                  <i class="material-icons">check_circle</i>
+                  <span>{{ f.text }}</span>
+                </div>
+              {% empty %}
+                <div class="pricing-feature">
+                  <i class="material-icons">check_circle</i>
+                  <span>Access to all facilities</span>
+                </div>
+                <div class="pricing-feature">
+                  <i class="material-icons">check_circle</i>
+                  <span>Professional trainer guidance</span>
+                </div>
+                <div class="pricing-feature">
+                  <i class="material-icons">check_circle</i>
+                  <span>Group fitness classes</span>
+                </div>
+                <div class="pricing-feature">
+                  <i class="material-icons">check_circle</i>
+                  <span>24/7 gym access</span>
+                </div>
+              {% endfor %}
+            </div>
+
+            <!-- Actions -->
+            <div class="pricing-actions">
               {% if user.is_authenticated %}
-                <a href="{% url 'memberships:subscribe' plan.id %}" class="btn btn-primary waves-effect waves-light" style="width: 100%; margin-bottom: 10px; font-size: 1rem;">
-                  <i class="material-icons left">arrow_forward</i>Choose {{ plan.name }}
+                <a href="{% url 'memberships:subscribe' plan.id %}" class="pricing-btn pricing-btn-primary">
+                  <i class="material-icons">arrow_forward</i>
+                  Choose {{ plan.name }}
                 </a>
-                <a href="{% url 'memberships:plan_detail' plan.id %}" class="btn btn-ghost waves-effect" style="width: 100%; font-size: 0.95rem;">
+                <a href="{% url 'memberships:plan_detail' plan.id %}" class="pricing-btn pricing-btn-secondary">
                   View Details
                 </a>
               {% else %}
-                <a href="/accounts/signup/" class="btn btn-primary waves-effect waves-light" style="width: 100%; margin-bottom: 10px; font-size: 1rem;">
-                  <i class="material-icons left">person_add</i>Join Now
+                <a href="/accounts/signup/" class="pricing-btn pricing-btn-primary">
+                  <i class="material-icons">person_add</i>
+                  Join Now
                 </a>
-                <a href="{% url 'memberships:plan_detail' plan.id %}" class="btn btn-ghost waves-effect" style="width: 100%; font-size: 0.95rem;">
+                <a href="{% url 'memberships:plan_detail' plan.id %}" class="pricing-btn pricing-btn-secondary">
                   View Details
                 </a>
               {% endif %}
             </div>
+
           </div>
         </div>
       {% empty %}
-        <div class="col s12">
-          <div class="card" style="text-align: center; padding: 60px 30px;">
-            <i class="material-icons" style="font-size: 4rem; color: var(--text-muted); margin-bottom: 20px;">fitness_center</i>
-            <h4 style="margin-bottom: 15px;">No Plans Available</h4>
-            <p style="color: var(--text-secondary);">
-              We're currently updating our membership plans. Please check back later or contact us for more information.
-            </p>
-          </div>
+        <div class="empty-state">
+          <i class="material-icons">fitness_center</i>
+          <h3>No Plans Available</h3>
+          <p>We're currently updating our membership plans. Please check back later or contact us for more information.</p>
         </div>
       {% endfor %}
     </div>
 
-    <!-- Additional Benefits Section -->
-    <div class="row" style="margin-top: 80px;">
-      <div class="col s12 center">
-        <h3 style="margin-bottom: 40px; font-weight: 700;">What's Included in Every Plan</h3>
+    <!-- Benefits Section -->
+    <div class="benefits-section">
+      <div class="benefits-header">
+        <h2>What's Included in Every Plan</h2>
+        <p>Premium features and services to support your fitness journey</p>
       </div>
 
-      <div class="col s12 m6 l3">
-        <div class="card" style="text-align: center; padding: 30px; height: 100%;">
-          <i class="material-icons" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;">fitness_center</i>
-          <h5 style="margin-bottom: 15px; font-weight: 600;">Premium Equipment</h5>
-          <p style="color: var(--text-secondary);">
-            State-of-the-art cardio and strength training equipment from leading brands
-          </p>
-        </div>
-      </div>
-
-      <div class="col s12 m6 l3">
-        <div class="card" style="text-align: center; padding: 30px; height: 100%;">
-          <i class="material-icons" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;">groups</i>
-          <h5 style="margin-bottom: 15px; font-weight: 600;">Expert Trainers</h5>
-          <p style="color: var(--text-secondary);">
-            Certified personal trainers available to help you reach your fitness goals
-          </p>
-        </div>
-      </div>
-
-      <div class="col s12 m6 l3">
-        <div class="card" style="text-align: center; padding: 30px; height: 100%;">
-          <i class="material-icons" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;">sports_gymnastics</i>
-          <h5 style="margin-bottom: 15px; font-weight: 600;">Group Classes</h5>
-          <p style="color: var(--text-secondary);">
-            Wide variety of group fitness classes including yoga, HIIT, and dance
-          </p>
-        </div>
-      </div>
-
-      <div class="col s12 m6 l3">
-        <div class="card" style="text-align: center; padding: 30px; height: 100%;">
-          <i class="material-icons" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;">schedule</i>
-          <h5 style="margin-bottom: 15px; font-weight: 600;">Flexible Hours</h5>
-          <p style="color: var(--text-secondary);">
-            Extended hours to fit your schedule, with 24/7 access available
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="row" style="margin-top: 60px;">
-      <div class="col s12">
-        <div class="cta-section" {% if site_settings.cta_image_url %}style="background-image: linear-gradient(rgba(11, 110, 79, 0.9), rgba(11, 110, 79, 0.9)), url('{{ site_settings.cta_image_url }}');"{% endif %}>
-          <div class="cta-content">
-            {% if site_settings.cta_image_url %}
-              <div class="cta-image">
-                <img src="{{ site_settings.cta_image_url }}" alt="Fitness transformation" />
-              </div>
-            {% endif %}
-            <div class="cta-text">
-              <h3>{{ site_settings.cta_headline|default:"Ready to Start?" }}</h3>
-              <p>{{ site_settings.cta_description|default:"Join thousands of satisfied members who have transformed their lives at Magma7Fitness" }}</p>
-              <div class="cta-buttons">
-                {% if not user.is_authenticated %}
-                  <a href="{{ site_settings.cta_primary_url|default:'/accounts/signup/' }}" class="btn btn-large btn-primary">
-                    <i class="material-icons left">person_add</i>{{ site_settings.cta_primary_text|default:"Sign Up Today" }}
-                  </a>
-                  <a href="{{ site_settings.cta_secondary_url|default:'/about/' }}" class="btn btn-large btn-outline">
-                    <i class="material-icons left">info</i>{{ site_settings.cta_secondary_text|default:"Learn More" }}
-                  </a>
-                {% else %}
-                  <a href="{{ site_settings.cta_secondary_url|default:'/about/' }}" class="btn btn-large btn-primary">
-                    <i class="material-icons left">info</i>Contact Us
-                  </a>
-                {% endif %}
-              </div>
-            </div>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="material-icons">fitness_center</i>
           </div>
+          <h3>Premium Equipment</h3>
+          <p>State-of-the-art cardio and strength training equipment from leading brands</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="material-icons">groups</i>
+          </div>
+          <h3>Expert Trainers</h3>
+          <p>Certified personal trainers available to help you reach your fitness goals</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="material-icons">sports_gymnastics</i>
+          </div>
+          <h3>Group Classes</h3>
+          <p>Wide variety of group fitness classes including yoga, HIIT, and dance</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="material-icons">schedule</i>
+          </div>
+          <h3>Flexible Hours</h3>
+          <p>Extended hours to fit your schedule, with 24/7 access available</p>
         </div>
       </div>
     </div>
 
   </div>
-</div>
+</section>
+
+<!-- CTA Section -->
+{% if site_settings.cta_headline %}
+<section style="background: linear-gradient(135deg, #0b6e4f 0%, #064d39 100%); padding: 80px 20px; margin-top: 60px;">
+  <div style="max-width: 800px; margin: 0 auto; text-align: center; color: white;">
+    <h2 style="font-size: 2.5rem; font-weight: 800; margin: 0 0 20px 0; color: white;">
+      {{ site_settings.cta_headline|default:"Ready to Start?" }}
+    </h2>
+    <p style="font-size: 1.2rem; margin: 0 0 40px 0; opacity: 0.95;">
+      {{ site_settings.cta_description|default:"Join thousands of satisfied members who have transformed their lives" }}
+    </p>
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      {% if not user.is_authenticated %}
+        <a href="{{ site_settings.cta_primary_url|default:'/accounts/signup/' }}" class="pricing-btn pricing-btn-primary" style="background: #d4af37; border-color: #d4af37;">
+          <i class="material-icons">person_add</i>
+          {{ site_settings.cta_primary_text|default:"Sign Up Today" }}
+        </a>
+        <a href="{{ site_settings.cta_secondary_url|default:'/about/' }}" class="pricing-btn pricing-btn-secondary" style="background: transparent; color: white; border-color: white;">
+          <i class="material-icons">info</i>
+          {{ site_settings.cta_secondary_text|default:"Learn More" }}
+        </a>
+      {% else %}
+        <a href="{{ site_settings.cta_secondary_url|default:'/about/' }}" class="pricing-btn pricing-btn-primary" style="background: #d4af37; border-color: #d4af37;">
+          <i class="material-icons">info</i>
+          Contact Us
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}
