@@ -34,6 +34,7 @@ _load_dotenv(BASE_DIR / '.env')
 # See settings/development.py and settings/production.py
 
 INSTALLED_APPS = [
+    'jazzmin',  # Admin UI theme (must be before django.contrib.admin)
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,6 +121,30 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@magma7fitness.local')
 
 SITE_NAME = 'Magma7Fitness'
+
+# Jazzmin Admin Theme Configuration
+# https://django-jazzmin.readthedocs.io/
+JAZZMIN_SETTINGS = {
+    'site_title': f"{SITE_NAME} Admin",
+    'site_header': f"{SITE_NAME} Admin",
+    'site_brand': SITE_NAME,
+    'welcome_sign': f"Welcome to {SITE_NAME} Admin",
+    # Optional: set logo URLs if you have them in static or via CMS settings
+    # 'site_logo': 'img/logo.png',
+    # 'site_icon': 'img/favicon.png',
+    'copyright': SITE_NAME,
+    'show_ui_builder': False,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    'theme': 'darkly',  # Choose a clean theme, can be 'flatly', 'darkly', etc.
+    'dark_mode_theme': None,
+    'navbar': 'navbar-dark',
+    'accent': 'accent-teal',
+    'sidebar': 'sidebar-dark-teal',
+    'sidebar_nav_small_text': True,
+    'brand_small_text': False,
+}
 
 # Payments
 PAYMENTS_ENABLED = os.getenv('PAYMENTS_ENABLED', '1') == '1'  # Enabled by default
