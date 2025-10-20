@@ -118,6 +118,20 @@ with connection.cursor() as cursor:
     upd(cursor, "UPDATE cms_testimonial SET is_approved = 0 WHERE is_approved IN ('0','false','False','') OR is_approved IS NULL;", "is_approved -> 0")
     upd(cursor, "UPDATE cms_testimonial SET is_approved = 1 WHERE is_approved IN ('1','true','True');", "is_approved -> 1")
 
+    # auth_user
+    print("\nFix: auth_user")
+    upd(cursor, "UPDATE auth_user SET is_active = 0 WHERE is_active IN ('0','false','False','') OR is_active IS NULL;", "is_active -> 0")
+    upd(cursor, "UPDATE auth_user SET is_active = 1 WHERE is_active IN ('1','true','True');", "is_active -> 1")
+    upd(cursor, "UPDATE auth_user SET is_staff = 0 WHERE is_staff IN ('0','false','False','') OR is_staff IS NULL;", "is_staff -> 0")
+    upd(cursor, "UPDATE auth_user SET is_staff = 1 WHERE is_staff IN ('1','true','True');", "is_staff -> 1")
+    upd(cursor, "UPDATE auth_user SET is_superuser = 0 WHERE is_superuser IN ('0','false','False','') OR is_superuser IS NULL;", "is_superuser -> 0")
+    upd(cursor, "UPDATE auth_user SET is_superuser = 1 WHERE is_superuser IN ('1','true','True');", "is_superuser -> 1")
+
+    # notifications_notification
+    print("\nFix: notifications_notification")
+    upd(cursor, "UPDATE notifications_notification SET is_read = 0 WHERE is_read IN ('0','false','False','') OR is_read IS NULL;", "is_read -> 0")
+    upd(cursor, "UPDATE notifications_notification SET is_read = 1 WHERE is_read IN ('1','true','True');", "is_read -> 1")
+
 print("\n✓ Boolean values normalized")
 PYEOF
 
@@ -151,6 +165,12 @@ with connection.cursor() as cursor:
     ddl(cursor, "ALTER TABLE cms_teammember MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
     ddl(cursor, "ALTER TABLE cms_teammember MODIFY is_featured TINYINT(1) NOT NULL DEFAULT 0;")
     ddl(cursor, "ALTER TABLE cms_testimonial MODIFY is_approved TINYINT(1) NOT NULL DEFAULT 1;")
+
+    # auth and notifications
+    ddl(cursor, "ALTER TABLE auth_user MODIFY is_active TINYINT(1) NOT NULL DEFAULT 1;")
+    ddl(cursor, "ALTER TABLE auth_user MODIFY is_staff TINYINT(1) NOT NULL DEFAULT 0;")
+    ddl(cursor, "ALTER TABLE auth_user MODIFY is_superuser TINYINT(1) NOT NULL DEFAULT 0;")
+    ddl(cursor, "ALTER TABLE notifications_notification MODIFY is_read TINYINT(1) NOT NULL DEFAULT 0;")
 
 print("\n✓ Column types converted where needed")
 PYEOF

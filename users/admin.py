@@ -14,14 +14,39 @@ class MemberProfileAdmin(admin.ModelAdmin):
 
 
 # Extend the default User admin with CSV export
+def _to_bool(value):
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        s = value.strip().lower()
+        if s in {"1", "true", "t", "yes", "y", "on"}:
+            return True
+        if s in {"0", "false", "f", "no", "n", "off", ""}:
+            return False
+        return bool(s)
+    return bool(value)
+
+
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active_icon', 'date_joined')
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     # Disable date_hierarchy to avoid MySQL timezone table requirement on cPanel
     # date_hierarchy = 'date_joined'
     ordering = ('-date_joined',)
     actions = ['export_users_csv', 'export_users_with_subscriptions_csv']
+
+    # Safe boolean display to avoid KeyError when DB stores '1'/'0' as TEXT
+    def is_active_icon(self, obj):
+        return _to_bool(getattr(obj, 'is_active', False))
+
+    is_active_icon.boolean = True
+    is_active_icon.short_description = 'Active'
+    is_active_icon.admin_order_field = 'is_active'
 
     def export_users_csv(self, request, queryset):
         """Export selected users basic information to CSV"""
