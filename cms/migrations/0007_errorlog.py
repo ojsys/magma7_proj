@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0003_add_media_center_and_file_uploads'),
+        ('cms', '0006_heroslide'),
     ]
 
     operations = [
