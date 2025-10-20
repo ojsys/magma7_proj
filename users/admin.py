@@ -48,6 +48,32 @@ class CustomUserAdmin(admin.ModelAdmin):
     is_active_icon.short_description = 'Active'
     is_active_icon.admin_order_field = 'is_active'
 
+    def is_staff_icon(self, obj):
+        return _to_bool(getattr(obj, 'is_staff', False))
+
+    is_staff_icon.boolean = True
+    is_staff_icon.short_description = 'Staff'
+    is_staff_icon.admin_order_field = 'is_staff'
+
+    def is_superuser_icon(self, obj):
+        return _to_bool(getattr(obj, 'is_superuser', False))
+
+    is_superuser_icon.boolean = True
+    is_superuser_icon.short_description = 'Superuser'
+    is_superuser_icon.admin_order_field = 'is_superuser'
+
+    def get_list_display(self, request):
+        cols = list(super().get_list_display(request))
+        mapping = {
+            'is_active': 'is_active_icon',
+            'is_staff': 'is_staff_icon',
+            'is_superuser': 'is_superuser_icon',
+        }
+        for i, name in enumerate(cols):
+            if name in mapping:
+                cols[i] = mapping[name]
+        return tuple(cols)
+
     def export_users_csv(self, request, queryset):
         """Export selected users basic information to CSV"""
         from datetime import datetime
