@@ -453,3 +453,50 @@ class TeamPage(models.Model):
     def __str__(self):
         return 'Team Page Content'
 
+
+class ErrorLog(models.Model):
+    """Store application errors for admin viewing"""
+    SEVERITY_CHOICES = (
+        ('DEBUG', 'Debug'),
+        ('INFO', 'Info'),
+        ('WARNING', 'Warning'),
+        ('ERROR', 'Error'),
+        ('CRITICAL', 'Critical'),
+    )
+
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
+    severity = models.CharField(max_length=20, choices=SEVERITY_CHOICES, default='ERROR', db_index=True)
+    message = models.TextField(help_text='Error message')
+    path = models.CharField(max_length=500, blank=True, help_text='URL path where error occurred')
+    method = models.CharField(max_length=10, blank=True, help_text='HTTP method (GET, POST, etc.)')
+    user = models.CharField(max_length=150, blank=True, help_text='Username if authenticated')
+    ip_address = models.GenericIPAddressField(blank=True, null=True, help_text='Client IP address')
+    user_agent = models.TextField(blank=True, help_text='Browser user agent')
+    exception_type = models.CharField(max_length=200, blank=True, help_text='Exception class name')
+    traceback = models.TextField(blank=True, help_text='Full error traceback')
+    resolved = models.BooleanField(default=False, help_text='Mark as resolved')
+    resolved_at = models.DateTimeField(blank=True, null=True)
+    resolved_by = models.CharField(max_length=150, blank=True)
+    notes = models.TextField(blank=True, help_text='Admin notes about this error')
+
+    class Meta:
+        verbose_name = 'Error Log'
+        verbose_name_plural = 'Error Logs'
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['-timestamp']),
+            models.Index(fields=['severity']),
+            models.Index(fields=['resolved']),
+        ]
+
+    def __str__(self):
+        return f"[{self.severity}] {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')} - {self.message[:50]}"
+
+    def mark_resolved(self, user):
+        """Mark error as resolved"""
+        from django.utils import timezone
+        self.resolved = True
+        self.resolved_at = timezone.now()
+        self.resolved_by = user.username if hasattr(user, 'username') else str(user)
+        self.save()
+
