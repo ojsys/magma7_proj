@@ -580,18 +580,7 @@ h6 {
 }
 
 .pricing .featured::before {
-  content: 'MOST POPULAR';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary-gradient);
-  color: white;
-  padding: 8px 24px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  content: none; /* Remove homepage 'Most Popular' ribbon */
 }
 
 /* Notifications */
@@ -897,17 +886,7 @@ h6 {
 }
 
 .pricing .featured::before {
-  content: 'MOST POPULAR';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent-gold);
-  color: white;
-  padding: 8px 24px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  content: none; /* Remove homepage 'Most Popular' ribbon */
 }
 
 /* Responsive Design */
@@ -1946,19 +1925,7 @@ h6 {
 }
 
 .pricing .card.featured::before {
-  content: 'MOST POPULAR';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
-  color: white;
-  padding: 8px 24px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  content: none; /* Remove homepage 'Most Popular' ribbon */
 }
 
 /* Testimonial Cards */
