@@ -4,7 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Magma7Fitness - Professional Gym Management{% endblock %}</title>
+  <title>{% block title %}{{ site_settings.brand_name|default:"Magma7Fitness" }} - Professional Gym Management{% endblock %}</title>
+
+  <!-- Favicon -->
+  {% if site_settings.get_favicon_url %}
+  <link rel="icon" type="image/x-icon" href="{{ site_settings.get_favicon_url }}">
+  {% endif %}
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +22,19 @@
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
   <!-- Meta -->
-  <meta name="description" content="Professional gym membership management system - Join Magma7Fitness today">
+  <meta name="description" content="Professional gym membership management system - Join {{ site_settings.brand_name|default:'Magma7Fitness' }} today">
   <meta name="theme-color" content="#ff5a5a">
  </head>
 <body>
   <nav class="nav-elevated" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">Magma7Fitness</a>
+      <a id="logo-container" href="/" class="brand-logo" style="height: 100px; padding: 0; display: flex; align-items: center; margin-top: -15px;">
+        {% if site_settings.get_logo_url %}
+          <img src="{{ site_settings.get_logo_url }}" alt="{{ site_settings.brand_name|default:'Magma7Fitness' }}" style="height: 100px; max-width: 500px; object-fit: contain;">
+        {% else %}
+          {{ site_settings.brand_name|default:"Magma7Fitness" }}
+        {% endif %}
+      </a>
       <ul class="right hide-on-med-and-down">
         <li><a class="nav-link" href="/about/">About</a></li>
         <li><a class="nav-link" href="/facilities/">Facilities</a></li>

@@ -6,5 +6,7 @@ app_name = 'cms'
 urlpatterns = [
     path('testimonials/', views.testimonials, name='testimonials'),
     path('testimonials/submit/', views.submit_testimonial, name='submit_testimonial'),
+    path('admin/bulk-upload/', views.bulk_upload_media, name='bulk_upload_media'),
+    path('admin/ajax-upload/', views.ajax_upload_media, name='ajax_upload_media'),
 ]
 

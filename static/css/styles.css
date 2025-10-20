@@ -88,13 +88,16 @@ h6 {
   box-shadow: var(--shadow-sm);
   border-bottom: 1px solid var(--border-color);
   padding: 0;
-  height: 80px;
-  line-height: 80px;
+  height: 120px;
+  line-height: 120px;
 }
 
 .nav-wrapper {
   padding: 0 40px;
   position: relative;
+  display: flex;
+  align-items: center;
+  height: 120px;
 }
 
 .brand-logo {
@@ -102,7 +105,17 @@ h6 {
   font-size: 1.8rem !important;
   color: var(--primary-green) !important;
   letter-spacing: -0.5px;
-  line-height: 80px;
+  line-height: 120px;
+}
+
+.nav-wrapper ul {
+  line-height: 120px !important;
+  height: 120px !important;
+}
+
+.nav-wrapper ul li {
+  line-height: 120px !important;
+  height: 120px !important;
 }
 
 .nav-link {
@@ -113,7 +126,7 @@ h6 {
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   padding: 0 20px !important;
-  line-height: 80px;
+  line-height: 120px !important;
 }
 
 .nav-link:hover {
@@ -126,13 +139,13 @@ h6 {
   display: none;
   margin: 0;
   padding: 0;
-  line-height: 80px;
-  height: 80px;
+  line-height: 120px;
+  height: 120px;
 }
 
 .sidenav-trigger i {
-  line-height: 80px;
-  height: 80px;
+  line-height: 120px;
+  height: 120px;
   font-size: 40px;
   transition: all 0.3s ease;
   display: block;

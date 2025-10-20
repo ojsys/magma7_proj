@@ -1,0 +1,502 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Bulk Upload Media{% endblock %}
+
+{% block extrastyle %}
+<style>
+    .upload-container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .upload-header {
+        margin-bottom: 30px;
+    }
+
+    .upload-header h1 {
+        font-size: 28px;
+        margin: 0 0 10px 0;
+        font-weight: 400;
+        color: #2e3436;
+    }
+
+    .upload-header p {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .drop-zone {
+        border: 3px dashed #b4b9be;
+        border-radius: 8px;
+        padding: 60px 20px;
+        text-align: center;
+        background: #fafafa;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+        border-color: #2271b1;
+        background: #f0f6fc;
+    }
+
+    .drop-zone-icon {
+        font-size: 48px;
+        color: #b4b9be;
+        margin-bottom: 10px;
+    }
+
+    .drop-zone-text {
+        font-size: 16px;
+        color: #646970;
+        margin-bottom: 10px;
+    }
+
+    .drop-zone-subtext {
+        font-size: 13px;
+        color: #969696;
+    }
+
+    .file-input-label {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #2271b1;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 10px;
+        transition: background 0.2s;
+    }
+
+    .file-input-label:hover {
+        background: #135e96;
+    }
+
+    #fileInput {
+        display: none;
+    }
+
+    .upload-progress {
+        display: none;
+        margin-top: 30px;
+    }
+
+    .progress-bar-container {
+        width: 100%;
+        height: 30px;
+        background: #f0f0f1;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: #2271b1;
+        width: 0%;
+        transition: width 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .upload-status {
+        font-size: 14px;
+        color: #646970;
+        margin-bottom: 20px;
+    }
+
+    .file-list {
+        margin-top: 30px;
+    }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        background: white;
+        border: 1px solid #dcdcde;
+        border-radius: 4px;
+        margin-bottom: 8px;
+    }
+
+    .file-item.success {
+        border-left: 4px solid #00a32a;
+    }
+
+    .file-item.error {
+        border-left: 4px solid #d63638;
+    }
+
+    .file-item-icon {
+        font-size: 24px;
+        margin-right: 12px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f1;
+        border-radius: 4px;
+    }
+
+    .file-item-info {
+        flex: 1;
+    }
+
+    .file-item-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #2c3338;
+        margin-bottom: 2px;
+    }
+
+    .file-item-details {
+        font-size: 12px;
+        color: #969696;
+    }
+
+    .file-item-status {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 3px;
+        font-weight: 500;
+    }
+
+    .file-item-status.success {
+        background: #d7f7e4;
+        color: #00783c;
+    }
+
+    .file-item-status.error {
+        background: #ffd7d7;
+        color: #8a1c1c;
+    }
+
+    .actions-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-top: 1px solid #dcdcde;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1px solid;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: #2271b1;
+        color: white;
+        border-color: #2271b1;
+    }
+
+    .btn-primary:hover {
+        background: #135e96;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #2c3338;
+        border-color: #2c3338;
+    }
+
+    .btn-secondary:hover {
+        background: #f0f0f1;
+    }
+
+    .summary {
+        display: none;
+        background: #f0f6fc;
+        padding: 20px;
+        border-radius: 4px;
+        border-left: 4px solid #2271b1;
+        margin-bottom: 20px;
+    }
+
+    .summary h3 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        color: #2c3338;
+    }
+
+    .summary-stats {
+        display: flex;
+        gap: 30px;
+        font-size: 14px;
+        color: #646970;
+    }
+
+    .summary-stat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .summary-stat strong {
+        font-size: 20px;
+        color: #2c3338;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <div class="upload-header">
+        <h1>📤 Bulk Upload Media</h1>
+        <p>Upload multiple images, videos, and documents at once. Drag and drop files or click to browse.</p>
+    </div>
+
+    <div class="summary" id="uploadSummary">
+        <h3>Upload Complete</h3>
+        <div class="summary-stats">
+            <div class="summary-stat">
+                <strong id="totalUploaded">0</strong>
+                <span>files uploaded successfully</span>
+            </div>
+            <div class="summary-stat" id="failedStat" style="display: none;">
+                <strong id="totalFailed">0</strong>
+                <span>files failed</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="drop-zone" id="dropZone">
+        <div class="drop-zone-icon">☁️</div>
+        <div class="drop-zone-text">Drop files here to upload</div>
+        <div class="drop-zone-subtext">or</div>
+        <label for="fileInput" class="file-input-label">Select Files</label>
+        <input type="file" id="fileInput" multiple accept="image/*,video/*,.pdf,.ico">
+        <div class="drop-zone-subtext" style="margin-top: 15px;">
+            Supported: JPG, PNG, GIF, SVG, WebP, MP4, WebM, PDF, ICO
+        </div>
+    </div>
+
+    <div class="upload-progress" id="uploadProgress">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        <div class="upload-status" id="uploadStatus">Preparing upload...</div>
+    </div>
+
+    <div class="file-list" id="fileList"></div>
+
+    <div class="actions-bar">
+        <a href="{% url 'admin:cms_mediaasset_changelist' %}" class="btn btn-secondary">
+            ← Back to Media Library
+        </a>
+        <button type="button" class="btn btn-primary" id="uploadAnother" style="display: none;">
+            Upload More Files
+        </button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressBar = document.getElementById('progressBar');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadSummary = document.getElementById('uploadSummary');
+    const uploadAnother = document.getElementById('uploadAnother');
+
+    let selectedFiles = [];
+
+    // Drag and drop handlers
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+    });
+
+    // File input handler
+    fileInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        handleFiles(files);
+    });
+
+    // Upload another button
+    uploadAnother.addEventListener('click', () => {
+        selectedFiles = [];
+        fileList.innerHTML = '';
+        uploadSummary.style.display = 'none';
+        uploadProgress.style.display = 'none';
+        uploadAnother.style.display = 'none';
+        dropZone.style.display = 'block';
+        fileInput.value = '';
+    });
+
+    function handleFiles(files) {
+        if (files.length === 0) return;
+
+        selectedFiles = files;
+        dropZone.style.display = 'none';
+        uploadProgress.style.display = 'block';
+        uploadStatus.textContent = `Preparing to upload ${files.length} file(s)...`;
+
+        // Start upload
+        uploadFiles(files);
+    }
+
+    async function uploadFiles(files) {
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('files', file);
+        });
+
+        try {
+            progressBar.style.width = '10%';
+            progressBar.textContent = '10%';
+            uploadStatus.textContent = 'Uploading files...';
+
+            const response = await fetch('{% url "cms:ajax_upload_media" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            });
+
+            progressBar.style.width = '90%';
+            progressBar.textContent = '90%';
+
+            const result = await response.json();
+
+            progressBar.style.width = '100%';
+            progressBar.textContent = '100%';
+            uploadStatus.textContent = 'Processing complete!';
+
+            // Show results
+            displayResults(result);
+
+        } catch (error) {
+            uploadStatus.textContent = 'Upload failed: ' + error.message;
+            uploadStatus.style.color = '#d63638';
+        }
+    }
+
+    function displayResults(result) {
+        uploadSummary.style.display = 'block';
+        document.getElementById('totalUploaded').textContent = result.total;
+
+        if (result.failed > 0) {
+            document.getElementById('failedStat').style.display = 'flex';
+            document.getElementById('totalFailed').textContent = result.failed;
+        }
+
+        fileList.innerHTML = '';
+
+        // Display successful uploads
+        result.uploaded.forEach(file => {
+            const fileItem = createFileItem(
+                file.title,
+                `${file.asset_type} • ${formatFileSize(file.file_size)}${file.dimensions ? ' • ' + file.dimensions : ''}`,
+                'success',
+                '✓ Uploaded',
+                file.url
+            );
+            fileList.appendChild(fileItem);
+        });
+
+        // Display errors
+        result.errors.forEach(error => {
+            const fileItem = createFileItem(
+                error.filename,
+                error.error,
+                'error',
+                '✗ Failed'
+            );
+            fileList.appendChild(fileItem);
+        });
+
+        uploadAnother.style.display = 'inline-block';
+    }
+
+    function createFileItem(name, details, status, statusText, url = null) {
+        const item = document.createElement('div');
+        item.className = `file-item ${status}`;
+
+        const icon = getFileIcon(name);
+
+        item.innerHTML = `
+            <div class="file-item-icon">${icon}</div>
+            <div class="file-item-info">
+                <div class="file-item-name">${name}</div>
+                <div class="file-item-details">${details}</div>
+                ${url ? `<div class="file-item-details" style="margin-top: 5px;"><a href="${url}" target="_blank" style="color: #2271b1;">View file</a> • <a href="/admin/cms/mediaasset/?q=${encodeURIComponent(name)}" style="color: #2271b1;">Edit in admin</a></div>` : ''}
+            </div>
+            <div class="file-item-status ${status}">${statusText}</div>
+        `;
+
+        return item;
+    }
+
+    function getFileIcon(filename) {
+        const ext = filename.toLowerCase().split('.').pop();
+        const icons = {
+            'jpg': '🖼️', 'jpeg': '🖼️', 'png': '🖼️', 'gif': '🖼️', 'webp': '🖼️', 'svg': '🎨',
+            'mp4': '🎬', 'webm': '🎬',
+            'pdf': '📄',
+            'ico': '⭐'
+        };
+        return icons[ext] || '📎';
+    }
+
+    function formatFileSize(bytes) {
+        if (!bytes) return '—';
+        const units = ['B', 'KB', 'MB', 'GB'];
+        let size = bytes;
+        let unitIndex = 0;
+        while (size >= 1024 && unitIndex < units.length - 1) {
+            size /= 1024;
+            unitIndex++;
+        }
+        return size.toFixed(1) + ' ' + units[unitIndex];
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+{% endblock %}

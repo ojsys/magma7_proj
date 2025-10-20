@@ -1,9 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Avg
 from django.shortcuts import redirect, render
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
-from .models import Testimonial
+from .models import Testimonial, MediaAsset
 
 
 def testimonials(request):
@@ -26,4 +29,74 @@ def submit_testimonial(request):
             return redirect('cms:testimonials')
         messages.error(request, 'Please provide a quote and rating.')
     return render(request, 'cms/submit_testimonial.html')
+
+
+@staff_member_required
+def bulk_upload_media(request):
+    """Bulk upload interface for media assets - WordPress style"""
+    if request.method == 'GET':
+        return render(request, 'admin/cms/mediaasset/bulk_upload.html', {
+            'title': 'Bulk Upload Media',
+            'site_title': 'Magma7 Fitness',
+            'site_header': 'Magma7 Admin',
+        })
+    return redirect('admin:cms_mediaasset_changelist')
+
+
+@staff_member_required
+@require_POST
+def ajax_upload_media(request):
+    """Handle AJAX file upload for bulk uploads"""
+    if not request.FILES.getlist('files'):
+        return JsonResponse({'error': 'No files provided'}, status=400)
+
+    uploaded_files = []
+    errors = []
+
+    for uploaded_file in request.FILES.getlist('files'):
+        try:
+            # Auto-detect asset type
+            file_ext = uploaded_file.name.lower().split('.')[-1]
+            if file_ext in ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp']:
+                asset_type = 'image'
+            elif file_ext in ['mp4', 'webm']:
+                asset_type = 'video'
+            elif file_ext in ['pdf']:
+                asset_type = 'document'
+            else:
+                asset_type = 'other'
+
+            # Create MediaAsset
+            media_asset = MediaAsset(
+                title=uploaded_file.name,
+                file=uploaded_file,
+                asset_type=asset_type,
+                uploaded_by=request.user
+            )
+
+            # Save to trigger file size/dimension detection
+            media_asset.save()
+
+            uploaded_files.append({
+                'id': media_asset.id,
+                'title': media_asset.title,
+                'url': media_asset.get_absolute_url(),
+                'asset_type': media_asset.asset_type,
+                'file_size': media_asset.file_size,
+                'dimensions': f"{media_asset.width}×{media_asset.height}" if media_asset.width else None
+            })
+
+        except Exception as e:
+            errors.append({
+                'filename': uploaded_file.name,
+                'error': str(e)
+            })
+
+    return JsonResponse({
+        'success': True,
+        'uploaded': uploaded_files,
+        'errors': errors,
+        'total': len(uploaded_files),
+        'failed': len(errors)
+    })
 
