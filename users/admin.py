@@ -18,7 +18,9 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined')
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')
-    date_hierarchy = 'date_joined'
+    # Disable date_hierarchy to avoid MySQL timezone table requirement on cPanel
+    # date_hierarchy = 'date_joined'
+    ordering = ('-date_joined',)
     actions = ['export_users_csv', 'export_users_with_subscriptions_csv']
 
     def export_users_csv(self, request, queryset):
@@ -124,4 +126,3 @@ try:
 except admin.sites.NotRegistered:
     pass
 admin.site.register(User, CustomUserAdmin)
-
