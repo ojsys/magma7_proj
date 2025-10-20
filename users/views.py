@@ -1,6 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout as auth_logout
 from django.shortcuts import redirect, render
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from .forms import SignupForm
 
@@ -19,3 +20,12 @@ def signup(request):
         form = SignupForm()
     return render(request, 'registration/signup.html', {"form": form})
 
+
+def logout_view(request):
+    """Log the user out and redirect to home (or safe 'next')."""
+    next_url = request.GET.get('next') or request.POST.get('next')
+    auth_logout(request)
+    messages.success(request, 'You have been logged out.')
+    if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+        return redirect(next_url)
+    return redirect('core:home')

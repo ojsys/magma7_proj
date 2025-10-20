@@ -10,8 +10,9 @@ urlpatterns = [
     path('notifications/', include('notifications.urls', namespace='notifications')),
     path('payments/', include('payments.urls', namespace='payments')),
     path('cms/', include('cms.urls', namespace='cms')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    # Put users URLs before auth to allow our custom logout to take precedence
     path('accounts/', include('users.urls', namespace='users')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # Serve media files in development
