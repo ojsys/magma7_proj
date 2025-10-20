@@ -382,11 +382,6 @@
       {% for plan in plans %}
         <div class="pricing-card {% if plan.is_featured %}featured{% endif %}">
 
-          <!-- Featured Badge -->
-          {% if plan.is_featured %}
-            <div class="pricing-badge">Most Popular</div>
-          {% endif %}
-
           <!-- Plan Image -->
           {% if plan.image_url %}
             <div class="pricing-image">
