@@ -4,6 +4,27 @@ from django.http import HttpResponse
 from .models import Plan, Subscription, PlanFeature, WorkoutLog, WeeklyGoal, WorkoutSession
 
 
+def _to_bool(value):
+    """Coerce various truthy/falsey representations to a Python bool.
+    Handles strings like '0'/'1', 'true'/'false', numbers, and actual booleans.
+    """
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        s = value.strip().lower()
+        if s in {"1", "true", "t", "yes", "y", "on"}:
+            return True
+        if s in {"0", "false", "f", "no", "n", "off", ""}:
+            return False
+        # Fallback for unexpected strings
+        return bool(s)
+    return bool(value)
+
+
 def export_to_csv(modeladmin, request, queryset, fields, filename):
     """
     Generic CSV export function for admin actions
@@ -41,11 +62,26 @@ class PlanFeatureInline(admin.TabularInline):
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ("name", "price", "price_period", "duration_days", "is_featured", "is_active")
+    list_display = ("name", "price", "price_period", "duration_days", "is_featured_icon", "is_active_icon")
     list_filter = ("is_active", "is_featured")
     search_fields = ("name",)
     fields = ("name", "description", "price", "price_period", "duration_days", "is_active", "is_featured", "image_url")
     inlines = [PlanFeatureInline]
+
+    # Defensive boolean display to avoid KeyError when DB stores '0'/'1' strings
+    def is_featured_icon(self, obj):
+        return _to_bool(getattr(obj, "is_featured", False))
+
+    is_featured_icon.boolean = True
+    is_featured_icon.short_description = "Featured"
+    is_featured_icon.admin_order_field = "is_featured"
+
+    def is_active_icon(self, obj):
+        return _to_bool(getattr(obj, "is_active", False))
+
+    is_active_icon.boolean = True
+    is_active_icon.short_description = "Active"
+    is_active_icon.admin_order_field = "is_active"
 
 
 @admin.register(Subscription)
@@ -152,12 +188,19 @@ class WorkoutLogAdmin(admin.ModelAdmin):
 
 @admin.register(WeeklyGoal)
 class WeeklyGoalAdmin(admin.ModelAdmin):
-    list_display = ("user", "goal_type", "target_value", "week_start", "is_active", "created_at")
+    list_display = ("user", "goal_type", "target_value", "week_start", "is_active_icon", "created_at")
     list_filter = ("goal_type", "is_active", "week_start")
     search_fields = ("user__username", "user__email")
     date_hierarchy = "week_start"
     readonly_fields = ("created_at",)
     actions = ['export_weekly_goals_csv']
+
+    def is_active_icon(self, obj):
+        return _to_bool(getattr(obj, "is_active", False))
+
+    is_active_icon.boolean = True
+    is_active_icon.short_description = "Active"
+    is_active_icon.admin_order_field = "is_active"
 
     def export_weekly_goals_csv(self, request, queryset):
         """Export selected weekly goals to CSV"""
