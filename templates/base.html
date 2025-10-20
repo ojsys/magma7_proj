@@ -84,13 +84,27 @@
   </nav>
 
   {% if messages %}
-    <div class="container" style="margin-top: 16px;">
-      {% for message in messages %}
-        <div class="card-panel {{ message.tags }} deep-orange lighten-5 deep-orange-text text-darken-4">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        function msgClass(tags) {
+          try {
+            if (!tags) return 'grey darken-3';
+            if (tags.indexOf('success') !== -1) return 'teal darken-1';
+            if (tags.indexOf('error') !== -1) return 'red darken-2';
+            if (tags.indexOf('warning') !== -1) return 'amber darken-2 black-text';
+            if (tags.indexOf('info') !== -1) return 'blue darken-1';
+          } catch (e) {}
+          return 'grey darken-3';
+        }
+        {% for message in messages %}
+          M.toast({
+            html: '{{ message|escapejs }}',
+            classes: 'rounded ' + msgClass('{{ message.tags|escapejs }}'),
+            displayLength: 4000
+          });
+        {% endfor %}
+      });
+    </script>
   {% endif %}
 
   <main>
