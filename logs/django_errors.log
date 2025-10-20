@@ -1,0 +1,1222 @@
+ERROR 2025-10-20 00:58:09,336 exception Invalid HTTP_HOST header: 'magma7fitness.com'. You may need to add 'magma7fitness.com' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'magma7fitness.com'. You may need to add 'magma7fitness.com' to ALLOWED_HOSTS.
+ERROR 2025-10-20 01:28:50,644 exception Invalid HTTP_HOST header: 'mail.magma7fitness.com'. You may need to add 'mail.magma7fitness.com' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mail.magma7fitness.com'. You may need to add 'mail.magma7fitness.com' to ALLOWED_HOSTS.
+ERROR 2025-10-20 10:52:09,072 log Internal Server Error: /admin/cms/heroslide/
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/base.py", line 45, in render
+    return super().render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/library.py", line 258, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 346, in result_list
+    "results": list(results(cl)),
+               ^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 319, in results
+    yield ResultList(form, items_for_result(cl, res, form))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 313, in __init__
+    super().__init__(*items)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 243, in items_for_result
+    result_repr = display_for_field(value, f, empty_value_display)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 444, in display_for_field
+    return _boolean_icon(value)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 183, in _boolean_icon
+    "admin/img/icon-%s.svg" % {True: "yes", False: "no", None: "unknown"}[field_val]
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: '1'
+ERROR 2025-10-20 13:59:16,217 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 13:59:17,683 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:03:12,353 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:26:35,157 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:35,164 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:26:38,496 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:38,497 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:26:41,740 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:41,748 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:26:47,063 middleware Failed to log 404 error: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:53,962 middleware Failed to log 404 error: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:54,235 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:26:54,235 log Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 169, in render
+    with context.bind_template(self):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/alt/python312/lib64/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/context.py", line 256, in bind_template
+    context = processor(self.request)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/cms/context_processors.py", line 8, in site_settings
+    settings = SiteSettings.objects.get(pk=1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:40:54,706 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:40:54,707 log Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 169, in render
+    with context.bind_template(self):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/alt/python312/lib64/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/context.py", line 256, in bind_template
+    context = processor(self.request)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/cms/context_processors.py", line 8, in site_settings
+    settings = SiteSettings.objects.get(pk=1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:40:58,094 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:40:58,094 log Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/base.py", line 169, in render
+    with context.bind_template(self):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/alt/python312/lib64/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/template/context.py", line 256, in bind_template
+    context = processor(self.request)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/cms/context_processors.py", line 8, in site_settings
+    settings = SiteSettings.objects.get(pk=1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:41:04,590 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:41:04,598 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 14:56:43,688 middleware Failed to log error to database: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
+ERROR 2025-10-20 14:56:43,696 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/magma7_proj/core/views.py", line 12, in home
+    settings_obj = SiteSettings.objects.first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 825, in _read_query_result
+    result.read()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/home/magmafit/virtualenv/magma7_proj/3.12/lib/python3.12/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.OperationalError: (1054, "Unknown column 'cms_sitesettings.logo' in 'SELECT'")
+ERROR 2025-10-20 15:02:26,812 middleware Failed to log 404 error: (1146, "Table 'magmafit_db.cms_errorlog' doesn't exist")
