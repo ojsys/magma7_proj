@@ -1,6 +1,40 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% block title %}Membership Plans • Magma7Fitness{% endblock %}
+
+<style>
+/* Fix for featured card overlay issue on production */
+.card.featured {
+    background: var(--card-bg) !important;
+    position: relative !important;
+}
+
+.card.featured::before,
+.card.featured::after {
+    display: none !important;
+}
+
+.card.featured .card-content {
+    background: transparent !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Ensure all text is visible */
+.card h4,
+.card .card-title,
+.card .card-title a,
+.card span,
+.card p {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.pricing .card {
+    background: var(--card-bg) !important;
+}
+</style>
+
 {% block content %}
 
 <!-- Hero Section -->
