@@ -163,6 +163,7 @@ h6 {
   background-color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 280px;
+  z-index: 9999 !important;
 }
 
 .sidenav li > a {
