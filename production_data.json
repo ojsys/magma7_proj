@@ -1,0 +1,569 @@
+[
+{
+  "model": "cms.sitesettings",
+  "pk": 1,
+  "fields": {
+    "brand_name": "Magma7Fitness",
+    "tagline": "Healthy body, healthy mind",
+    "logo": "branding/magma7_logo_igcLjPg.png",
+    "logo_url": "",
+    "favicon": "branding/magma7_logo_3woK2xE.png",
+    "favicon_url": "",
+    "phone": "+234 000 000 0000",
+    "email": "info@magma7fitness.com",
+    "address": "No. 30 Zakaria Maimalari Street, Nasfat Layout, Kaduna",
+    "hero_headline": "Get Healthy Body with the Perfect Exercises",
+    "hero_subtext": "We are here to help you make a healthy body and mind through fitness.",
+    "hero_cta_text": "Get Started",
+    "hero_cta_url": "/memberships/plans/",
+    "hero_image_url": "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?q=80&w=1400&auto=format&fit=crop",
+    "free_guide_text": "Download Free",
+    "free_guide_url": "https://example.com/free-fitness-guide.pdf",
+    "free_guide_title": "Complete Fitness Transformation Guide",
+    "free_guide_description": "A comprehensive 30-page guide covering workout routines, nutrition tips, and goal-setting strategies for beginners to advanced fitness enthusiasts.",
+    "cta_headline": "Ready to Start?",
+    "cta_description": "Join thousands of satisfied members who have transformed their lives at Magma7Fitness",
+    "cta_image_url": "",
+    "cta_primary_text": "Sign Up Today",
+    "cta_primary_url": "/accounts/signup/",
+    "cta_secondary_text": "Learn More",
+    "cta_secondary_url": "/about/",
+    "primary_color": "#0b6e4f",
+    "accent_color": "#d4af37",
+    "light_color": "#ffffff",
+    "dark_bg": "#121416",
+    "card_bg": "#1d1f21"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 1,
+  "fields": {
+    "title": "Modern Gym Equipment",
+    "image": "",
+    "image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop",
+    "is_active": true,
+    "order": 5,
+    "created_at": "2025-10-16T11:35:35Z",
+    "updated_at": "2025-10-20T20:05:39Z"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 2,
+  "fields": {
+    "title": "Personal Training Session",
+    "image": "hero_slides/_MG_5942.jpg",
+    "image_url": "https://magma7fitness.com/media/hero_slides/_MG_5942.jpg",
+    "is_active": true,
+    "order": 3,
+    "created_at": "2025-10-16T11:35:35Z",
+    "updated_at": "2025-10-20T20:05:39Z"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 3,
+  "fields": {
+    "title": "Group Fitness Class",
+    "image": "hero_slides/_MG_6167.jpg",
+    "image_url": "https://magma7fitness.com/media/hero_slides/_MG_6167.jpg",
+    "is_active": true,
+    "order": 2,
+    "created_at": "2025-10-16T11:35:35Z",
+    "updated_at": "2025-10-20T20:02:40Z"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 4,
+  "fields": {
+    "title": "Soccer Training",
+    "image": "hero_slides/_MG_5712.jpg",
+    "image_url": "https://magma7fitness.com/media/hero_slides/_MG_5712.jpg",
+    "is_active": true,
+    "order": 4,
+    "created_at": "2025-10-16T11:35:35Z",
+    "updated_at": "2025-10-20T20:13:51Z"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 5,
+  "fields": {
+    "title": "Weight Training",
+    "image": "hero_slides/_MG_5760.jpg",
+    "image_url": "https://magma7fitness.com/media/hero_slides/_MG_5760.jpg",
+    "is_active": true,
+    "order": 0,
+    "created_at": "2025-10-16T11:35:35Z",
+    "updated_at": "2025-10-20T20:05:39Z"
+  }
+},
+{
+  "model": "cms.heroslide",
+  "pk": 6,
+  "fields": {
+    "title": "Strength",
+    "image": "hero_slides/_MG_5759_1.jpg",
+    "image_url": "https://magma7fitness.com/media/hero_slides/_MG_5759_1.jpg",
+    "is_active": true,
+    "order": 1,
+    "created_at": "2025-10-20T19:59:22Z",
+    "updated_at": "2025-10-20T20:01:00Z"
+  }
+},
+{
+  "model": "cms.program",
+  "pk": 1,
+  "fields": {
+    "title": "Strength Training",
+    "description": "Programs to gain strength",
+    "icon": "fitness_center",
+    "order": 1
+  }
+},
+{
+  "model": "cms.program",
+  "pk": 2,
+  "fields": {
+    "title": "Basic Yoga",
+    "description": "Combine yoga with cardio",
+    "icon": "self_improvement",
+    "order": 2
+  }
+},
+{
+  "model": "cms.program",
+  "pk": 3,
+  "fields": {
+    "title": "Body Building",
+    "description": "Increase muscle mass and strength",
+    "icon": "sports_mma",
+    "order": 3
+  }
+},
+{
+  "model": "cms.program",
+  "pk": 4,
+  "fields": {
+    "title": "Weight Loss",
+    "description": "Sustainable lifestyle changes",
+    "icon": "monitor_weight",
+    "order": 4
+  }
+},
+{
+  "model": "cms.service",
+  "pk": 1,
+  "fields": {
+    "title": "Personal Training",
+    "description": "Personalized plan and progress tracking",
+    "order": 1
+  }
+},
+{
+  "model": "cms.service",
+  "pk": 2,
+  "fields": {
+    "title": "Expert Trainers",
+    "description": "Certified, skilled trainers to guide you",
+    "order": 2
+  }
+},
+{
+  "model": "cms.service",
+  "pk": 3,
+  "fields": {
+    "title": "Flexible Time",
+    "description": "Off-peak sessions and flexible hours",
+    "order": 3
+  }
+},
+{
+  "model": "cms.testimonial",
+  "pk": 1,
+  "fields": {
+    "name": "Happy Member",
+    "role": "",
+    "rating": 5,
+    "quote": "Great environment and trainers. I reached my goals!",
+    "avatar_url": "",
+    "is_approved": true,
+    "created_at": "2025-10-03T11:21:52Z"
+  }
+},
+{
+  "model": "cms.testimonial",
+  "pk": 2,
+  "fields": {
+    "name": "Farhan Rio",
+    "role": "",
+    "rating": 5,
+    "quote": "Trainers are amazing and push me to be my best.",
+    "avatar_url": "",
+    "is_approved": true,
+    "created_at": "2025-10-03T11:21:52Z"
+  }
+},
+{
+  "model": "cms.mediaasset",
+  "pk": 1,
+  "fields": {
+    "title": "Gym",
+    "description": "",
+    "file": "media_assets/2025/10/_MG_5718.jpg",
+    "asset_type": "image",
+    "usage": "general",
+    "alt_text": "",
+    "file_size": 101137,
+    "width": 900,
+    "height": 600,
+    "uploaded_by": 1,
+    "created_at": "2025-10-20T22:12:57.530Z",
+    "updated_at": "2025-10-20T22:12:57.530Z",
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutpage",
+  "pk": 1,
+  "fields": {
+    "hero_title": "About Magma7Fitness",
+    "hero_subtitle": "More than just a gym - we're a community dedicated to transforming lives through fitness, wellness, and support.",
+    "hero_image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200",
+    "story_title": "Our Story",
+    "story_content": "Magma7 Fitness Center was founded with a simple yet powerful vision: to create a space where everyone, regardless of their fitness level, could feel welcome and supported in their health journey.\n\nLocated in the heart of Kaduna at No. 30 Zakaria Maimalari Street, Nasfat Layout, we've grown from a small local gym into a thriving fitness community. Our state-of-the-art facility boasts premium equipment for strength training, cardio, and functional fitness.\n\nWhat sets us apart isn't just our equipment - it's our people. Our certified trainers and supportive community members create an environment where you can push your limits while feeling completely at home.",
+    "story_image_url": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800",
+    "mission_title": "Our Mission",
+    "mission_content": "To empower individuals to lead healthy and active lifestyles by providing a welcoming and inclusive environment that offers a range of fitness and wellness services.",
+    "mission_icon": "track_changes",
+    "vision_title": "Our Vision",
+    "vision_content": "To be the leading fitness center in Kaduna, known for providing exceptional facilities and services that enable our members to achieve their health and fitness goals.",
+    "vision_icon": "visibility",
+    "why_choose_title": "Why Choose Magma7Fitness",
+    "why_choose_description": "We offer more than just a place to work out - we provide a complete fitness ecosystem designed for your success.",
+    "gallery_title": "Our World-Class Facility",
+    "gallery_description": "Take a virtual tour of our state-of-the-art gym and see why members love training with us.",
+    "cta_title": "Ready to Transform Your Life?",
+    "cta_description": "Join thousands of satisfied members who have achieved their fitness goals with us",
+    "cta_button_text": "Start Your Journey",
+    "cta_button_url": "/memberships/plans/",
+    "cta_image_url": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200",
+    "updated_at": "2025-10-13T23:25:58Z"
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 1,
+  "fields": {
+    "title": "Health & Wellness",
+    "description": "We prioritize the health and wellness of our members and aim to promote healthy lifestyles through our services and facilities.",
+    "icon": "favorite",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 2,
+  "fields": {
+    "title": "Inclusivity",
+    "description": "We believe in creating an inclusive environment that welcomes individuals from all backgrounds and fitness levels.",
+    "icon": "diversity_3",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 3,
+  "fields": {
+    "title": "Excellence",
+    "description": "We strive for excellence in everything we do, from the quality of our equipment and facilities to the professionalism of our staff.",
+    "icon": "star",
+    "order": 3,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 4,
+  "fields": {
+    "title": "Community",
+    "description": "We foster a sense of community among our members and staff, promoting mutual support and encouragement.",
+    "icon": "groups",
+    "order": 4,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 5,
+  "fields": {
+    "title": "Innovation",
+    "description": "We embrace innovation in our approach to fitness and wellness, constantly seeking new and effective ways to help our members achieve their goals.",
+    "icon": "lightbulb",
+    "order": 5,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.corevalue",
+  "pk": 6,
+  "fields": {
+    "title": "Integrity",
+    "description": "We operate with honesty, transparency, and accountability in all our interactions with members and partners.",
+    "icon": "verified",
+    "order": 6,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 1,
+  "fields": {
+    "title": "Expert Trainers",
+    "description": "Our certified personal trainers are dedicated to providing personalized support and guidance throughout your fitness journey.",
+    "icon": "school",
+    "image_url": "",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 2,
+  "fields": {
+    "title": "State-of-the-Art Equipment",
+    "description": "Access premium cardio and strength training equipment from leading brands, maintained to the highest standards.",
+    "icon": "fitness_center",
+    "image_url": "",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 3,
+  "fields": {
+    "title": "Diverse Class Options",
+    "description": "From yoga and Pilates to Zumba and kickboxing, we offer group fitness classes for all interests and levels.",
+    "icon": "sports_gymnastics",
+    "image_url": "",
+    "order": 3,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 4,
+  "fields": {
+    "title": "Flexible Membership",
+    "description": "Choose from a variety of membership plans designed to fit your schedule and budget.",
+    "icon": "calendar_today",
+    "image_url": "",
+    "order": 4,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 5,
+  "fields": {
+    "title": "Women-Only Studio",
+    "description": "We provide a private, comfortable space for women who prefer a more intimate workout environment.",
+    "icon": "woman",
+    "image_url": "",
+    "order": 5,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.whychooseusitem",
+  "pk": 6,
+  "fields": {
+    "title": "Nutrition Support",
+    "description": "Healthy juice bar and nutritional guidance to complement your fitness routine and accelerate results.",
+    "icon": "restaurant",
+    "image_url": "",
+    "order": 6,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 1,
+  "fields": {
+    "title": "Cardio Zone",
+    "image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600",
+    "description": "Premium treadmills, ellipticals, and bikes",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 2,
+  "fields": {
+    "title": "Weight Training Area",
+    "image_url": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600",
+    "description": "Complete range of free weights and machines",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 3,
+  "fields": {
+    "title": "Group Fitness Studio",
+    "image_url": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600",
+    "description": "Spacious studio for classes and training",
+    "order": 3,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 4,
+  "fields": {
+    "title": "Functional Training Zone",
+    "image_url": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600",
+    "description": "Dedicated space for functional fitness",
+    "order": 4,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 5,
+  "fields": {
+    "title": "Yoga & Pilates Studio",
+    "image_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600",
+    "description": "Peaceful space for mind-body workouts",
+    "order": 5,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutgalleryimage",
+  "pk": 6,
+  "fields": {
+    "title": "Juice Bar",
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600",
+    "description": "Healthy refreshments and snacks",
+    "order": 6,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutstatistic",
+  "pk": 1,
+  "fields": {
+    "label": "Active Members",
+    "value": "5,000+",
+    "icon": "people",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutstatistic",
+  "pk": 2,
+  "fields": {
+    "label": "Expert Trainers",
+    "value": "25+",
+    "icon": "school",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutstatistic",
+  "pk": 3,
+  "fields": {
+    "label": "Years of Excellence",
+    "value": "10+",
+    "icon": "emoji_events",
+    "order": 3,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.aboutstatistic",
+  "pk": 4,
+  "fields": {
+    "label": "Success Stories",
+    "value": "2,500+",
+    "icon": "trending_up",
+    "order": 4,
+    "is_active": true
+  }
+},
+{
+  "model": "cms.facility",
+  "pk": 1,
+  "fields": {
+    "name": "Gym",
+    "description": "Our Gym",
+    "icon": "fitness_center",
+    "image_url": "https://magma7fitness.com/media/media_assets/2025/10/_MG_5718.jpg",
+    "features": "",
+    "order": 1,
+    "is_active": true,
+    "is_featured": false
+  }
+},
+{
+  "model": "cms.richpage",
+  "pk": 1,
+  "fields": {
+    "slug": "about",
+    "title": "About Us",
+    "body": "Magma7 Fitness Center is more than just a gym. We are a community dedicated to promoting a healthy and active lifestyle for everyone. Our center is located in the heart of Kaduna at No. 30 Zakaria Maimalari Street, Nasfat Layout, and is open to people of all ages and fitness levels."
+  }
+},
+{
+  "model": "memberships.plan",
+  "pk": 1,
+  "fields": {
+    "name": "Monthly",
+    "description": "30-day access to all facilities and classes.",
+    "price": "25000.00",
+    "duration_days": 30,
+    "is_active": true,
+    "price_period": "Per Month",
+    "is_featured": true,
+    "image_url": ""
+  }
+},
+{
+  "model": "memberships.plan",
+  "pk": 2,
+  "fields": {
+    "name": "Quarterly",
+    "description": "90-day access at a discounted rate.",
+    "price": "65000.00",
+    "duration_days": 90,
+    "is_active": true,
+    "price_period": "Per Quarter",
+    "is_featured": true,
+    "image_url": ""
+  }
+},
+{
+  "model": "memberships.plan",
+  "pk": 3,
+  "fields": {
+    "name": "Annual",
+    "description": "365-day full access with best value.",
+    "price": "250000.00",
+    "duration_days": 365,
+    "is_active": true,
+    "price_period": "Per Year",
+    "is_featured": true,
+    "image_url": ""
+  }
+}
+]
