@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from .models import (
     MediaAsset, HeroSlide, SiteSettings, Program, Service, Partner, Testimonial, RichPage,
     AboutPage, CoreValue, WhyChooseUsItem, AboutGalleryImage, AboutStatistic,
-    Facility, TeamMember, FacilitiesPage, TeamPage, ErrorLog
+    Facility, TeamMember, FacilitiesPage, TeamPage, HomeGalleryImage, ErrorLog
 )
 
 
@@ -335,6 +335,46 @@ class AboutStatisticAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_editable = ("order", "is_active")
     list_filter = ("is_active",)
     search_fields = ("label", "value")
+
+
+@admin.register(HomeGalleryImage)
+class HomeGalleryImageAdmin(admin.ModelAdmin):
+    list_display = ("title", "image_preview", "order", "is_active")
+    list_editable = ("order", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("title", "description")
+    readonly_fields = ("image_preview_large",)
+    fieldsets = (
+        ('Image', {
+            'fields': ('image_url', 'image_preview_large'),
+            'description': 'Copy image URL from Media Center or provide external URL'
+        }),
+        ('Details', {
+            'fields': ('title', 'description')
+        }),
+        ('Display', {
+            'fields': ('order', 'is_active'),
+            'description': 'Control display order and visibility'
+        }),
+    )
+
+    def image_preview(self, obj):
+        if obj.image_url:
+            return format_html(
+                '<img src="{}" style="width: 100px; height: 60px; object-fit: cover; border-radius: 4px;" />',
+                obj.image_url
+            )
+        return '—'
+    image_preview.short_description = 'Preview'
+
+    def image_preview_large(self, obj):
+        if obj.image_url:
+            return format_html(
+                '<img src="{}" style="max-width: 600px; max-height: 400px; border: 1px solid #ddd; padding: 5px;" />',
+                obj.image_url
+            )
+        return 'No image URL provided yet'
+    image_preview_large.short_description = 'Image Preview'
 
 
 @admin.register(Facility)

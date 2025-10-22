@@ -2,7 +2,7 @@ from django.shortcuts import render
 from cms.models import (
     HeroSlide, SiteSettings, Program, Service, Partner, Testimonial,
     AboutPage, CoreValue, WhyChooseUsItem, AboutGalleryImage, AboutStatistic,
-    Facility, TeamMember, FacilitiesPage, TeamPage
+    Facility, TeamMember, FacilitiesPage, TeamPage, HomeGalleryImage
 )
 from memberships.models import Plan
 from django.db.models import Avg
@@ -17,6 +17,7 @@ def home(request):
     avg_rating = testimonials.aggregate(avg=Avg('rating'))['avg'] or 0
     plans = Plan.objects.filter(is_active=True).order_by('price')[:3]  # Get up to 3 active plans
     hero_slides = HeroSlide.objects.filter(is_active=True).order_by('order')
+    gallery_images = HomeGalleryImage.objects.filter(is_active=True).order_by('order')[:8]  # Get up to 8 gallery images
     ctx = {
         'site_settings': settings_obj,
         'programs': programs,
@@ -26,6 +27,7 @@ def home(request):
         'avg_rating': round(avg_rating, 1),
         'plans': plans,
         'hero_slides': hero_slides,
+        'gallery_images': gallery_images,
     }
     return render(request, 'core/home.html', ctx)
 

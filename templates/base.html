@@ -84,24 +84,52 @@
   </nav>
 
   {% if messages %}
+    <style>
+      /* Fallback toast styles for dev environments without Materialize JS */
+      .toast-fallback-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+      .toast-fallback { color: #fff; padding: 12px 16px; border-radius: 6px; box-shadow: 0 6px 16px rgba(0,0,0,0.2); font-weight: 600; letter-spacing: .2px; }
+      .toast-fallback.success { background: #00695c; }
+      .toast-fallback.error { background: #b71c1c; }
+      .toast-fallback.warning { background: #ff8f00; color: #000; }
+      .toast-fallback.info { background: #0d47a1; }
+      .toast-fallback.default { background: #424242; }
+    </style>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        function msgClass(tags) {
+        function tagKey(tags) {
           try {
-            if (!tags) return 'grey darken-3';
-            if (tags.indexOf('success') !== -1) return 'teal darken-1';
-            if (tags.indexOf('error') !== -1) return 'red darken-2';
-            if (tags.indexOf('warning') !== -1) return 'amber darken-2 black-text';
-            if (tags.indexOf('info') !== -1) return 'blue darken-1';
+            if (!tags) return 'default';
+            if (tags.indexOf('success') !== -1) return 'success';
+            if (tags.indexOf('error') !== -1) return 'error';
+            if (tags.indexOf('warning') !== -1) return 'warning';
+            if (tags.indexOf('info') !== -1) return 'info';
           } catch (e) {}
-          return 'grey darken-3';
+          return 'default';
         }
+
+        var hasMaterialize = (typeof window.M !== 'undefined' && typeof window.M.toast === 'function');
         {% for message in messages %}
-          M.toast({
-            html: '{{ message|escapejs }}',
-            classes: 'rounded ' + msgClass('{{ message.tags|escapejs }}'),
-            displayLength: 4000
-          });
+          (function(msg, tags){
+            if (hasMaterialize) {
+              var clsMap = { success: 'teal darken-1', error: 'red darken-2', warning: 'amber darken-2 black-text', info: 'blue darken-1', default: 'grey darken-3' };
+              var key = tagKey(tags);
+              M.toast({ html: msg, classes: 'rounded ' + (clsMap[key] || clsMap.default), displayLength: 4000 });
+            } else {
+              var key = tagKey(tags);
+              var box = document.createElement('div');
+              box.className = 'toast-fallback ' + key;
+              box.textContent = msg;
+              var host = document.getElementById('toast-fallback-host');
+              if (!host) {
+                host = document.createElement('div');
+                host.id = 'toast-fallback-host';
+                host.className = 'toast-fallback-container';
+                document.body.appendChild(host);
+              }
+              host.appendChild(box);
+              setTimeout(function(){ if (box && box.parentNode) { box.parentNode.removeChild(box); } }, 4000);
+            }
+          })('{{ message|escapejs }}', '{{ message.tags|escapejs }}');
         {% endfor %}
       });
     </script>

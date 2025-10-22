@@ -121,7 +121,50 @@
     </div>
   </section>
 
-  <section class="section pricing section-bg">
+  <!-- Facility Gallery Section -->
+  {% if gallery_images %}
+  <section class="section section-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center" style="margin-bottom: 60px;">
+          <h2>Our State-of-the-Art Facility</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem;">
+            Explore our premium fitness center equipped with the latest equipment and amenities
+          </p>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="facility-gallery">
+        {% for img in gallery_images %}
+          <div class="gallery-item" data-title="{{ img.title }}" data-description="{{ img.description }}">
+            <img src="{{ img.image_url }}" alt="{{ img.title }}" loading="lazy">
+            <div class="gallery-overlay">
+              <div class="gallery-content">
+                <h4>{{ img.title }}</h4>
+                {% if img.description %}
+                  <p>{{ img.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- View All Button -->
+      <div class="row" style="margin-top: 40px;">
+        <div class="col s12 center">
+          <a href="/facilities/" class="btn btn-primary waves-effect waves-light" style="display: inline-flex; align-items: center; gap: 8px;">
+            <i class="material-icons">explore</i>
+            Explore All Facilities
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section pricing section-white">
     <div class="container">
       <div class="row">
         <div class="col s12 center" style="margin-bottom: 60px;">

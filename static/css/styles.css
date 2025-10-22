@@ -2021,3 +2021,103 @@ h6 {
 .card:hover img {
   transform: scale(1.05);
 }
+
+/* ============================================
+   Facility Gallery Section
+   ============================================ */
+.facility-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(11, 110, 79, 0.95) 0%, rgba(11, 110, 79, 0.7) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 25px;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-content {
+  color: white;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-content {
+  transform: translateY(0);
+}
+
+.gallery-content h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.gallery-content p {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.4;
+}
+
+/* Responsive Gallery */
+@media only screen and (max-width: 768px) {
+  .facility-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .gallery-content h4 {
+    font-size: 1.1rem;
+  }
+
+  .gallery-content p {
+    font-size: 0.85rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .facility-gallery {
+    grid-template-columns: 1fr;
+  }
+}

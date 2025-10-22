@@ -454,6 +454,23 @@ class TeamPage(models.Model):
         return 'Team Page Content'
 
 
+class HomeGalleryImage(models.Model):
+    """Gallery images for homepage facility showcase"""
+    title = models.CharField(max_length=150, help_text='Image title/caption')
+    image_url = models.URLField(help_text='Image URL (from Media Center or external)')
+    description = models.TextField(blank=True, help_text='Optional description shown on hover')
+    order = models.PositiveIntegerField(default=0, help_text='Display order (lower numbers first)')
+    is_active = models.BooleanField(default=True, help_text='Show this image in the gallery')
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = 'Home Gallery Image'
+        verbose_name_plural = 'Home Gallery Images'
+
+    def __str__(self):
+        return self.title
+
+
 class ErrorLog(models.Model):
     """Store application errors for admin viewing"""
     SEVERITY_CHOICES = (
