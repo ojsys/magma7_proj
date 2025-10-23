@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from .models import Testimonial, MediaAsset, HomeGalleryImage
+from .models import Testimonial, MediaAsset, HomeGalleryImage, ErrorLog
 
 
 def testimonials(request):
@@ -48,6 +48,21 @@ def bulk_upload_media(request):
 def ajax_upload_media(request):
     """Handle AJAX file upload for bulk uploads"""
     if not request.FILES.getlist('files'):
+        # Log a warning for diagnostics
+        try:
+            ErrorLog.objects.create(
+                severity='WARNING',
+                message='Bulk upload (media) called with no files',
+                path=request.path,
+                method=request.method,
+                user=getattr(request.user, 'username', ''),
+                ip_address=request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0] or request.META.get('REMOTE_ADDR', ''),
+                user_agent=request.META.get('HTTP_USER_AGENT', ''),
+                exception_type='',
+                traceback=''
+            )
+        except Exception:
+            pass
         return JsonResponse({'error': 'No files provided'}, status=400)
 
     uploaded_files = []
@@ -87,10 +102,23 @@ def ajax_upload_media(request):
             })
 
         except Exception as e:
-            errors.append({
-                'filename': uploaded_file.name,
-                'error': str(e)
-            })
+            errors.append({'filename': uploaded_file.name, 'error': str(e)})
+            # Server-side diagnostic logging
+            try:
+                import traceback as _tb
+                ErrorLog.objects.create(
+                    severity='ERROR',
+                    message=f"Bulk upload (media) failed for {uploaded_file.name}: {e}",
+                    path=request.path,
+                    method=request.method,
+                    user=getattr(request.user, 'username', ''),
+                    ip_address=request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0] or request.META.get('REMOTE_ADDR', ''),
+                    user_agent=request.META.get('HTTP_USER_AGENT', ''),
+                    exception_type=type(e).__name__,
+                    traceback=_tb.format_exc(),
+                )
+            except Exception:
+                pass
 
     return JsonResponse({
         'success': True,
@@ -117,6 +145,20 @@ def ajax_upload_home_gallery(request):
     """Upload files and create HomeGalleryImage records automatically."""
     files = request.FILES.getlist('files')
     if not files:
+        try:
+            ErrorLog.objects.create(
+                severity='WARNING',
+                message='Bulk upload (home gallery) called with no files',
+                path=request.path,
+                method=request.method,
+                user=getattr(request.user, 'username', ''),
+                ip_address=request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0] or request.META.get('REMOTE_ADDR', ''),
+                user_agent=request.META.get('HTTP_USER_AGENT', ''),
+                exception_type='',
+                traceback=''
+            )
+        except Exception:
+            pass
         return JsonResponse({'error': 'No files provided'}, status=400)
 
     uploaded = []
@@ -170,6 +212,21 @@ def ajax_upload_home_gallery(request):
             })
         except Exception as e:
             errors.append({'filename': f.name, 'error': str(e)})
+            try:
+                import traceback as _tb
+                ErrorLog.objects.create(
+                    severity='ERROR',
+                    message=f"Bulk upload (home gallery) failed for {f.name}: {e}",
+                    path=request.path,
+                    method=request.method,
+                    user=getattr(request.user, 'username', ''),
+                    ip_address=request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0] or request.META.get('REMOTE_ADDR', ''),
+                    user_agent=request.META.get('HTTP_USER_AGENT', ''),
+                    exception_type=type(e).__name__,
+                    traceback=_tb.format_exc(),
+                )
+            except Exception:
+                pass
 
     return JsonResponse({
         'success': True,

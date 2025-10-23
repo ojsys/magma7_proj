@@ -214,48 +214,68 @@
 <section class="section" style="padding: 80px 0; background: var(--light-bg);">
   <div class="container">
     <div style="text-align: center; margin-bottom: 60px;">
-      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; text-transform: uppercase;">All Facilities</h2>
-      <p style="color: var(--text-secondary); font-size: 1.2rem;">Complete range of amenities for your fitness journey</p>
+      <h2 style="font-size: 3rem; font-weight: 900; color: var(--text-primary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px;">All Facilities</h2>
+      <p style="color: var(--text-secondary); font-size: 1.1rem; opacity:.9;">Explore our modern spaces and equipment</p>
     </div>
 
-    <div class="row" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+    <style>
+      .facility-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 26px; }
+      .facility-card-modern { position:relative; border-radius:16px; overflow:hidden; background: #ffffff; border: 1px solid rgba(2, 6, 23, 0.06); box-shadow: 0 10px 30px rgba(2,6,23,.08); transition: transform .35s ease, box-shadow .35s ease; }
+      .facility-card-modern:hover { transform: translateY(-8px); box-shadow: 0 20px 55px rgba(2,6,23,.12); }
+      .facility-media { position:relative; height: 240px; overflow:hidden; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); }
+      .facility-media img { width:100%; height:100%; object-fit:cover; transform: scale(1); transition: transform .6s ease; display:block; }
+      .facility-card-modern:hover .facility-media img { transform: scale(1.08); }
+      .facility-accent { position:absolute; inset:0; background: radial-gradient(80% 60% at 10% 10%, rgba(255,255,255,.08), transparent 60%), linear-gradient(180deg, transparent 45%, rgba(0,0,0,.8)); pointer-events:none; }
+      .facility-name { position:absolute; left:14px; right:14px; bottom:14px; color:#fff; font-weight:900; font-size:1.15rem; letter-spacing:.3px; text-shadow: 0 8px 26px rgba(0,0,0,.6); display:flex; align-items:center; gap:8px; }
+      .facility-name .chip { background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:#fff; font-size:.7rem; padding:6px 10px; border-radius: 999px; font-weight:800; letter-spacing:.4px; }
+      .facility-body { padding: 16px 16px 18px; }
+      .facility-desc { color: var(--text-secondary); font-size: .98rem; line-height: 1.75; margin: 0; }
+      .facility-actions { margin-top: 12px; display:flex; align-items:center; justify-content: space-between; }
+      .facility-actions .readmore { display:inline-flex; align-items:center; gap:8px; color: var(--primary-green); text-decoration:none; font-weight:800; }
+      .facility-tags { margin-top: 14px; display:flex; flex-wrap:wrap; gap:8px; }
+      .facility-tag { background: #f8fafc; color:#475569; border:1px solid #e2e8f0; border-radius: 999px; padding: 6px 10px; font-size:.78rem; font-weight:700; }
+      @media (max-width: 600px) { .facility-media { height: 200px; } }
+    </style>
+
+    <div class="facility-grid">
       {% for facility in facilities %}
-      <div class="col s12 m6 l4" style="display:flex;">
-        <article class="facility-card hoverable" style="width:100%; border-radius:12px; overflow:hidden; background:#fff; box-shadow: var(--shadow-md); display:flex; flex-direction:column;">
-          <div style="position:relative; height: 240px;">
+        <article class="facility-card-modern">
+          <div class="facility-media">
             {% if facility.image_url %}
-              <img src="{{ facility.image_url }}" alt="{{ facility.name }}" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <img src="{{ facility.image_url }}" alt="{{ facility.name }}">
             {% else %}
-              <div style="position:absolute; inset:0; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); display:flex; align-items:center; justify-content:center;">
-                <i class="material-icons" style="font-size: 3rem; color:#fff; opacity:.9;">{{ facility.icon }}</i>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff;">
+                <i class="material-icons" style="font-size: 3rem; opacity:.9;">{{ facility.icon }}</i>
               </div>
             {% endif %}
-            <div style="position:absolute; left:0; right:0; bottom:0; padding:14px 16px; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%);">
-              <h3 style="margin:0; color:#fff; font-weight:900; font-size:1.2rem; letter-spacing:.2px;">{{ facility.name }}</h3>
+            <div class="facility-accent"></div>
+            <div class="facility-name">
+              <span>{{ facility.name }}</span>
+              {% if facility.is_featured %}<span class="chip">FEATURED</span>{% endif %}
             </div>
           </div>
-          <div style="padding:18px 16px;">
-            <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.75; margin: 0;">
-              {{ facility.description|default:""|truncatewords:50 }}
-            </p>
-            {% if facility.description %}
-              <div style="display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:12px;">
-                <a href="#" class="facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none; color: var(--primary-green); font-weight:700;">
-                  <i class="material-icons" style="font-size: 1.2rem;">read_more</i>
-                  <span>Read more</span>
+          <div class="facility-body">
+            <p class="facility-desc">{{ facility.description|default:""|truncatewords:50 }}</p>
+            <div class="facility-actions">
+              {% if facility.get_features_list %}
+                <div></div>
+              {% endif %}
+              {% if facility.description %}
+                <a href="#" class="readmore facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}">
+                  <i class="material-icons" style="font-size: 1.2rem;">unfold_more</i>
+                  Read more
                 </a>
-              </div>
-            {% endif %}
+              {% endif %}
+            </div>
             {% if facility.get_features_list %}
-              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;">
+              <div class="facility-tags">
                 {% for feat in facility.get_features_list|slice:":4" %}
-                  <span style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; border-radius:999px; padding:6px 10px; font-size:.8rem;">{{ feat }}</span>
+                  <span class="facility-tag">{{ feat }}</span>
                 {% endfor %}
               </div>
             {% endif %}
           </div>
         </article>
-      </div>
       {% endfor %}
     </div>
   </div>

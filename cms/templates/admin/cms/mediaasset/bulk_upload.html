@@ -259,6 +259,8 @@
 
 {% block content %}
 <div class="upload-container">
+    <!-- Inline CSRF token for robust AJAX (works with HttpOnly cookies) -->
+    <form id="csrfForm" style="display:none;">{% csrf_token %}</form>
     <div class="upload-header">
         <h1>📤 Bulk Upload Media</h1>
         <p>Upload multiple images, videos, and documents at once. Drag and drop files or click to browse.</p>
@@ -367,6 +369,11 @@ document.addEventListener('DOMContentLoaded', function() {
         uploadFiles(files);
     }
 
+    function getCSRF(){
+        const el = document.querySelector('#csrfForm input[name="csrfmiddlewaretoken"]');
+        return el ? el.value : null;
+    }
+
     async function uploadFiles(files) {
         const formData = new FormData();
         files.forEach(file => {
@@ -382,13 +389,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken')
-                }
+                    'X-CSRFToken': getCSRF(),
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
             });
 
             progressBar.style.width = '90%';
             progressBar.textContent = '90%';
 
+            const ct = response.headers.get('content-type') || '';
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error('HTTP ' + response.status + ' ' + response.statusText + (text ? ' - ' + text.slice(0,200) : ''));
+            }
+            if (!ct.includes('application/json')) {
+                const text = await response.text();
+                throw new Error('Unexpected response (not JSON): ' + text.slice(0,200));
+            }
             const result = await response.json();
 
             progressBar.style.width = '100%';
@@ -399,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
             displayResults(result);
 
         } catch (error) {
-            uploadStatus.textContent = 'Upload failed: ' + error.message;
+            uploadStatus.textContent = 'Upload failed: ' + (error && error.message ? error.message : error);
             uploadStatus.style.color = '#d63638';
         }
     }
@@ -483,20 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return size.toFixed(1) + ' ' + units[unitIndex];
     }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+    // Removed cookie-based CSRF getter; using inline token instead
 });
 </script>
 {% endblock %}
