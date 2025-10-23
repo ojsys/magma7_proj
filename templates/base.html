@@ -26,60 +26,80 @@
   <meta name="theme-color" content="#ff5a5a">
  </head>
 <body>
-  <nav class="nav-elevated" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo" style="height: 100px; padding: 0; display: flex; align-items: center; margin-top: -15px;">
+  <!-- Navigation -->
+  <nav class="navbar-main">
+    <div class="navbar-container">
+      <!-- Logo -->
+      <a href="/" class="navbar-logo">
         {% if site_settings.get_logo_url %}
-          <img src="{{ site_settings.get_logo_url }}" alt="{{ site_settings.brand_name|default:'Magma7Fitness' }}" style="height: 100px; max-width: 500px; object-fit: contain;">
+          <img src="{{ site_settings.get_logo_url }}" alt="{{ site_settings.brand_name|default:'Magma7Fitness' }}" class="logo-img">
+          <span class="logo-text">{{ site_settings.brand_name|default:"Magma7Fitness" }}</span>
         {% else %}
-          {{ site_settings.brand_name|default:"Magma7Fitness" }}
+          <span class="logo-text">{{ site_settings.brand_name|default:"Magma7Fitness" }}</span>
         {% endif %}
       </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="nav-link" href="/about/">About</a></li>
-        <li><a class="nav-link" href="/facilities/">Facilities</a></li>
-        <li><a class="nav-link" href="/team/">Team</a></li>
-        <li><a class="nav-link" href="/cms/testimonials/">Testimonials</a></li>
-        <li><a class="btn btn-ghost" href="/memberships/plans/">Membership</a></li>
-        {% if user.is_authenticated %}
-          <li><a class="nav-link" href="/memberships/dashboard/">Dashboard</a></li>
-          <li>
-            <a href="/notifications/" class="notif-bell">
+
+      <!-- Desktop Navigation -->
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          <li><a href="/about/" class="nav-item">About</a></li>
+          <li><a href="/facilities/" class="nav-item">Facilities</a></li>
+          <li><a href="/team/" class="nav-item">Team</a></li>
+          <li><a href="/cms/testimonials/" class="nav-item">Testimonials</a></li>
+          <li><a href="/memberships/plans/" class="nav-item nav-item-highlight">Membership</a></li>
+        </ul>
+
+        <!-- Auth Section -->
+        <div class="navbar-auth">
+          {% if user.is_authenticated %}
+            <a href="/notifications/" class="nav-notification">
               <i class="material-icons">notifications</i>
               {% if unread_notifications_count %}
-                <span class="notif-dot"></span>
+                <span class="notification-badge">{{ unread_notifications_count }}</span>
               {% endif %}
             </a>
-          </li>
-          <li><a class="btn btn-outline" href="/accounts/logout/">Logout</a></li>
-        {% else %}
-          <li><a class="nav-link" href="/accounts/login/">Login</a></li>
-          <li><a href="/accounts/signup/" class="btn btn-primary" style="margin-left:8px">Join</a></li>
-        {% endif %}
-      </ul>
+            <a href="/memberships/dashboard/" class="nav-item">Dashboard</a>
+            <a href="/accounts/logout/" class="btn btn-outline-nav">Logout</a>
+          {% else %}
+            <a href="/accounts/login/" class="nav-item">Login</a>
+            <a href="/accounts/signup/" class="btn btn-primary-nav">Join Now</a>
+          {% endif %}
+        </div>
+      </div>
 
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="/about/">About</a></li>
-        <li><a href="/facilities/">Facilities</a></li>
-        <li><a href="/team/">Team</a></li>
-        <li><a href="/cms/testimonials/">Testimonials</a></li>
-        <li><a href="/memberships/plans/">Membership Plans</a></li>
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-content">
+        <a href="/about/" class="mobile-nav-item">About</a>
+        <a href="/facilities/" class="mobile-nav-item">Facilities</a>
+        <a href="/team/" class="mobile-nav-item">Team</a>
+        <a href="/cms/testimonials/" class="mobile-nav-item">Testimonials</a>
+        <a href="/memberships/plans/" class="mobile-nav-item">Membership Plans</a>
+
         {% if user.is_authenticated %}
-          <li><a href="/memberships/dashboard/">Dashboard</a></li>
-          <li>
-            <a href="/notifications/">Notifications
-              {% if unread_notifications_count %}
-                <span class="badge">{{ unread_notifications_count }}</span>
-              {% endif %}
-            </a>
-          </li>
-          <li><a href="/accounts/logout/">Logout</a></li>
+          <div class="mobile-divider"></div>
+          <a href="/notifications/" class="mobile-nav-item">
+            Notifications
+            {% if unread_notifications_count %}
+              <span class="mobile-badge">{{ unread_notifications_count }}</span>
+            {% endif %}
+          </a>
+          <a href="/memberships/dashboard/" class="mobile-nav-item">Dashboard</a>
+          <a href="/accounts/logout/" class="mobile-nav-item">Logout</a>
         {% else %}
-          <li><a href="/accounts/login/">Login</a></li>
-          <li><a href="/accounts/signup/">Join Now</a></li>
+          <div class="mobile-divider"></div>
+          <a href="/accounts/login/" class="mobile-nav-item">Login</a>
+          <a href="/accounts/signup/" class="mobile-nav-item mobile-nav-cta">Join Now</a>
         {% endif %}
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
     </div>
   </nav>
 
@@ -230,9 +250,50 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.sidenav');
-      M.Sidenav.init(elems);
+      // Set year
       document.getElementById('year').innerText = new Date().getFullYear();
+
+      // Mobile Menu Toggle
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const body = document.body;
+
+      if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+          body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', function(e) {
+          if (e.target === this) {
+            mobileMenuToggle.classList.remove('active');
+            this.classList.remove('active');
+            body.style.overflow = '';
+          }
+        });
+
+        // Close menu when clicking on menu items
+        const mobileNavItems = mobileMenu.querySelectorAll('.mobile-nav-item');
+        mobileNavItems.forEach(item => {
+          item.addEventListener('click', function() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            body.style.overflow = '';
+          });
+        });
+
+        // Close menu on window resize
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 1024) {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            body.style.overflow = '';
+          }
+        });
+      }
     });
   </script>
   <!-- Hero Slider Script -->

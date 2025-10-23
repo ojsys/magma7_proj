@@ -1,6 +1,20 @@
 # Import Production Data to Local SQLite
 
-## Quick Method (Recommended)
+## Quick Start (Use the Script!)
+
+```bash
+# 1. Make sure production_data.json is in project root
+# 2. Run the safe import script:
+bash import_production_safe.sh
+```
+
+**Default admin login after import:**
+- Username: `admin`
+- Password: `admin123`
+
+---
+
+## Manual Method (If You Prefer)
 
 The easiest way to import production data is to use Django's management commands on the production server, then load locally.
 
