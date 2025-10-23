@@ -169,15 +169,14 @@
     <div class="row" style="display: flex; align-items: center; gap: 60px;">
       {% if about_page.story_image_url %}
       <div class="col s12 m6" style="order: 1;">
-        <img src="{{ about_page.story_image_url }}" alt="{{ about_page.story_title }}"
-             style="width: 100%; height: 500px; object-fit: cover; border-radius: 0; box-shadow: var(--shadow-lg);">
+        <img src="{{ about_page.story_image_url }}" alt="{{ about_page.story_title }}" class="story-img">
       </div>
       {% endif %}
       <div class="col s12 {% if about_page.story_image_url %}m6{% else %}m12{% endif %}" style="order: 2;">
-        <h2 style="font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin-bottom: 30px; text-transform: uppercase;">
+        <h2 class="story-title" style="font-size: 2.8rem; font-weight: 800; color: var(--text-primary); margin-bottom: 30px; text-transform: uppercase;">
           {{ about_page.story_title|default:"Our Story" }}
         </h2>
-        <div style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.8;">
+        <div class="story-text" style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.8;">
           {{ about_page.story_content|linebreaks }}
         </div>
       </div>
@@ -185,6 +184,44 @@
   </div>
 </section>
 {% endif %}
+
+<style>
+/* Our Story mobile responsiveness */
+@media only screen and (max-width: 992px) {
+  #story .row { gap: 30px !important; }
+}
+@media only screen and (max-width: 600px) {
+  #story .row { gap: 18px !important; }
+}
+
+#story .story-img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+}
+@media only screen and (max-width: 992px) {
+  #story .story-img { height: 340px; border-radius: 10px; }
+}
+@media only screen and (max-width: 600px) {
+  #story .story-img { height: 220px; border-radius: 10px; }
+}
+
+@media only screen and (max-width: 992px) {
+  #story .story-title { font-size: 2.2rem !important; }
+}
+@media only screen and (max-width: 600px) {
+  #story .story-title { font-size: 1.8rem !important; margin-bottom: 18px !important; }
+}
+
+@media only screen and (max-width: 992px) {
+  #story .story-text { font-size: 1.05rem !important; line-height: 1.75 !important; }
+}
+@media only screen and (max-width: 600px) {
+  #story .story-text { font-size: 0.98rem !important; line-height: 1.7 !important; }
+}
+</style>
 
 <!-- Mission & Vision Section -->
 <section class="section" style="padding: 80px 0; background: var(--section-bg);">
