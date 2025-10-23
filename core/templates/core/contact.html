@@ -21,10 +21,22 @@
 <!-- Contact Section (Materialize form) -->
 <section class="section" style="padding: 60px 0; background: var(--light-bg);">
   <div class="container">
+    <style>
+      /* Smaller prefix icons and tighter alignment for Materialize inputs */
+      .contact-form .input-field .prefix { font-size: 1.2rem; top: 0.8rem; }
+      .contact-form .input-field input,
+      .contact-form .input-field textarea { margin-left: 2.2rem; }
+      .contact-form .input-field label { left: 2.2rem; }
+      @media (max-width: 600px) {
+        .contact-form .input-field .prefix { top: 0.6rem; }
+      }
+      /* Smaller contact info icons; no circles */
+      .contact-info li i { font-size: 1rem !important; margin-right: 6px; background: transparent; vertical-align: middle; }
+    </style>
     <div class="row" style="display:flex; gap:30px;">
       <!-- Form -->
       <div class="col s12 m7" style="flex:1;">
-        <div class="card" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
+        <div class="card contact-form" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
           <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Send a Message</h3>
           <form method="post" novalidate>
             {% csrf_token %}
@@ -72,7 +84,7 @@
       <div class="col s12 m5" style="flex:1;">
         <div class="card" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
           <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Contact Info</h3>
-          <ul style="list-style:none; padding:0; margin:0; color:#475569; line-height:1.9;">
+          <ul class="contact-info" style="list-style:none; padding:0; margin:0; color:#475569; line-height:1.9;">
             {% if site_settings and site_settings.address %}
             <li><i class="material-icons tiny" style="color: var(--primary-green);">place</i> {{ site_settings.address }}</li>
             {% endif %}
@@ -87,6 +99,16 @@
             <a href="/facilities/" class="btn btn-outline waves-effect">Explore Facilities</a>
           </div>
         </div>
+        {% if site_settings and site_settings.address %}
+        <div class="card" style="border-radius: 14px; overflow:hidden; box-shadow: var(--shadow-md); margin-top: 18px;">
+          <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+            <iframe
+              src="https://www.google.com/maps?q={{ site_settings.address|urlencode }}&output=embed"
+              width="600" height="450" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;"
+              allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
