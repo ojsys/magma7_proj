@@ -3,24 +3,27 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 70vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0a3d2c 0%, var(--primary-dark) 100%); text-align: center; position: relative; overflow: hidden; padding: 120px 20px 80px;">
-  {% if facilities_page.hero_image_url %}
-  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; background: url('{{ facilities_page.hero_image_url }}') center/cover; background-attachment: fixed;"></div>
-  {% endif %}
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 120px 20px 80px;
+  {% if hero_bg_url %}
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('{{ hero_bg_url }}');
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+  {% else %}
+    background: linear-gradient(135deg, #0a3d2c 0%, var(--primary-dark) 100%);
+  {% endif %}">
 
-  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
     <div style="margin-bottom: 25px;">
       <span style="display: inline-block; background: rgba(255, 255, 255, 0.15); color: white; padding: 8px 25px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
         World-Class Amenities
       </span>
     </div>
 
-    <h1 style="font-size: 4rem; font-weight: 900; color: white; margin: 0 auto 1.5rem auto; text-transform: uppercase; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+    <h1 style="font-size: clamp(2.4rem, 4vw, 4rem); font-weight: 900; color: white; margin: 0 auto 1.5rem auto; text-transform: uppercase; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.4);">
       {{ facilities_page.hero_title|default:"Our World-Class Facilities" }}
     </h1>
 
     {% if facilities_page.hero_subtitle %}
-    <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.3rem; max-width: 800px; margin: 0 auto; line-height: 1.7;">
+    <p style="color: rgba(255, 255, 255, 0.95); font-size: clamp(1rem, 1.2vw, 1.3rem); max-width: 900px; margin: 0 auto; line-height: 1.7;">
       {{ facilities_page.hero_subtitle }}
     </p>
     {% endif %}

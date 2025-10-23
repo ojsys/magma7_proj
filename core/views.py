@@ -55,12 +55,27 @@ def facilities(request):
     featured_facilities = facilities.filter(is_featured=True)[:3]
     # Load all active home gallery images for full collage on facilities page
     gallery_images = HomeGalleryImage.objects.filter(is_active=True).order_by('order')
+    # Determine hero background: prefer explicit FacilitiesPage hero, else first gallery image
+    hero_bg_url = ''
+    # 1) Prefer an explicitly chosen HomeGalleryImage hero
+    hero_img = HomeGalleryImage.objects.filter(is_active=True, use_as_hero=True).order_by('order').first()
+    if hero_img:
+        hero_bg_url = hero_img.image_url
+    # 2) Else use FacilitiesPage hero if defined
+    elif facilities_page and getattr(facilities_page, 'hero_image_url', ''):
+        hero_bg_url = facilities_page.hero_image_url
+    # 3) Else fallback to first gallery image
+    else:
+        first_img = gallery_images.first()
+        if first_img:
+            hero_bg_url = first_img.image_url
 
     ctx = {
         'facilities_page': facilities_page,
         'facilities': facilities,
         'featured_facilities': featured_facilities,
         'gallery_images': gallery_images,
+        'hero_bg_url': hero_bg_url,
     }
     return render(request, 'core/facilities.html', ctx)
 

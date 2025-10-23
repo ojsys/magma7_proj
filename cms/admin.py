@@ -31,7 +31,7 @@ class SafeBooleanAdminMixin:
     isn't available (field not in list_editable) or when the user lacks change permission.
     """
 
-    boolean_fields = ("is_active", "is_featured", "is_approved")
+    boolean_fields = ("is_active", "is_featured", "is_approved", "use_as_hero")
 
     def get_list_display(self, request):
         cols = list(getattr(self, "list_display", ()))
@@ -73,6 +73,13 @@ class SafeBooleanAdminMixin:
     is_approved_icon.boolean = True
     is_approved_icon.short_description = "Approved"
     is_approved_icon.admin_order_field = "is_approved"
+
+    def use_as_hero_icon(self, obj):
+        return _to_bool(getattr(obj, "use_as_hero", False))
+
+    use_as_hero_icon.boolean = True
+    use_as_hero_icon.short_description = "Hero"
+    use_as_hero_icon.admin_order_field = "use_as_hero"
 
 @admin.register(MediaAsset)
 class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
@@ -357,18 +364,43 @@ class AboutGalleryImageAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
 
 @admin.register(HomeGalleryImage)
 class HomeGalleryImageAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
-    list_display = ("thumb", "title", "order", "is_active")
+    list_display = ("thumb", "title", "order", "use_as_hero", "is_active")
     list_editable = ("order", "is_active")
-    list_filter = ("is_active",)
+    list_filter = ("is_active", "use_as_hero")
     search_fields = ("title", "description")
     fields = ("title", "image_url", "description", "order", "is_active")
     change_list_template = 'admin/cms/homegalleryimage/change_list.html'
+
+    actions = ["set_as_hero", "clear_hero"]
 
     def thumb(self, obj):
         if obj.image_url:
             return format_html('<img src="{}" style="width:60px;height:40px;object-fit:cover;border-radius:4px"/>', obj.image_url)
         return '—'
     thumb.short_description = 'Preview'
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        # Ensure a single hero when toggled on
+        if getattr(obj, 'use_as_hero', False):
+            type(obj).objects.exclude(pk=obj.pk).update(use_as_hero=False)
+
+    def set_as_hero(self, request, queryset):
+        qs = queryset.order_by('order')
+        if qs.exists():
+            the_one = qs.first()
+            type(the_one).objects.update(use_as_hero=False)
+            the_one.use_as_hero = True
+            the_one.save(update_fields=["use_as_hero"])
+            self.message_user(request, f"'{the_one.title}' is now the Facilities hero image.")
+        else:
+            self.message_user(request, "No items selected.")
+    set_as_hero.short_description = "Set selected as Facilities hero (single)"
+
+    def clear_hero(self, request, queryset):
+        updated = queryset.update(use_as_hero=False)
+        self.message_user(request, f"Cleared hero flag on {updated} item(s).")
+    clear_hero.short_description = "Clear hero flag on selected"
 
 
 @admin.register(AboutStatistic)

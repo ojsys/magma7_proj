@@ -461,6 +461,7 @@ class HomeGalleryImage(models.Model):
     description = models.TextField(blank=True, help_text='Optional description shown on hover')
     order = models.PositiveIntegerField(default=0, help_text='Display order (lower numbers first)')
     is_active = models.BooleanField(default=True, help_text='Show this image in the gallery')
+    use_as_hero = models.BooleanField(default=False, help_text='Use this image as the Facilities page hero background')
 
     class Meta:
         ordering = ['order', 'id']
@@ -516,4 +517,3 @@ class ErrorLog(models.Model):
         self.resolved_at = timezone.now()
         self.resolved_by = user.username if hasattr(user, 'username') else str(user)
         self.save()
-
