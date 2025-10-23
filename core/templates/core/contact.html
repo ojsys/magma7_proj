@@ -3,9 +3,13 @@
 {% block title %}Contact Us • Magma7Fitness{% endblock %}
 {% block content %}
 
-<!-- Hero -->
-<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 100px 20px 60px; background: linear-gradient(135deg, #0b6e4f 0%, #064d39 100%);">
-  <div style="position:absolute; inset:0; opacity:.2; background: radial-gradient(60% 50% at 15% 10%, #fff, transparent 60%);"></div>
+<!-- Hero with image -->
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 100px 20px 60px;
+  {% if site_settings and site_settings.hero_image_url %}
+    background-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.55)), url('{{ site_settings.hero_image_url }}'); background-size: cover; background-position: center;
+  {% else %}
+    background-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.55)), url('https://images.unsplash.com/photo-1575320181282-c7d7118f6b97?q=80&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center;
+  {% endif %}">
   <div style="max-width: 900px; margin: 0 auto; position: relative; z-index: 1;">
     <h1 style="font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; color: white; margin: 0 auto 1rem auto; text-transform: uppercase; letter-spacing: .5px;">Get in Touch</h1>
     <p style="color: rgba(255,255,255,.95); font-size: clamp(1rem, 1.2vw, 1.2rem); max-width: 760px; margin: 0 auto; line-height: 1.8;">
@@ -14,7 +18,7 @@
   </div>
 </section>
 
-<!-- Contact Section -->
+<!-- Contact Section (Materialize form) -->
 <section class="section" style="padding: 60px 0; background: var(--light-bg);">
   <div class="container">
     <div class="row" style="display:flex; gap:30px;">
@@ -24,26 +28,35 @@
           <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Send a Message</h3>
           <form method="post" novalidate>
             {% csrf_token %}
-            <div class="row" style="display:flex; flex-wrap:wrap; gap:14px;">
-              <div style="flex:1; min-width:240px;">
-                <label for="id_name" style="font-weight:700; color:#334155;">Your Name</label>
-                {{ form.name|add_class:"browser-default" }}
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">person</i>
+                {{ form.name|add_class:"validate" }}
+                <label for="id_name" {% if form.name.value %}class="active"{% endif %}>Your Name</label>
+                {% for e in form.name.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
-              <div style="flex:1; min-width:240px;">
-                <label for="id_email" style="font-weight:700; color:#334155;">Email</label>
-                {{ form.email|add_class:"browser-default" }}
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">email</i>
+                {{ form.email|add_class:"validate" }}
+                <label for="id_email" {% if form.email.value %}class="active"{% endif %}>Email Address</label>
+                {% for e in form.email.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
-              <div style="flex:1 0 100%;">
-                <label for="id_subject" style="font-weight:700; color:#334155;">Subject</label>
-                {{ form.subject|add_class:"browser-default" }}
+              <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                {{ form.subject|add_class:"validate" }}
+                <label for="id_subject" {% if form.subject.value %}class="active"{% endif %}>Subject</label>
+                {% for e in form.subject.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
-              <div style="flex:1 0 100%;">
-                <label for="id_message" style="font-weight:700; color:#334155;">Message</label>
-                {{ form.message|add_class:"browser-default" }}
+              <div class="input-field col s12">
+                <i class="material-icons prefix">chat</i>
+                {{ form.message|add_class:"materialize-textarea" }}
+                <label for="id_message" {% if form.message.value %}class="active"{% endif %}>Message</label>
+                {% for e in form.message.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
-              <div style="flex:1; min-width:240px;">
-                <label for="id_phone" style="font-weight:700; color:#334155;">Phone (optional)</label>
-                {{ form.phone|add_class:"browser-default" }}
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">call</i>
+                {{ form.phone|add_class:"validate" }}
+                <label for="id_phone" {% if form.phone.value %}class="active"{% endif %}>Phone (optional)</label>
               </div>
               {{ form.website }}
             </div>
@@ -78,5 +91,11 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.M && M.updateTextFields) { M.updateTextFields(); }
+  });
+</script>
 
 {% endblock %}
