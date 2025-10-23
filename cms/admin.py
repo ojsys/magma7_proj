@@ -83,7 +83,7 @@ class SafeBooleanAdminMixin:
 
 @admin.register(MediaAsset)
 class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
-    list_display = ("thumbnail_preview", "title", "asset_type", "usage", "file_size_display", "dimensions_display", "created_at", "is_active")
+    list_display = ("thumbnail_preview", "title", "asset_type", "usage", "file_url_list", "file_size_display", "dimensions_display", "created_at", "is_active")
     list_filter = ("asset_type", "usage", "is_active", "created_at")
     search_fields = ("title", "description", "alt_text")
     list_editable = ("is_active",)
@@ -132,6 +132,18 @@ class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
             return format_html('<input type="text" value="{}" readonly style="width: 100%; padding: 8px; font-family: monospace;" onclick="this.select(); document.execCommand(\'copy\'); alert(\'URL copied to clipboard!\');" />', url)
         return '—'
     file_url_display.short_description = 'File URL (click to copy)'
+
+    def file_url_list(self, obj):
+        if obj.file:
+            url = obj.get_absolute_url()
+            return format_html(
+                '<input type="text" value="{}" readonly '
+                'style="width: 260px; padding: 4px 6px; font-family: monospace; font-size: 11px;" '
+                'onclick="this.select(); document.execCommand(\'copy\');" />',
+                url
+            )
+        return '—'
+    file_url_list.short_description = 'URL'
 
     def file_size_display(self, obj):
         if obj.file_size:
