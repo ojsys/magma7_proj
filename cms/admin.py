@@ -443,6 +443,14 @@ class FacilityAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_editable = ("order", "is_featured", "is_active")
     list_filter = ("is_featured", "is_active")
     search_fields = ("name", "description")
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('name', 'description', 'icon', 'image_url', 'features')
+        }),
+        ('Display', {
+            'fields': ('order', 'is_featured', 'is_active')
+        }),
+    )
 
 
 @admin.register(TeamMember)
