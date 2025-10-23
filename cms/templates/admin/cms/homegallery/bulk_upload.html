@@ -24,6 +24,9 @@
   <h1>Bulk Upload Home Gallery Images</h1>
   <p class="muted">Drag & drop images below or click to select files. Each uploaded image will be added to the Home Gallery and activated automatically.</p>
 
+  <!-- CSRF token (works even if cookie is HttpOnly) -->
+  <form id="csrfForm" style="display:none;">{% csrf_token %}</form>
+
   <div id="dropZone" class="drop-zone">
     <div style="font-size:48px; color:#b4b9be;">🖼️</div>
     <div>Drag & drop images here</div>
@@ -48,7 +51,10 @@
     const status = document.getElementById('status');
     const fileList = document.getElementById('fileList');
 
-    function getCookie(name){let v=null;if(document.cookie&&document.cookie!==''){const c=document.cookie.split(';');for(let i=0;i<c.length;i++){const s=c[i].trim();if(s.substring(0,name.length+1)===(name+'=')){v=decodeURIComponent(s.substring(name.length+1));break;}}}return v;}
+    function getCSRF(){
+      const el = document.querySelector('#csrfForm input[name="csrfmiddlewaretoken"]');
+      return el ? el.value : null;
+    }
 
     function onFiles(files){ if(!files || !files.length) return; upload(Array.from(files)); }
 
@@ -67,7 +73,7 @@
         resp = await fetch('{% url "cms:ajax_upload_home_gallery" %}', {
           method:'POST',
           body: form,
-          headers: { 'X-CSRFToken': getCookie('csrftoken'), 'X-Requested-With': 'XMLHttpRequest' },
+          headers: { 'X-CSRFToken': getCSRF(), 'X-Requested-With': 'XMLHttpRequest' },
           credentials: 'same-origin'
         });
       } catch (e) {
