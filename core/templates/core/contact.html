@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us • Magma7Fitness{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<section style="width: 100vw; margin-left: calc(-50vw + 50%); min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 100px 20px 60px; background: linear-gradient(135deg, #0b6e4f 0%, #064d39 100%);">
+  <div style="position:absolute; inset:0; opacity:.2; background: radial-gradient(60% 50% at 15% 10%, #fff, transparent 60%);"></div>
+  <div style="max-width: 900px; margin: 0 auto; position: relative; z-index: 1;">
+    <h1 style="font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; color: white; margin: 0 auto 1rem auto; text-transform: uppercase; letter-spacing: .5px;">Get in Touch</h1>
+    <p style="color: rgba(255,255,255,.95); font-size: clamp(1rem, 1.2vw, 1.2rem); max-width: 760px; margin: 0 auto; line-height: 1.8;">
+      Have questions about memberships, programs, or visits? Send us a message and we’ll respond quickly.
+    </p>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section" style="padding: 60px 0; background: var(--light-bg);">
+  <div class="container">
+    <div class="row" style="display:flex; gap:30px;">
+      <!-- Form -->
+      <div class="col s12 m7" style="flex:1;">
+        <div class="card" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
+          <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Send a Message</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="row" style="display:flex; flex-wrap:wrap; gap:14px;">
+              <div style="flex:1; min-width:240px;">
+                <label for="id_name" style="font-weight:700; color:#334155;">Your Name</label>
+                {{ form.name|add_class:"browser-default" }}
+              </div>
+              <div style="flex:1; min-width:240px;">
+                <label for="id_email" style="font-weight:700; color:#334155;">Email</label>
+                {{ form.email|add_class:"browser-default" }}
+              </div>
+              <div style="flex:1 0 100%;">
+                <label for="id_subject" style="font-weight:700; color:#334155;">Subject</label>
+                {{ form.subject|add_class:"browser-default" }}
+              </div>
+              <div style="flex:1 0 100%;">
+                <label for="id_message" style="font-weight:700; color:#334155;">Message</label>
+                {{ form.message|add_class:"browser-default" }}
+              </div>
+              <div style="flex:1; min-width:240px;">
+                <label for="id_phone" style="font-weight:700; color:#334155;">Phone (optional)</label>
+                {{ form.phone|add_class:"browser-default" }}
+              </div>
+              {{ form.website }}
+            </div>
+            <div style="margin-top: 14px; display:flex; gap:10px;">
+              <button type="submit" class="btn btn-primary waves-effect waves-light">Send Message</button>
+              <a href="/memberships/plans/" class="btn btn-outline waves-effect">View Plans</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col s12 m5" style="flex:1;">
+        <div class="card" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
+          <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Contact Info</h3>
+          <ul style="list-style:none; padding:0; margin:0; color:#475569; line-height:1.9;">
+            {% if site_settings and site_settings.address %}
+            <li><i class="material-icons tiny" style="color: var(--primary-green);">place</i> {{ site_settings.address }}</li>
+            {% endif %}
+            {% if site_settings and site_settings.phone %}
+            <li><i class="material-icons tiny" style="color: var(--primary-green);">phone</i> {{ site_settings.phone }}</li>
+            {% endif %}
+            {% if site_settings and site_settings.email %}
+            <li><i class="material-icons tiny" style="color: var(--primary-green);">email</i> {{ site_settings.email }}</li>
+            {% endif %}
+          </ul>
+          <div style="margin-top: 18px;">
+            <a href="/facilities/" class="btn btn-outline waves-effect">Explore Facilities</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

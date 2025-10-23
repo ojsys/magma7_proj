@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.conf import settings
+from django.core.mail import send_mail
 from cms.models import (
     HeroSlide, SiteSettings, Program, Service, Partner, Testimonial,
     AboutPage, CoreValue, WhyChooseUsItem, AboutGalleryImage, AboutStatistic,
@@ -6,6 +9,7 @@ from cms.models import (
 )
 from memberships.models import Plan
 from django.db.models import Avg
+from .forms import ContactForm
 
 
 def home(request):
@@ -107,3 +111,36 @@ def values(request):
 
 def careers(request):
     return render(request, 'core/careers.html')
+
+
+def contact(request):
+    site = SiteSettings.objects.first()
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            phone = form.cleaned_data.get('phone', '')
+
+            admin_recipients = [e for _, e in getattr(settings, 'ADMINS', [])] or []
+            fallback_recipient = site.email if site and site.email else getattr(settings, 'DEFAULT_FROM_EMAIL', 'no-reply@magma7fitness.local')
+            to_emails = admin_recipients or [fallback_recipient]
+
+            full_subject = f"[Contact] {subject}"
+            body = (
+                f"New contact form submission from {name}\n\n"
+                f"Email: {email}\n"
+                f"Phone: {phone}\n\n"
+                f"Message:\n{message}\n"
+            )
+            try:
+                send_mail(full_subject, body, getattr(settings, 'DEFAULT_FROM_EMAIL', email), to_emails, fail_silently=False)
+                messages.success(request, 'Thanks for reaching out! We\'ll get back to you shortly.')
+                return redirect('core:contact')
+            except Exception as e:
+                messages.error(request, f'We could not send your message right now. Please try again later. ({e})')
+    else:
+        form = ContactForm()
+    return render(request, 'core/contact.html', {'form': form, 'site_settings': site})
