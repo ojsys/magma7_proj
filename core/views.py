@@ -53,11 +53,14 @@ def facilities(request):
     facilities_page = FacilitiesPage.objects.first()
     facilities = Facility.objects.filter(is_active=True)
     featured_facilities = facilities.filter(is_featured=True)[:3]
+    # Load all active home gallery images for full collage on facilities page
+    gallery_images = HomeGalleryImage.objects.filter(is_active=True).order_by('order')
 
     ctx = {
         'facilities_page': facilities_page,
         'facilities': facilities,
         'featured_facilities': featured_facilities,
+        'gallery_images': gallery_images,
     }
     return render(request, 'core/facilities.html', ctx)
 

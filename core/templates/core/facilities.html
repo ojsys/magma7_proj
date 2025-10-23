@@ -41,6 +41,118 @@
 </section>
 {% endif %}
 
+<!-- Facility Photo Gallery -->
+{% if gallery_images %}
+<section class="section" style="padding: 80px 0; background: var(--section-bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 15px; text-transform: uppercase;">Facility Photo Gallery</h2>
+      <p style="color: var(--text-secondary); font-size: 1.1rem;">A closer look at our space and equipment</p>
+    </div>
+
+    <div class="facility-gallery" id="facilityGallery" data-initial-count="24" data-step="24">
+      {% for img in gallery_images %}
+        <div class="gallery-item {% if forloop.counter0|divisibleby:5 %}wide{% elif forloop.counter0|divisibleby:7 %}tall{% endif %}"
+             data-title="{{ img.title }}" data-description="{{ img.description }}">
+          <img src="{{ img.image_url }}" alt="{{ img.title }}" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="gallery-content">
+              <h4>{{ img.title }}</h4>
+              {% if img.description %}
+                <p>{{ img.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Load More Controls -->
+    <div class="row" style="margin-top: 30px;">
+      <div class="col s12 center">
+        <a id="facilityGalleryLoadMore" class="btn btn-primary waves-effect waves-light" style="min-width: 220px;">Load More</a>
+        <a id="facilityGalleryShowLess" class="btn btn-outline waves-effect" style="min-width: 220px; display: none; margin-left: 10px;">Show Less</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal viewer -->
+  <div id="facilityGalleryModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="max-width:1000px; width:100%; background:#111; border-radius:12px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+      <div style="position:relative; background:#000;">
+        <img id="facilityGalleryModalImg" src="" alt="" style="width:100%; height:auto; display:block; max-height:70vh; object-fit:contain;">
+        <button id="facilityGalleryModalClose" aria-label="Close" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.6); border:none; color:#fff; width:40px; height:40px; border-radius:20px; cursor:pointer; font-size:20px;">×</button>
+      </div>
+      <div style="padding:16px 20px; color:#fff;">
+        <h4 id="facilityGalleryModalTitle" style="margin:0 0 8px 0; font-weight:800;"></h4>
+        <p id="facilityGalleryModalDesc" style="margin:0; opacity:0.9;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('facilityGalleryModal');
+      const modalImg = document.getElementById('facilityGalleryModalImg');
+      const modalTitle = document.getElementById('facilityGalleryModalTitle');
+      const modalDesc = document.getElementById('facilityGalleryModalDesc');
+      const modalClose = document.getElementById('facilityGalleryModalClose');
+
+      function openModal(src, title, desc){
+        modalImg.src = src; modalTitle.textContent = title || ''; modalDesc.textContent = desc || '';
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(){ modal.style.display='none'; document.body.style.overflow=''; modalImg.src=''; }
+
+      document.addEventListener('click', function(e){
+        const item = e.target.closest('.gallery-item');
+        if (item && item.closest('.facility-gallery')) {
+          const img = item.querySelector('img');
+          openModal(img.getAttribute('src'), item.dataset.title, item.dataset.description);
+        }
+      });
+      modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+      modalClose.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+      // Load More behavior
+      const container = document.getElementById('facilityGallery');
+      const items = container ? Array.from(container.querySelectorAll('.gallery-item')) : [];
+      const initial = parseInt(container?.dataset.initialCount || '24');
+      const step = parseInt(container?.dataset.step || '24');
+      const btnMore = document.getElementById('facilityGalleryLoadMore');
+      const btnLess = document.getElementById('facilityGalleryShowLess');
+      let visible = initial;
+
+      function renderVisibility() {
+        items.forEach((el, idx) => { el.style.display = (idx < visible) ? '' : 'none'; });
+        if (items.length <= initial) {
+          if (btnMore) btnMore.style.display = 'none';
+          if (btnLess) btnLess.style.display = 'none';
+        } else {
+          if (btnMore) btnMore.style.display = (visible < items.length) ? '' : 'none';
+          if (btnLess) btnLess.style.display = (visible > initial) ? '' : 'none';
+        }
+      }
+
+      if (items.length) {
+        renderVisibility();
+        btnMore?.addEventListener('click', function(){
+          visible = Math.min(items.length, visible + step);
+          renderVisibility();
+        });
+        btnLess?.addEventListener('click', function(){
+          visible = initial;
+          window.scrollTo({ top: container.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+          renderVisibility();
+        });
+      }
+    })();
+  </script>
+</section>
+{% endif %}
+
 <!-- Featured Facilities -->
 {% if featured_facilities %}
 <section class="section" style="padding: 80px 0; background: var(--section-bg);">
