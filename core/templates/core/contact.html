@@ -22,18 +22,9 @@
 <section class="section" style="padding: 60px 0; background: var(--light-bg);">
   <div class="container">
     <style>
-      /* Tighter Materialize input layout with small prefix icons */
+      /* Clean Materialize inputs without prefix icons */
       .contact-form .input-field { margin-top: 0.8rem; margin-bottom: 1.2rem; }
-      .contact-form .input-field i.material-icons.prefix { font-size: 1rem; line-height: 1; top: 0.9rem; }
-      /* Reduce default 3rem left offset to 2rem for inputs and labels */
-      .contact-form .input-field i.prefix ~ input,
-      .contact-form .input-field i.prefix ~ textarea { margin-left: 2rem; }
-      .contact-form .input-field i.prefix ~ label { left: 2rem; }
-      /* Ensure labels don't overlap on prefilled */
       .contact-form .input-field label { pointer-events: none; }
-      @media (max-width: 600px) {
-        .contact-form .input-field i.material-icons.prefix { top: 0.7rem; }
-      }
       /* Smaller contact info icons; no circles */
       .contact-info li i { font-size: 1rem !important; margin-right: 6px; background: transparent; vertical-align: middle; }
     </style>
@@ -46,31 +37,26 @@
             {% csrf_token %}
             <div class="row">
               <div class="input-field col s12 m6">
-                <i class="material-icons prefix">person</i>
                 {{ form.name|add_class:"validate" }}
                 <label for="id_name" {% if form.name.value %}class="active"{% endif %}>Your Name</label>
                 {% for e in form.name.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
               <div class="input-field col s12 m6">
-                <i class="material-icons prefix">email</i>
                 {{ form.email|add_class:"validate" }}
                 <label for="id_email" {% if form.email.value %}class="active"{% endif %}>Email Address</label>
                 {% for e in form.email.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
               <div class="input-field col s12">
-                <i class="material-icons prefix">subject</i>
                 {{ form.subject|add_class:"validate" }}
                 <label for="id_subject" {% if form.subject.value %}class="active"{% endif %}>Subject</label>
                 {% for e in form.subject.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
               <div class="input-field col s12">
-                <i class="material-icons prefix">chat</i>
                 {{ form.message|add_class:"materialize-textarea" }}
                 <label for="id_message" {% if form.message.value %}class="active"{% endif %}>Message</label>
                 {% for e in form.message.errors %}<span class="helper-text red-text">{{ e }}</span>{% endfor %}
               </div>
               <div class="input-field col s12 m6">
-                <i class="material-icons prefix">call</i>
                 {{ form.phone|add_class:"validate" }}
                 <label for="id_phone" {% if form.phone.value %}class="active"{% endif %}>Phone (optional)</label>
               </div>
