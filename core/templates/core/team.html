@@ -38,7 +38,9 @@
   <div class="container">
     <h2 style="text-align:center; font-size: 2.2rem; font-weight:900; margin-bottom: 28px;">What Our Team Does</h2>
     <style>
-      .role-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; }
+      .role-grid { display:grid; gap:18px; grid-template-columns: 1fr; }
+      @media (min-width: 680px) { .role-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (min-width: 1024px) { .role-grid { grid-template-columns: repeat(3, 1fr); } }
       .role-card { background:#fff; border:1px solid #edf2f7; border-radius:14px; padding:16px; box-shadow:0 6px 24px rgba(2,6,23,.06); transition: transform .25s ease, box-shadow .25s ease; }
       .role-card:hover { transform: translateY(-4px); box-shadow:0 12px 30px rgba(2,6,23,.10); }
       .role-head { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
