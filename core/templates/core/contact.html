@@ -27,11 +27,16 @@
       .contact-form .input-field label { pointer-events: none; }
       /* Smaller contact info icons; no circles */
       .contact-info li i { font-size: 1rem !important; margin-right: 6px; background: transparent; vertical-align: middle; }
+      /* Equal-height columns: let the left form card match right column (info + map) */
+      .contact-columns { display:flex; gap:30px; align-items: stretch; }
+      .contact-left { display:flex; flex-direction: column; }
+      .contact-form-card { height: 100%; display:flex; flex-direction: column; }
+      @media (max-width: 992px) { .contact-columns { display:block; } }
     </style>
-    <div class="row" style="display:flex; gap:30px;">
+    <div class="row contact-columns">
       <!-- Form -->
-      <div class="col s12 m7" style="flex:1;">
-        <div class="card contact-form" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
+      <div class="col s12 m7 contact-left" style="flex:1;">
+        <div class="card contact-form contact-form-card" style="border-radius: 14px; padding: 26px; box-shadow: var(--shadow-md);">
           <h3 style="margin:0 0 14px 0; font-weight:800; color: var(--text-primary);">Send a Message</h3>
           <form method="post" novalidate>
             {% csrf_token %}
@@ -93,7 +98,7 @@
         <div class="card" style="border-radius: 14px; overflow:hidden; box-shadow: var(--shadow-md); margin-top: 18px;">
           <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
             <iframe
-              src="https://www.google.com/maps?q={{ site_settings.address|urlencode }}&output=embed"
+              src="https://www.google.com/maps?q={{ '30 Zakaria Maimalari Street, Nasfat layout, Kaduna'|urlencode }}&output=embed"
               width="600" height="450" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;"
               allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
