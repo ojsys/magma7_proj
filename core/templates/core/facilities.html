@@ -238,6 +238,14 @@
             <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.75; margin: 0;">
               {{ facility.description|default:""|truncatewords:50 }}
             </p>
+            {% if facility.description %}
+              <div style="display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:12px;">
+                <a href="#" class="facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none; color: var(--primary-green); font-weight:700;">
+                  <i class="material-icons" style="font-size: 1.2rem;">read_more</i>
+                  <span>Read more</span>
+                </a>
+              </div>
+            {% endif %}
             {% if facility.get_features_list %}
               <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;">
                 {% for feat in facility.get_features_list|slice:":4" %}
@@ -253,6 +261,61 @@
   </div>
 </section>
 {% endif %}
+
+<!-- Facility Description Modal -->
+<div id="facilityDescModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="max-width:900px; width:100%; background:#111; color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.5);">
+    <div id="facilityDescHeader" style="position:relative; background:#000; min-height:200px;">
+      <img id="facilityDescImg" src="" alt="" style="width:100%; max-height: 60vh; object-fit:cover; display:none;">
+      <button id="facilityDescClose" aria-label="Close" style="position:absolute; top:10px; right:10px; width:42px; height:42px; border:none; border-radius:50%; background: rgba(0,0,0,.6); color:#fff; cursor:pointer; font-size:20px;">×</button>
+      <div id="facilityDescTitleWrap" style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%);">
+        <h3 id="facilityDescTitle" style="margin:0; font-weight:900;"></h3>
+      </div>
+    </div>
+    <div style="padding: 18px 18px 22px; max-height: 40vh; overflow: auto;">
+      <p id="facilityDescBody" style="margin:0; line-height:1.8; opacity:.95;"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const modal = document.getElementById('facilityDescModal');
+    const closeBtn = document.getElementById('facilityDescClose');
+    const img = document.getElementById('facilityDescImg');
+    const titleEl = document.getElementById('facilityDescTitle');
+    const bodyEl = document.getElementById('facilityDescBody');
+    const header = document.getElementById('facilityDescHeader');
+    const titleWrap = document.getElementById('facilityDescTitleWrap');
+
+    function openModal(data){
+      titleEl.textContent = data.title || '';
+      const url = data.image || '';
+      if (url) {
+        img.src = url; img.style.display='block'; header.style.minHeight='unset'; titleWrap.style.display='block';
+      } else {
+        img.src = ''; img.style.display='none'; header.style.minHeight='0'; titleWrap.style.display='none';
+      }
+      // Convert newlines to <br>
+      const text = (data.desc || '').replace(/\n/g, '<br>');
+      bodyEl.innerHTML = text;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow=''; }
+
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest('.facility-readmore');
+      if (btn) {
+        e.preventDefault();
+        openModal({ title: btn.dataset.title, image: btn.dataset.image, desc: btn.dataset.desc });
+      }
+      if (e.target === modal) closeModal();
+    });
+    closeBtn.addEventListener('click', closeModal);
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+  })();
+  </script>
 
 <!-- CTA Section -->
 {% if facilities_page %}
