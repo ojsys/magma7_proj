@@ -103,3 +103,7 @@ def vision(request):
 
 def values(request):
     return render(request, 'core/values.html')
+
+
+def careers(request):
+    return render(request, 'core/careers.html')
