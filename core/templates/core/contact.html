@@ -31,6 +31,9 @@
       .contact-columns { display:flex; gap:30px; align-items: stretch; }
       .contact-left { display:flex; flex-direction: column; }
       .contact-form-card { height: 100%; display:flex; flex-direction: column; }
+      .contact-form-card form { display:flex; flex: 1; flex-direction: column; }
+      .contact-form-card form .row { flex: 1; }
+      .contact-form-card form .form-actions { margin-top: auto; display:flex; gap:10px; }
       @media (max-width: 992px) { .contact-columns { display:block; } }
     </style>
     <div class="row contact-columns">
@@ -67,7 +70,7 @@
               </div>
               {{ form.website }}
             </div>
-            <div style="margin-top: 14px; display:flex; gap:10px;">
+            <div class="form-actions" style="margin-top: 14px; display:flex; gap:10px;">
               <button type="submit" class="btn btn-primary waves-effect waves-light">Send Message</button>
               <a href="/memberships/plans/" class="btn btn-outline waves-effect">View Plans</a>
             </div>
