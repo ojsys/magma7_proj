@@ -219,60 +219,63 @@
     </div>
 
     <style>
-      .facility-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 26px; }
-      .facility-card-modern { position:relative; border-radius:16px; overflow:hidden; background: #ffffff; border: 1px solid rgba(2, 6, 23, 0.06); box-shadow: 0 10px 30px rgba(2,6,23,.08); transition: transform .35s ease, box-shadow .35s ease; }
-      .facility-card-modern:hover { transform: translateY(-8px); box-shadow: 0 20px 55px rgba(2,6,23,.12); }
-      .facility-media { position:relative; height: 240px; overflow:hidden; background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%); }
-      .facility-media img { width:100%; height:100%; object-fit:cover; transform: scale(1); transition: transform .6s ease; display:block; }
-      .facility-card-modern:hover .facility-media img { transform: scale(1.08); }
-      .facility-accent { position:absolute; inset:0; background: radial-gradient(80% 60% at 10% 10%, rgba(255,255,255,.08), transparent 60%), linear-gradient(180deg, transparent 45%, rgba(0,0,0,.8)); pointer-events:none; }
-      .facility-name { position:absolute; left:14px; right:14px; bottom:14px; color:#fff; font-weight:900; font-size:1.15rem; letter-spacing:.3px; text-shadow: 0 8px 26px rgba(0,0,0,.6); display:flex; align-items:center; gap:8px; }
-      .facility-name .chip { background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:#fff; font-size:.7rem; padding:6px 10px; border-radius: 999px; font-weight:800; letter-spacing:.4px; }
-      .facility-body { padding: 16px 16px 18px; }
-      .facility-desc { color: var(--text-secondary); font-size: .98rem; line-height: 1.75; margin: 0; }
-      .facility-actions { margin-top: 12px; display:flex; align-items:center; justify-content: space-between; }
-      .facility-actions .readmore { display:inline-flex; align-items:center; gap:8px; color: var(--primary-green); text-decoration:none; font-weight:800; }
-      .facility-tags { margin-top: 14px; display:flex; flex-wrap:wrap; gap:8px; }
-      .facility-tag { background: #f8fafc; color:#475569; border:1px solid #e2e8f0; border-radius: 999px; padding: 6px 10px; font-size:.78rem; font-weight:700; }
-      @media (max-width: 600px) { .facility-media { height: 200px; } }
+      .facility-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 28px; }
+      .facility-card-pro { position:relative; border-radius:18px; overflow:hidden; background: #0b0d0f; border: 1px solid rgba(2, 6, 23, 0.08); box-shadow: 0 14px 40px rgba(2,6,23,.12); min-height: 280px; isolation:isolate; transition: transform .35s ease, box-shadow .35s ease; }
+      .facility-card-pro:hover { transform: translateY(-10px); box-shadow: 0 24px 70px rgba(2,6,23,.18); }
+      .facility-card-pro .media { position:absolute; inset:0; background-size: cover; background-position: center; transform: scale(1); transition: transform .6s ease; }
+      .facility-card-pro:hover .media { transform: scale(1.07); }
+      .facility-card-pro .veil { position:absolute; inset:0; background:
+          radial-gradient(60% 50% at 15% 10%, rgba(255,255,255,.1), transparent 60%),
+          linear-gradient(110deg, rgba(11,110,79,.65), rgba(11,110,79,.15) 45%, transparent 55%),
+          linear-gradient(180deg, transparent 55%, rgba(0,0,0,.85)); mix-blend-mode: multiply; }
+      .facility-card-pro .corner { position:absolute; right:-40px; top:-40px; width:180px; height:180px; background: linear-gradient(135deg, var(--accent-gold), #f4e49c); opacity:.18; transform: rotate(25deg); filter: blur(6px); }
+      .facility-card-pro .name { position:absolute; left:16px; bottom:16px; color:#fff; font-weight:900; font-size:1.18rem; letter-spacing:.4px; text-shadow: 0 10px 24px rgba(0,0,0,.6); display:flex; align-items:center; gap:10px; z-index:2; }
+      .facility-card-pro .badge { background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); color:#fff; font-size:.72rem; padding:6px 10px; border-radius: 999px; font-weight:800; letter-spacing:.5px; }
+      .facility-card-pro .panel { position:relative; margin: 14px; margin-top: auto; background: rgba(255,255,255,.98); border-radius: 14px; padding: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.18); min-height: 150px; display:flex; flex-direction:column; z-index:2; }
+      .facility-card-pro .panel::before { content:''; position:absolute; top:0; left:0; width:82px; height:4px; background: linear-gradient(90deg, var(--primary-green), var(--accent-gold)); border-radius:2px; }
+      .facility-card-pro .desc { color:#475569; font-size:.98rem; line-height:1.8; margin:0; }
+      .facility-card-pro .actions { margin-top:12px; display:flex; justify-content:flex-end; }
+      .facility-card-pro .readmore { display:inline-flex; align-items:center; gap:8px; color: var(--primary-green); text-decoration:none; font-weight:900; letter-spacing:.3px; }
+      .facility-card-pro .tags { margin-top: 12px; display:flex; flex-wrap:wrap; gap:8px; }
+      .facility-card-pro .tag { background: #f8fafc; color:#475569; border:1px solid #e2e8f0; border-radius: 999px; padding: 6px 10px; font-size:.78rem; font-weight:700; }
+      @media (max-width: 600px) {
+        .facility-card-pro { min-height: 240px; }
+      }
     </style>
 
     <div class="facility-grid">
       {% for facility in facilities %}
-        <article class="facility-card-modern">
-          <div class="facility-media">
-            {% if facility.image_url %}
-              <img src="{{ facility.image_url }}" alt="{{ facility.name }}">
-            {% else %}
-              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff;">
-                <i class="material-icons" style="font-size: 3rem; opacity:.9;">{{ facility.icon }}</i>
-              </div>
-            {% endif %}
-            <div class="facility-accent"></div>
-            <div class="facility-name">
-              <span>{{ facility.name }}</span>
-              {% if facility.is_featured %}<span class="chip">FEATURED</span>{% endif %}
+        <article class="facility-card-pro">
+          {% if facility.image_url %}
+            <div class="media" style="background-image: url('{{ facility.image_url }}');"></div>
+          {% else %}
+            <div class="media" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%);"></div>
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; z-index:1;">
+              <i class="material-icons" style="font-size: 3rem; opacity:.9;">{{ facility.icon }}</i>
             </div>
+          {% endif %}
+          <div class="veil"></div>
+          <div class="corner"></div>
+          <div class="name">
+            <span>{{ facility.name }}</span>
+            {% if facility.is_featured %}<span class="badge">FEATURED</span>{% endif %}
           </div>
-          <div class="facility-body">
-            <p class="facility-desc">{{ facility.description|default:""|truncatewords:50 }}</p>
-            <div class="facility-actions">
-              {% if facility.get_features_list %}
-                <div></div>
-              {% endif %}
-              {% if facility.description %}
-                <a href="#" class="readmore facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}">
-                  <i class="material-icons" style="font-size: 1.2rem;">unfold_more</i>
-                  Read more
-                </a>
-              {% endif %}
+          <div class="panel">
+            <p class="desc">{{ facility.description|default:""|truncatewords:50 }}</p>
+            {% if facility.description %}
+            <div class="actions">
+              <a href="#" class="readmore facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}">
+                <i class="material-icons" style="font-size: 1.1rem;">unfold_more</i>
+                Read more
+              </a>
             </div>
+            {% endif %}
             {% if facility.get_features_list %}
-              <div class="facility-tags">
-                {% for feat in facility.get_features_list|slice:":4" %}
-                  <span class="facility-tag">{{ feat }}</span>
-                {% endfor %}
-              </div>
+            <div class="tags">
+              {% for feat in facility.get_features_list|slice:":4" %}
+                <span class="tag">{{ feat }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
         </article>
