@@ -219,62 +219,45 @@
     </div>
 
     <style>
-      .facility-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 28px; }
-      .facility-card-pro { position:relative; border-radius:18px; overflow:hidden; background: #0b0d0f; border: 1px solid rgba(2, 6, 23, 0.08); box-shadow: 0 14px 40px rgba(2,6,23,.12); min-height: 280px; isolation:isolate; transition: transform .35s ease, box-shadow .35s ease; }
-      .facility-card-pro:hover { transform: translateY(-10px); box-shadow: 0 24px 70px rgba(2,6,23,.18); }
-      .facility-card-pro .media { position:absolute; inset:0; background-size: cover; background-position: center; transform: scale(1); transition: transform .6s ease; }
-      .facility-card-pro:hover .media { transform: scale(1.07); }
-      .facility-card-pro .veil { position:absolute; inset:0; background:
-          radial-gradient(60% 50% at 15% 10%, rgba(255,255,255,.1), transparent 60%),
-          linear-gradient(110deg, rgba(11,110,79,.65), rgba(11,110,79,.15) 45%, transparent 55%),
-          linear-gradient(180deg, transparent 55%, rgba(0,0,0,.85)); mix-blend-mode: multiply; }
-      .facility-card-pro .corner { position:absolute; right:-40px; top:-40px; width:180px; height:180px; background: linear-gradient(135deg, var(--accent-gold), #f4e49c); opacity:.18; transform: rotate(25deg); filter: blur(6px); }
-      .facility-card-pro .name { position:absolute; left:16px; bottom:16px; color:#fff; font-weight:900; font-size:1.18rem; letter-spacing:.4px; text-shadow: 0 10px 24px rgba(0,0,0,.6); display:flex; align-items:center; gap:10px; z-index:2; }
-      .facility-card-pro .badge { background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); color:#fff; font-size:.72rem; padding:6px 10px; border-radius: 999px; font-weight:800; letter-spacing:.5px; }
-      .facility-card-pro .panel { position:relative; margin: 14px; margin-top: auto; background: rgba(255,255,255,.98); border-radius: 14px; padding: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.18); min-height: 150px; display:flex; flex-direction:column; z-index:2; }
-      .facility-card-pro .panel::before { content:''; position:absolute; top:0; left:0; width:82px; height:4px; background: linear-gradient(90deg, var(--primary-green), var(--accent-gold)); border-radius:2px; }
-      .facility-card-pro .desc { color:#475569; font-size:.98rem; line-height:1.8; margin:0; }
-      .facility-card-pro .actions { margin-top:12px; display:flex; justify-content:flex-end; }
-      .facility-card-pro .readmore { display:inline-flex; align-items:center; gap:8px; color: var(--primary-green); text-decoration:none; font-weight:900; letter-spacing:.3px; }
-      .facility-card-pro .tags { margin-top: 12px; display:flex; flex-wrap:wrap; gap:8px; }
-      .facility-card-pro .tag { background: #f8fafc; color:#475569; border:1px solid #e2e8f0; border-radius: 999px; padding: 6px 10px; font-size:.78rem; font-weight:700; }
+      .facility-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+      .facility-card-hover { position:relative; border-radius:20px; overflow:hidden; background:#0b0d0f; box-shadow: 0 16px 50px rgba(2,6,23,.15); aspect-ratio: 16 / 11; isolation:isolate; transition: transform .35s ease, box-shadow .35s ease; }
+      .facility-card-hover:hover { transform: translateY(-10px); box-shadow: 0 26px 80px rgba(2,6,23,.22); }
+      .facility-card-hover .bg { position:absolute; inset:0; background-size:cover; background-position:center; transform: scale(1); transition: transform .6s ease; }
+      .facility-card-hover:hover .bg { transform: scale(1.08); }
+      .facility-card-hover::after { content:''; position:absolute; inset:0; background:
+          radial-gradient(60% 50% at 15% 10%, rgba(255,255,255,.08), transparent 60%),
+          linear-gradient(110deg, rgba(11,110,79,.55), rgba(11,110,79,.12) 45%, transparent 55%),
+          linear-gradient(180deg, rgba(0,0,0,.0) 58%, rgba(0,0,0,.82)); pointer-events:none; }
+      .facility-card-hover .chip { position:absolute; top:14px; right:14px; background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); color:#fff; font-size:.72rem; padding:6px 10px; border-radius: 999px; font-weight:800; letter-spacing:.5px; z-index:2; }
+      .facility-card-hover .title { position:absolute; left:16px; bottom:16px; color:#fff; font-weight:900; font-size:1.18rem; letter-spacing:.4px; text-shadow: 0 10px 24px rgba(0,0,0,.6); z-index:2; }
+      .facility-card-hover .glass { position:absolute; left:14px; right:14px; bottom:14px; background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 14px; padding: 12px 14px; color:#fff; z-index:3; transform: translateY(0); transition: transform .35s ease, background .35s ease; }
+      .facility-card-hover:hover .glass { transform: translateY(-6px); background: rgba(255,255,255,.18); }
+      .facility-card-hover .glass p { margin:0; line-height:1.7; font-size:.98rem; text-shadow: 0 8px 24px rgba(0,0,0,.35); }
+      .facility-card-hover .actions { margin-top:10px; display:flex; justify-content:flex-end; }
+      .facility-card-hover .readmore { display:inline-flex; align-items:center; gap:8px; color:#e6fff3; text-decoration:none; font-weight:900; letter-spacing:.3px; }
       @media (max-width: 600px) {
-        .facility-card-pro { min-height: 240px; }
+        .facility-card-hover { aspect-ratio:auto; min-height: 240px; }
       }
     </style>
 
     <div class="facility-grid">
       {% for facility in facilities %}
-        <article class="facility-card-pro">
+        <article class="facility-card-hover">
           {% if facility.image_url %}
-            <div class="media" style="background-image: url('{{ facility.image_url }}');"></div>
+            <div class="bg" style="background-image:url('{{ facility.image_url }}');"></div>
           {% else %}
-            <div class="media" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%);"></div>
-            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; z-index:1;">
-              <i class="material-icons" style="font-size: 3rem; opacity:.9;">{{ facility.icon }}</i>
-            </div>
+            <div class="bg" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-dark) 100%);"></div>
           {% endif %}
-          <div class="veil"></div>
-          <div class="corner"></div>
-          <div class="name">
-            <span>{{ facility.name }}</span>
-            {% if facility.is_featured %}<span class="badge">FEATURED</span>{% endif %}
-          </div>
-          <div class="panel">
-            <p class="desc">{{ facility.description|default:""|truncatewords:50 }}</p>
+          {% if facility.is_featured %}<div class="chip">FEATURED</div>{% endif %}
+          <div class="title">{{ facility.name }}</div>
+          <div class="glass">
+            <p>{{ facility.description|default:""|truncatewords:25 }}</p>
             {% if facility.description %}
             <div class="actions">
               <a href="#" class="readmore facility-readmore" data-title="{{ facility.name|escapejs }}" data-image="{{ facility.image_url|default:''|escapejs }}" data-desc="{{ facility.description|escapejs }}">
-                <i class="material-icons" style="font-size: 1.1rem;">unfold_more</i>
+                <i class="material-icons" style="font-size:1.05rem;">unfold_more</i>
                 Read more
               </a>
-            </div>
-            {% endif %}
-            {% if facility.get_features_list %}
-            <div class="tags">
-              {% for feat in facility.get_features_list|slice:":4" %}
-                <span class="tag">{{ feat }}</span>
-              {% endfor %}
             </div>
             {% endif %}
           </div>
