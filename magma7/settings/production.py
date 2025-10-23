@@ -182,3 +182,7 @@ print(f"Database: {DATABASES['default']['ENGINE']} - {DATABASES['default']['NAME
 print(f"Email backend: {EMAIL_BACKEND}")
 print(f"SSL Redirect: {SECURE_SSL_REDIRECT}")
 print("=" * 60)
+
+# Public site URL for absolute links (used in admin file URLs, emails, etc.)
+# Overwrites base.SITE_URL so we don't rely on environment in cPanel
+SITE_URL = 'https://magma7fitness.com'

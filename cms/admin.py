@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.conf import settings
 from .models import (
     MediaAsset, HeroSlide, SiteSettings, Program, Service, Partner, Testimonial, RichPage,
     AboutPage, CoreValue, WhyChooseUsItem, AboutGalleryImage, AboutStatistic,
@@ -126,16 +127,28 @@ class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
         return 'No file uploaded yet'
     preview.short_description = 'File Preview'
 
+    def _absolute_url(self, url: str) -> str:
+        if not url:
+            return ''
+        if url.startswith('http://') or url.startswith('https://'):
+            return url
+        base = getattr(settings, 'SITE_URL', '').rstrip('/')
+        if not base:
+            return url
+        if not url.startswith('/'):
+            url = '/' + url
+        return f"{base}{url}"
+
     def file_url_display(self, obj):
         if obj.file:
-            url = obj.get_absolute_url()
+            url = self._absolute_url(obj.get_absolute_url())
             return format_html('<input type="text" value="{}" readonly style="width: 100%; padding: 8px; font-family: monospace;" onclick="this.select(); document.execCommand(\'copy\'); alert(\'URL copied to clipboard!\');" />', url)
         return '—'
     file_url_display.short_description = 'File URL (click to copy)'
 
     def file_url_list(self, obj):
         if obj.file:
-            url = obj.get_absolute_url()
+            url = self._absolute_url(obj.get_absolute_url())
             return format_html(
                 '<input type="text" value="{}" readonly '
                 'style="width: 260px; padding: 4px 6px; font-family: monospace; font-size: 11px;" '
