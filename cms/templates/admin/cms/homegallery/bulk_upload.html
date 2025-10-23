@@ -62,9 +62,38 @@
       const form = new FormData();
       files.forEach(f=> form.append('files', f));
       progressBar.style.width='10%'; progressBar.textContent='10%'; status.textContent='Uploading...';
-      const r = await fetch('{% url "cms:ajax_upload_home_gallery" %}', { method:'POST', body: form, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
+      let resp, data;
+      try {
+        resp = await fetch('{% url "cms:ajax_upload_home_gallery" %}', {
+          method:'POST',
+          body: form,
+          headers: { 'X-CSRFToken': getCookie('csrftoken'), 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin'
+        });
+      } catch (e) {
+        status.textContent = 'Network error: ' + (e && e.message ? e.message : e);
+        progressBar.style.width='100%'; progressBar.textContent='Error';
+        return;
+      }
       progressBar.style.width='85%'; progressBar.textContent='85%';
-      const data = await r.json();
+      try {
+        const ct = resp.headers.get('content-type') || '';
+        if (!resp.ok) {
+          // Try to get error details
+          const text = await resp.text();
+          throw new Error('HTTP ' + resp.status + ' ' + resp.statusText + (text ? ' - ' + text.slice(0,200) : ''));
+        }
+        if (ct.includes('application/json')) {
+          data = await resp.json();
+        } else {
+          const text = await resp.text();
+          throw new Error('Unexpected response (not JSON): ' + text.slice(0,200));
+        }
+      } catch (e) {
+        status.textContent = 'Upload failed: ' + (e && e.message ? e.message : e);
+        progressBar.style.width='100%'; progressBar.textContent='Error';
+        return;
+      }
       progressBar.style.width='100%'; progressBar.textContent='100%'; status.textContent='Completed';
       render(data);
     }
@@ -86,4 +115,3 @@
   })();
 </script>
 {% endblock %}
-
