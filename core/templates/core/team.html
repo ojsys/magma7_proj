@@ -33,7 +33,7 @@
 </section>
 {% endif %}
 
-<!-- Featured Team Members -->
+<!-- Featured Team Members (New Card Style) -->
 {% if featured_members %}
 <section class="section" style="padding: 80px 0; background: var(--section-bg);">
   <div class="container">
@@ -42,46 +42,71 @@
     <div class="row" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
       {% for member in featured_members %}
       <div class="col s12 m6 l3" style="display: flex;">
-        <div class="card hoverable" style="width: 100%; overflow: hidden;">
-          <div style="position: relative; height: 350px; overflow: hidden;">
-            <img src="{{ member.image_url }}" alt="{{ member.name }}" style="width: 100%; height: 100%; object-fit: cover;">
-            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 40px 20px 20px;">
-              <h4 style="color: white; font-size: 1.5rem; font-weight: 700; margin: 0 0 5px 0;">{{ member.name }}</h4>
-              <p style="color: var(--accent-gold); margin: 0; font-weight: 600;">{{ member.role }}</p>
+        <div class="team-card hoverable" style="width:100%; border-radius:12px; overflow:hidden; cursor:pointer; background:#fff; box-shadow: var(--shadow-md);"
+             data-name="{{ member.name|escapejs }}"
+             data-role="{{ member.role|escapejs }}"
+             data-image="{{ member.image_url|escapejs }}"
+             data-bio="{{ member.bio|escapejs }}"
+             data-years="{{ member.experience_years }}"
+             data-specialties="{{ member.specialties|default:''|escapejs }}"
+             data-certifications="{{ member.certifications|default:''|escapejs }}"
+             data-email="{{ member.email|default:''|escapejs }}"
+             data-phone="{{ member.phone|default:''|escapejs }}"
+             data-instagram="{{ member.instagram|default:''|escapejs }}"
+             data-linkedin="{{ member.linkedin|default:''|escapejs }}">
+          <div style="position:relative; height: 360px;">
+            <img src="{{ member.image_url }}" alt="{{ member.name }}" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%);"></div>
+            <div style="position:absolute; left:0; right:0; bottom:0; padding:18px 16px;">
+              <div style="color:#fff; font-weight:800; font-size:1.1rem; letter-spacing:.2px;">{{ member.name }}</div>
+              <div style="color:var(--accent-gold); font-size:.9rem; font-weight:700; opacity:.95;">{{ member.role }}</div>
             </div>
+            <div style="position:absolute; top:12px; left:12px; background: rgba(255,255,255,.95); color:#111; font-size:.72rem; font-weight:800; padding:6px 10px; border-radius:999px; letter-spacing:.5px;">FEATURED</div>
           </div>
-          <div class="card-content" style="padding: 20px;">
-            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">{{ member.bio|truncatewords:20 }}</p>
-            {% if member.experience_years %}
-            <p style="color: var(--primary-green); font-weight: 600; margin: 0;"><i class="material-icons tiny">verified</i> {{ member.experience_years }}+ Years Experience</p>
-            {% endif %}
+          <div style="padding: 12px 14px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="color: var(--text-secondary); font-size:.9rem;">Tap to view profile</span>
+            <i class="material-icons" style="color: var(--primary-green);">open_in_new</i>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
   </div>
-</section>
+ </section>
 {% endif %}
 
-<!-- All Team Members -->
+<!-- All Team Members (New Card Style) -->
 {% if team_members %}
 <section class="section" style="padding: 80px 0; background: var(--light-bg);">
   <div class="container">
     <h2 style="text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 60px;">Our Complete Team</h2>
 
-    <div class="row">
+    <div class="row" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
       {% for member in team_members %}
-      <div class="col s12 m6 l4" style="margin-bottom: 30px;">
-        <div class="card hoverable" style="height: 100%; display: flex; flex-direction: column;">
-          <div style="display: flex; align-items: flex-start; padding: 25px; gap: 20px;">
-            <img src="{{ member.image_url }}" alt="{{ member.name }}"
-                 style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; box-shadow: var(--shadow-md);">
-            <div style="flex: 1;">
-              <h5 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 5px 0;">{{ member.name }}</h5>
-              <p style="color: var(--accent-gold); margin: 0 0 10px 0; font-size: 0.9rem; font-weight: 600;">{{ member.role }}</p>
-              <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">{{ member.bio|truncatewords:15 }}</p>
+      <div class="col s12 m6 l4" style="display:flex;">
+        <div class="team-card hoverable" style="width:100%; border-radius:12px; overflow:hidden; cursor:pointer; background:#fff; box-shadow: var(--shadow-md);"
+             data-name="{{ member.name|escapejs }}"
+             data-role="{{ member.role|escapejs }}"
+             data-image="{{ member.image_url|escapejs }}"
+             data-bio="{{ member.bio|escapejs }}"
+             data-years="{{ member.experience_years }}"
+             data-specialties="{{ member.specialties|default:''|escapejs }}"
+             data-certifications="{{ member.certifications|default:''|escapejs }}"
+             data-email="{{ member.email|default:''|escapejs }}"
+             data-phone="{{ member.phone|default:''|escapejs }}"
+             data-instagram="{{ member.instagram|default:''|escapejs }}"
+             data-linkedin="{{ member.linkedin|default:''|escapejs }}">
+          <div style="position:relative; height: 320px;">
+            <img src="{{ member.image_url }}" alt="{{ member.name }}" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%);"></div>
+            <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 14px;">
+              <div style="color:#fff; font-weight:800; font-size:1.05rem; letter-spacing:.2px;">{{ member.name }}</div>
+              <div style="color:var(--accent-gold); font-size:.85rem; font-weight:700; opacity:.95;">{{ member.role }}</div>
             </div>
+          </div>
+          <div style="padding: 10px 14px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="color: var(--text-secondary); font-size:.9rem;">Tap to view profile</span>
+            <i class="material-icons" style="color: var(--primary-green);">open_in_new</i>
           </div>
         </div>
       </div>
@@ -106,4 +131,80 @@
 </section>
 {% endif %}
 
+<!-- Team Modal -->
+<div id="teamModal" style="display:none; position:fixed; inset:0; z-index:9999; background: rgba(0,0,0,0.85); align-items:center; justify-content:center; padding:20px;">
+  <div style="width:100%; max-width: 1000px; background:#111; border-radius:12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.5);">
+    <div style="position:relative; background:#000;">
+      <img id="teamModalImg" src="" alt="" style="width:100%; max-height: 60vh; object-fit:cover; display:block;">
+      <button id="teamModalClose" aria-label="Close" style="position:absolute; top:10px; right:10px; width:42px; height:42px; border:none; border-radius:50%; background: rgba(0,0,0,.6); color:#fff; cursor:pointer; font-size:20px;">×</button>
+    </div>
+    <div style="padding: 20px 22px; color:#fff;">
+      <h3 id="teamModalName" style="margin:0 0 6px 0; font-weight:900;"></h3>
+      <div id="teamModalRole" style="color: var(--accent-gold); font-weight:700; margin-bottom:12px;"></div>
+      <div id="teamModalYears" style="color:#9ae6b4; font-weight:700; margin-bottom: 12px;"></div>
+      <p id="teamModalBio" style="margin: 10px 0 16px 0; line-height:1.7; opacity:.95;"></p>
+      <div id="teamModalSpecs" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom: 12px;"></div>
+      <div id="teamModalCerts" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom: 12px;"></div>
+      <div id="teamModalContacts" style="display:flex; flex-wrap:wrap; gap:14px; opacity:.95;"></div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const modal = document.getElementById('teamModal');
+      const img = document.getElementById('teamModalImg');
+      const nameEl = document.getElementById('teamModalName');
+      const roleEl = document.getElementById('teamModalRole');
+      const yearsEl = document.getElementById('teamModalYears');
+      const bioEl = document.getElementById('teamModalBio');
+      const specsEl = document.getElementById('teamModalSpecs');
+      const certsEl = document.getElementById('teamModalCerts');
+      const contactsEl = document.getElementById('teamModalContacts');
+      const closeBtn = document.getElementById('teamModalClose');
+
+      function chip(text){
+        const span = document.createElement('span');
+        span.textContent = text;
+        span.style.cssText = 'background:#1a1f24;color:#ddd;border:1px solid #2a3138;border-radius:20px;padding:6px 12px;font-size:.85rem;';
+        return span;
+      }
+
+      function link(label, url){
+        const a = document.createElement('a');
+        a.textContent = label; a.href = url; a.target = '_blank';
+        a.style.cssText = 'color:#9ae6b4; font-weight:700; text-decoration:none;';
+        return a;
+      }
+
+      function open(card){
+        const d = card.dataset;
+        img.src = d.image || '';
+        nameEl.textContent = d.name || '';
+        roleEl.textContent = d.role || '';
+        yearsEl.textContent = d.years && d.years !== '0' ? (d.years + '+ Years Experience') : '';
+        bioEl.textContent = d.bio || '';
+        specsEl.innerHTML = '';
+        certsEl.innerHTML = '';
+        contactsEl.innerHTML = '';
+        if (d.specialties) d.specialties.split(',').map(s=>s.trim()).filter(Boolean).forEach(s=>specsEl.appendChild(chip(s)));
+        if (d.certifications) d.certifications.split(',').map(s=>s.trim()).filter(Boolean).forEach(s=>certsEl.appendChild(chip(s)));
+        if (d.email) { contactsEl.appendChild(link('Email', 'mailto:' + d.email)); }
+        if (d.phone) { contactsEl.appendChild(link('Call', 'tel:' + d.phone)); }
+        if (d.instagram) { contactsEl.appendChild(link('Instagram', d.instagram)); }
+        if (d.linkedin) { contactsEl.appendChild(link('LinkedIn', d.linkedin)); }
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close(){ modal.style.display = 'none'; document.body.style.overflow = ''; img.src=''; }
+
+      document.addEventListener('click', function(e){
+        const card = e.target.closest('.team-card');
+        if (card) { open(card); }
+        if (e.target === modal) { close(); }
+      });
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+    })();
+  </script>
+</div>
 {% endblock %}
