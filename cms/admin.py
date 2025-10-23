@@ -81,6 +81,7 @@ class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     search_fields = ("title", "description", "alt_text")
     list_editable = ("is_active",)
     readonly_fields = ("preview", "file_url_display", "file_size", "width", "height", "uploaded_by", "created_at", "updated_at")
+    change_list_template = 'admin/cms/mediaasset/change_list.html'
 
     class Media:
         css = {
@@ -142,10 +143,35 @@ class MediaAssetAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
         return '—'
     dimensions_display.short_description = 'Dimensions'
 
+    actions = ['create_home_gallery_from_assets']
+
     def save_model(self, request, obj, form, change):
         if not obj.uploaded_by:
             obj.uploaded_by = request.user
         super().save_model(request, obj, form, change)
+
+    def create_home_gallery_from_assets(self, request, queryset):
+        from .models import HomeGalleryImage
+        # Determine starting order
+        try:
+            next_order = (HomeGalleryImage.objects.order_by('-order').first().order or 0) + 1
+        except Exception:
+            next_order = 1
+        created = 0
+        for asset in queryset:
+            if asset.asset_type != 'image':
+                continue
+            url = asset.get_absolute_url()
+            if not url:
+                continue
+            # Avoid duplicates by url
+            if HomeGalleryImage.objects.filter(image_url=url).exists():
+                continue
+            HomeGalleryImage.objects.create(title=asset.title.rsplit('.',1)[0], image_url=url, order=next_order, is_active=True)
+            next_order += 1
+            created += 1
+        self.message_user(request, f"Created {created} home gallery image(s).")
+    create_home_gallery_from_assets.short_description = "Add to Home Gallery (create items)"
 
 
 @admin.register(HeroSlide)
@@ -329,6 +355,22 @@ class AboutGalleryImageAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     search_fields = ("title", "description")
 
 
+@admin.register(HomeGalleryImage)
+class HomeGalleryImageAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
+    list_display = ("thumb", "title", "order", "is_active")
+    list_editable = ("order", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("title", "description")
+    fields = ("title", "image_url", "description", "order", "is_active")
+    change_list_template = 'admin/cms/homegalleryimage/change_list.html'
+
+    def thumb(self, obj):
+        if obj.image_url:
+            return format_html('<img src="{}" style="width:60px;height:40px;object-fit:cover;border-radius:4px"/>', obj.image_url)
+        return '—'
+    thumb.short_description = 'Preview'
+
+
 @admin.register(AboutStatistic)
 class AboutStatisticAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_display = ("label", "value", "icon", "order", "is_active")
@@ -336,45 +378,6 @@ class AboutStatisticAdmin(SafeBooleanAdminMixin, admin.ModelAdmin):
     list_filter = ("is_active",)
     search_fields = ("label", "value")
 
-
-@admin.register(HomeGalleryImage)
-class HomeGalleryImageAdmin(admin.ModelAdmin):
-    list_display = ("title", "image_preview", "order", "is_active")
-    list_editable = ("order", "is_active")
-    list_filter = ("is_active",)
-    search_fields = ("title", "description")
-    readonly_fields = ("image_preview_large",)
-    fieldsets = (
-        ('Image', {
-            'fields': ('image_url', 'image_preview_large'),
-            'description': 'Copy image URL from Media Center or provide external URL'
-        }),
-        ('Details', {
-            'fields': ('title', 'description')
-        }),
-        ('Display', {
-            'fields': ('order', 'is_active'),
-            'description': 'Control display order and visibility'
-        }),
-    )
-
-    def image_preview(self, obj):
-        if obj.image_url:
-            return format_html(
-                '<img src="{}" style="width: 100px; height: 60px; object-fit: cover; border-radius: 4px;" />',
-                obj.image_url
-            )
-        return '—'
-    image_preview.short_description = 'Preview'
-
-    def image_preview_large(self, obj):
-        if obj.image_url:
-            return format_html(
-                '<img src="{}" style="max-width: 600px; max-height: 400px; border: 1px solid #ddd; padding: 5px;" />',
-                obj.image_url
-            )
-        return 'No image URL provided yet'
-    image_preview_large.short_description = 'Image Preview'
 
 
 @admin.register(Facility)

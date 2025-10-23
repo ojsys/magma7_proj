@@ -129,6 +129,34 @@ JAZZMIN_SETTINGS = {
     'site_header': f"{SITE_NAME} Admin",
     'site_brand': SITE_NAME,
     'welcome_sign': f"Welcome to {SITE_NAME} Admin",
+    'navigation_expanded': True,
+    'topmenu_links': [
+        {'name': 'Dashboard', 'url': 'admin:index', 'icon': 'fas fa-gauge'},
+        {'name': 'Home Gallery', 'url': 'admin:cms_homegalleryimage_changelist', 'icon': 'fas fa-images', 'permissions': ['cms.view_homegalleryimage']},
+        {'app': 'cms'},
+        {'app': 'memberships'},
+    ],
+    'icons': {
+        'cms.homegalleryimage': 'fas fa-images',
+        'cms.mediaasset': 'fas fa-photo-video',
+        'cms.heroslide': 'fas fa-image',
+        'cms.sitesettings': 'fas fa-sliders-h',
+        'memberships.plan': 'fas fa-tags',
+        'memberships.subscription': 'fas fa-receipt',
+        'auth.user': 'fas fa-user',
+        'auth.group': 'fas fa-users',
+    },
+    'order_with_respect_to': [
+        'cms.homegalleryimage',
+        'cms.mediaasset',
+        'cms.heroslide',
+    ],
+    'custom_links': {
+        'cms': [
+            {'name': 'Bulk Upload Home Gallery', 'url': 'cms:bulk_upload_home_gallery', 'icon': 'fas fa-cloud-upload-alt', 'permissions': ['cms.add_homegalleryimage']},
+            {'name': 'Bulk Upload Media', 'url': 'cms:bulk_upload_media', 'icon': 'fas fa-cloud-upload-alt', 'permissions': ['cms.add_mediaasset']},
+        ],
+    },
     # Optional: set logo URLs if you have them in static or via CMS settings
     # 'site_logo': 'img/logo.png',
     # 'site_icon': 'img/favicon.png',

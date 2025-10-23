@@ -1,0 +1,89 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Bulk Upload Home Gallery Images{% endblock %}
+
+{% block extrastyle %}
+<style>
+  .upload-container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+  .drop-zone { border: 3px dashed #b4b9be; border-radius: 8px; padding: 60px 20px; text-align: center; background: #fafafa; cursor: pointer; }
+  .drop-zone.dragover { border-color: #2271b1; background: #f0f6fc; }
+  .file-input-label { display: inline-block; padding: 10px 20px; background: #2271b1; color: white; border-radius: 4px; cursor: pointer; }
+  #fileInput { display: none; }
+  .progress-bar-container { width: 100%; height: 30px; background: #f0f0f1; border-radius: 4px; overflow: hidden; margin: 20px 0; }
+  .progress-bar { height: 100%; background: #2271b1; width: 0%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .file-list .item { display:flex; gap:12px; align-items:center; padding:10px; border:1px solid #dcdcde; border-radius:6px; margin:8px 0; background:#fff; }
+  .item .thumb { width:48px; height:48px; border-radius:4px; background:#f0f0f1; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .item .meta { flex:1; font-size:13px; color:#444; }
+  .muted { color:#777; font-size:12px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+  <h1>Bulk Upload Home Gallery Images</h1>
+  <p class="muted">Drag & drop images below or click to select files. Each uploaded image will be added to the Home Gallery and activated automatically.</p>
+
+  <div id="dropZone" class="drop-zone">
+    <div style="font-size:48px; color:#b4b9be;">🖼️</div>
+    <div>Drag & drop images here</div>
+    <div class="muted">JPG, PNG, GIF, WEBP</div>
+    <label class="file-input-label" for="fileInput">Select Files</label>
+    <input id="fileInput" type="file" multiple accept="image/*" />
+  </div>
+
+  <div class="progress-bar-container"><div id="progressBar" class="progress-bar">0%</div></div>
+  <div id="status" class="muted">Waiting for files...</div>
+
+  <div id="fileList" class="file-list"></div>
+
+  <p><a href="{% url 'admin:cms_homegalleryimage_changelist' %}" class="button">Go to Home Gallery</a></p>
+</div>
+
+<script>
+  (function(){
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const progressBar = document.getElementById('progressBar');
+    const status = document.getElementById('status');
+    const fileList = document.getElementById('fileList');
+
+    function getCookie(name){let v=null;if(document.cookie&&document.cookie!==''){const c=document.cookie.split(';');for(let i=0;i<c.length;i++){const s=c[i].trim();if(s.substring(0,name.length+1)===(name+'=')){v=decodeURIComponent(s.substring(name.length+1));break;}}}return v;}
+
+    function onFiles(files){ if(!files || !files.length) return; upload(Array.from(files)); }
+
+    dropZone.addEventListener('click', ()=> fileInput.click());
+    fileInput.addEventListener('change', (e)=> onFiles(e.target.files));
+    dropZone.addEventListener('dragover', (e)=>{ e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', ()=> dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e)=>{ e.preventDefault(); dropZone.classList.remove('dragover'); onFiles(e.dataTransfer.files); });
+
+    async function upload(files){
+      const form = new FormData();
+      files.forEach(f=> form.append('files', f));
+      progressBar.style.width='10%'; progressBar.textContent='10%'; status.textContent='Uploading...';
+      const r = await fetch('{% url "cms:ajax_upload_home_gallery" %}', { method:'POST', body: form, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
+      progressBar.style.width='85%'; progressBar.textContent='85%';
+      const data = await r.json();
+      progressBar.style.width='100%'; progressBar.textContent='100%'; status.textContent='Completed';
+      render(data);
+    }
+
+    function render(data){
+      fileList.innerHTML='';
+      (data.uploaded||[]).forEach(it=>{
+        const row=document.createElement('div'); row.className='item';
+        row.innerHTML = `<div class="thumb"><img src="${it.image_url}" style="width:100%;height:100%;object-fit:cover"></div>
+                         <div class="meta"><div><strong>${it.title}</strong></div><div class="muted">Order: ${it.order}</div></div>`;
+        fileList.appendChild(row);
+      });
+      (data.errors||[]).forEach(err=>{
+        const row=document.createElement('div'); row.className='item';
+        row.innerHTML = `<div class="thumb">⚠️</div><div class="meta"><div><strong>${err.filename}</strong></div><div class="muted">${err.error}</div></div>`;
+        fileList.appendChild(row);
+      });
+    }
+  })();
+</script>
+{% endblock %}
+

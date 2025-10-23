@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from .models import Testimonial, MediaAsset
+from .models import Testimonial, MediaAsset, HomeGalleryImage
 
 
 def testimonials(request):
@@ -100,3 +100,81 @@ def ajax_upload_media(request):
         'failed': len(errors)
     })
 
+
+@staff_member_required
+def bulk_upload_home_gallery(request):
+    """Bulk upload interface dedicated for Home Gallery images."""
+    if request.method == 'GET':
+        return render(request, 'admin/cms/homegallery/bulk_upload.html', {
+            'title': 'Bulk Upload Home Gallery Images',
+        })
+    return redirect('admin:cms_homegalleryimage_changelist')
+
+
+@staff_member_required
+@require_POST
+def ajax_upload_home_gallery(request):
+    """Upload files and create HomeGalleryImage records automatically."""
+    files = request.FILES.getlist('files')
+    if not files:
+        return JsonResponse({'error': 'No files provided'}, status=400)
+
+    uploaded = []
+    errors = []
+
+    # Determine starting order
+    try:
+        start_order = (HomeGalleryImage.objects.order_by('-order').first().order or 0) + 1
+    except Exception:
+        start_order = 1
+
+    order_counter = start_order
+
+    for f in files:
+        try:
+            # Save to MediaAsset for library reference
+            file_ext = f.name.lower().split('.')[-1]
+            if file_ext in ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp']:
+                asset_type = 'image'
+            elif file_ext in ['mp4', 'webm']:
+                asset_type = 'video'
+            elif file_ext in ['pdf']:
+                asset_type = 'document'
+            else:
+                asset_type = 'other'
+
+            ma = MediaAsset(title=f.name, file=f, asset_type=asset_type, uploaded_by=request.user)
+            # Set usage to gallery if image
+            if asset_type == 'image':
+                ma.usage = 'gallery'
+            ma.save()
+
+            # Derive title from filename (without extension)
+            title = f.name.rsplit('.', 1)[0]
+
+            # Create HomeGalleryImage
+            hgi = HomeGalleryImage.objects.create(
+                title=title,
+                image_url=ma.get_absolute_url(),
+                description='',
+                order=order_counter,
+                is_active=True,
+            )
+            order_counter += 1
+
+            uploaded.append({
+                'id': hgi.id,
+                'title': hgi.title,
+                'image_url': hgi.image_url,
+                'order': hgi.order,
+            })
+        except Exception as e:
+            errors.append({'filename': f.name, 'error': str(e)})
+
+    return JsonResponse({
+        'success': True,
+        'uploaded': uploaded,
+        'errors': errors,
+        'total': len(uploaded),
+        'failed': len(errors),
+    })

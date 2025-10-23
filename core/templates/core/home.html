@@ -137,7 +137,8 @@
       <!-- Gallery Grid -->
       <div class="facility-gallery">
         {% for img in gallery_images %}
-          <div class="gallery-item" data-title="{{ img.title }}" data-description="{{ img.description }}">
+          <div class="gallery-item {% if forloop.counter0|divisibleby:5 %}wide{% elif forloop.counter0|divisibleby:7 %}tall{% endif %}"
+               data-title="{{ img.title }}" data-description="{{ img.description }}">
             <img src="{{ img.image_url }}" alt="{{ img.title }}" loading="lazy">
             <div class="gallery-overlay">
               <div class="gallery-content">
@@ -163,6 +164,48 @@
     </div>
   </section>
   {% endif %}
+
+  <!-- Gallery Modal -->
+  <div id="galleryModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="max-width:1000px; width:100%; background:#111; border-radius:12px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+      <div style="position:relative; background:#000;">
+        <img id="galleryModalImg" src="" alt="" style="width:100%; height:auto; display:block; max-height:70vh; object-fit:contain;">
+        <button id="galleryModalClose" aria-label="Close" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.6); border:none; color:#fff; width:40px; height:40px; border-radius:20px; cursor:pointer; font-size:20px;">×</button>
+      </div>
+      <div style="padding:16px 20px; color:#fff;">
+        <h4 id="galleryModalTitle" style="margin:0 0 8px 0; font-weight:800;"></h4>
+        <p id="galleryModalDesc" style="margin:0; opacity:0.9;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('galleryModal');
+      const modalImg = document.getElementById('galleryModalImg');
+      const modalTitle = document.getElementById('galleryModalTitle');
+      const modalDesc = document.getElementById('galleryModalDesc');
+      const modalClose = document.getElementById('galleryModalClose');
+
+      function openModal(src, title, desc){
+        modalImg.src = src; modalTitle.textContent = title || ''; modalDesc.textContent = desc || '';
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(){ modal.style.display='none'; document.body.style.overflow=''; modalImg.src=''; }
+
+      document.addEventListener('click', function(e){
+        const item = e.target.closest('.gallery-item');
+        if (item) {
+          const img = item.querySelector('img');
+          openModal(img.getAttribute('src'), item.dataset.title, item.dataset.description);
+        }
+      });
+      modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+      modalClose.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+    })();
+  </script>
 
   <section class="section pricing section-white">
     <div class="container">
