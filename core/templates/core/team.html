@@ -33,6 +33,48 @@
 </section>
 {% endif %}
 
+<!-- Roles Overview -->
+<section class="section" style="padding: 60px 0; background: var(--section-bg);">
+  <div class="container">
+    <h2 style="text-align:center; font-size: 2.2rem; font-weight:900; margin-bottom: 28px;">What Our Team Does</h2>
+    <style>
+      .role-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; }
+      .role-card { background:#fff; border:1px solid #edf2f7; border-radius:14px; padding:16px; box-shadow:0 6px 24px rgba(2,6,23,.06); transition: transform .25s ease, box-shadow .25s ease; }
+      .role-card:hover { transform: translateY(-4px); box-shadow:0 12px 30px rgba(2,6,23,.10); }
+      .role-head { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+      .role-head i { color: var(--primary-green); }
+      .role-card p { margin:0; color:#4a5568; font-size:.95rem; line-height:1.6; }
+    </style>
+    <div class="role-grid">
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">fitness_center</i><strong>Fitness Instructors</strong></div>
+        <p>Design personalized programs, coach form, and motivate you through every session.</p>
+      </article>
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">restaurant</i><strong>Nutritionists</strong></div>
+        <p>Provide personalized nutrition advice to fuel performance and recovery.</p>
+      </article>
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">support_agent</i><strong>Customer Service</strong></div>
+        <p>Friendly, knowledgeable help for memberships, bookings, and questions.</p>
+      </article>
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">cleaning_services</i><strong>Cleaning Team</strong></div>
+        <p>Maintain spotless, hygienic spaces throughout the day for safe training.</p>
+      </article>
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">campaign</i><strong>Marketing & Sales</strong></div>
+        <p>Grow our community, share success stories, and help new members join.</p>
+      </article>
+      <article class="role-card">
+        <div class="role-head"><i class="material-icons">manage_accounts</i><strong>Management</strong></div>
+        <p>Keep operations smooth and member experience exceptional, every day.</p>
+      </article>
+    </div>
+  </div>
+  
+</section>
+
 <!-- Featured Team Members (New Card Style) -->
 {% if featured_members %}
 <section class="section" style="padding: 80px 0; background: var(--section-bg);">
@@ -45,6 +87,7 @@
         <div class="team-card hoverable" style="width:100%; border-radius:12px; overflow:hidden; cursor:pointer; background:#fff; box-shadow: var(--shadow-md);"
              data-name="{{ member.name|escapejs }}"
              data-role="{{ member.role|escapejs }}"
+             data-category="{{ member.role_category }}"
              data-image="{{ member.image_url|escapejs }}"
              data-bio="{{ member.bio|escapejs }}"
              data-years="{{ member.experience_years }}"
@@ -79,14 +122,31 @@
 {% if team_members %}
 <section class="section" style="padding: 80px 0; background: var(--light-bg);">
   <div class="container">
-    <h2 style="text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 60px;">Our Complete Team</h2>
+    <h2 style="text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 10px;">Our Complete Team</h2>
+    <div style="text-align:center; margin-bottom: 30px;">
+      <style>
+        .team-filters { display:inline-flex; gap:8px; flex-wrap:wrap; }
+        .team-chip { border:1px solid #e2e8f0; background:#fff; color:#475569; padding:6px 12px; border-radius:999px; font-weight:700; cursor:pointer; font-size:.85rem; }
+        .team-chip.active { background: var(--primary-green); color:#fff; border-color: var(--primary-green); }
+      </style>
+      <div class="team-filters" id="teamFilters">
+        <button class="team-chip active" data-filter="all">All</button>
+        <button class="team-chip" data-filter="trainer">Trainers</button>
+        <button class="team-chip" data-filter="instructor">Instructors</button>
+        <button class="team-chip" data-filter="nutritionist">Nutritionists</button>
+        <button class="team-chip" data-filter="support">Support</button>
+        <button class="team-chip" data-filter="specialist">Specialists</button>
+        <button class="team-chip" data-filter="manager">Management</button>
+      </div>
+    </div>
 
-    <div class="row" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+    <div id="teamGrid" class="row" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
       {% for member in team_members %}
       <div class="col s12 m6 l4" style="display:flex;">
         <div class="team-card hoverable" style="width:100%; border-radius:12px; overflow:hidden; cursor:pointer; background:#fff; box-shadow: var(--shadow-md);"
              data-name="{{ member.name|escapejs }}"
              data-role="{{ member.role|escapejs }}"
+             data-category="{{ member.role_category }}"
              data-image="{{ member.image_url|escapejs }}"
              data-bio="{{ member.bio|escapejs }}"
              data-years="{{ member.experience_years }}"
@@ -204,6 +264,27 @@
       });
       closeBtn.addEventListener('click', close);
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+      // Filters
+      const filters = document.getElementById('teamFilters');
+      const grid = document.getElementById('teamGrid');
+      function applyFilter(val){
+        const cards = grid ? grid.querySelectorAll('.team-card') : [];
+        cards.forEach(c => {
+          const cat = (c.dataset.category || '').toLowerCase();
+          c.parentElement.parentElement.style.display = (val === 'all' || cat === val) ? '' : 'none';
+        });
+      }
+      if (filters) {
+        filters.addEventListener('click', function(e){
+          const btn = e.target.closest('.team-chip');
+          if (!btn) return;
+          e.preventDefault();
+          filters.querySelectorAll('.team-chip').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          applyFilter(btn.dataset.filter || 'all');
+        });
+      }
     })();
   </script>
 </div>
