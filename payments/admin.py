@@ -10,7 +10,7 @@ class PaymentAdmin(admin.ModelAdmin):
     list_filter = ("provider", "status", "currency", "created_at")
     search_fields = ("user__username", "user__email", "reference")
     readonly_fields = ("created_at", "updated_at", "completed_at", "gateway_response")
-    date_hierarchy = "created_at"
+    # date_hierarchy = "created_at"  # Disabled due to MySQL timezone tables not being populated
     actions = ['export_payments_csv']
 
     def amount_display(self, obj):

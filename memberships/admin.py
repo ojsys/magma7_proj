@@ -90,7 +90,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ("status", "plan", "created_at")
     search_fields = ("user__username", "user__email")
     readonly_fields = ("created_at", "updated_at", "payment_info")
-    date_hierarchy = "created_at"
+    # date_hierarchy = "created_at"  # Disabled due to MySQL timezone tables not being populated
     actions = ['export_subscriptions_csv']
 
     def payment_status(self, obj):
@@ -150,7 +150,7 @@ class WorkoutLogAdmin(admin.ModelAdmin):
     list_display = ("user", "workout_type", "duration", "calories", "date", "created_at")
     list_filter = ("workout_type", "date")
     search_fields = ("user__username", "user__email", "notes")
-    date_hierarchy = "date"
+    # date_hierarchy = "date"  # Disabled due to MySQL timezone tables not being populated
     readonly_fields = ("created_at",)
     actions = ['export_workout_logs_csv']
 
@@ -191,7 +191,7 @@ class WeeklyGoalAdmin(admin.ModelAdmin):
     list_display = ("user", "goal_type", "target_value", "week_start", "is_active_icon", "created_at")
     list_filter = ("goal_type", "is_active", "week_start")
     search_fields = ("user__username", "user__email")
-    date_hierarchy = "week_start"
+    # date_hierarchy = "week_start"  # Disabled due to MySQL timezone tables not being populated
     readonly_fields = ("created_at",)
     actions = ['export_weekly_goals_csv']
 
@@ -240,7 +240,7 @@ class WorkoutSessionAdmin(admin.ModelAdmin):
     list_display = ("user", "title", "workout_type", "session_date", "session_time", "duration", "trainer")
     list_filter = ("workout_type", "session_date")
     search_fields = ("user__username", "user__email", "title", "trainer")
-    date_hierarchy = "session_date"
+    # date_hierarchy = "session_date"  # Disabled due to MySQL timezone tables not being populated
     readonly_fields = ("created_at",)
     actions = ['export_workout_sessions_csv']
 
