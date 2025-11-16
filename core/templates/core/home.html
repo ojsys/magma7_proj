@@ -36,19 +36,19 @@
           <!-- Hero Stats -->
           <div class="hero-stats">
             <div class="hero-stat">
-              <i class="material-icons">groups</i>
-              <span class="hero-stat-number">970+</span>
-              <span class="hero-stat-label">Members</span>
+              <i class="material-icons">{{ site_settings.hero_stat1_icon|default:'groups' }}</i>
+              <span class="hero-stat-number">{{ site_settings.hero_stat1_number|default:'970+' }}</span>
+              <span class="hero-stat-label">{{ site_settings.hero_stat1_label|default:'Members' }}</span>
             </div>
             <div class="hero-stat">
-              <i class="material-icons">sports_gymnastics</i>
-              <span class="hero-stat-number">135+</span>
-              <span class="hero-stat-label">Programs</span>
+              <i class="material-icons">{{ site_settings.hero_stat2_icon|default:'sports_gymnastics' }}</i>
+              <span class="hero-stat-number">{{ site_settings.hero_stat2_number|default:'135+' }}</span>
+              <span class="hero-stat-label">{{ site_settings.hero_stat2_label|default:'Programs' }}</span>
             </div>
             <div class="hero-stat">
-              <i class="material-icons">workspace_premium</i>
-              <span class="hero-stat-number">105+</span>
-              <span class="hero-stat-label">Trainers</span>
+              <i class="material-icons">{{ site_settings.hero_stat3_icon|default:'workspace_premium' }}</i>
+              <span class="hero-stat-number">{{ site_settings.hero_stat3_number|default:'105+' }}</span>
+              <span class="hero-stat-label">{{ site_settings.hero_stat3_label|default:'Trainers' }}</span>
             </div>
           </div>
         </div>

@@ -139,6 +139,19 @@ class SiteSettings(models.Model):
     dark_bg = models.CharField(max_length=7, default='#121416')
     card_bg = models.CharField(max_length=7, default='#1d1f21')
 
+    # Hero Stats
+    hero_stat1_icon = models.CharField(max_length=50, default='groups', help_text='Material icon name for first stat')
+    hero_stat1_number = models.CharField(max_length=20, default='970+', help_text='Number to display (e.g., 970+, 1K+)')
+    hero_stat1_label = models.CharField(max_length=50, default='Members', help_text='Label for first stat')
+
+    hero_stat2_icon = models.CharField(max_length=50, default='sports_gymnastics', help_text='Material icon name for second stat')
+    hero_stat2_number = models.CharField(max_length=20, default='135+', help_text='Number to display (e.g., 135+, 200+)')
+    hero_stat2_label = models.CharField(max_length=50, default='Programs', help_text='Label for second stat')
+
+    hero_stat3_icon = models.CharField(max_length=50, default='workspace_premium', help_text='Material icon name for third stat')
+    hero_stat3_number = models.CharField(max_length=20, default='105+', help_text='Number to display (e.g., 105+, 50+)')
+    hero_stat3_label = models.CharField(max_length=50, default='Trainers', help_text='Label for third stat')
+
     def __str__(self):
         return 'Site Settings'
 

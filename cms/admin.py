@@ -260,6 +260,14 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ('Hero Section', {
             'fields': ('hero_headline', 'hero_subtext', 'hero_cta_text', 'hero_cta_url', 'hero_image_url')
         }),
+        ('Hero Stats', {
+            'fields': (
+                ('hero_stat1_icon', 'hero_stat1_number', 'hero_stat1_label'),
+                ('hero_stat2_icon', 'hero_stat2_number', 'hero_stat2_label'),
+                ('hero_stat3_icon', 'hero_stat3_number', 'hero_stat3_label'),
+            ),
+            'description': 'Configure the three statistics displayed in the hero section (e.g., Members, Programs, Trainers). Use Material Icons names for icons.'
+        }),
         ('Free Guide', {
             'fields': ('free_guide_title', 'free_guide_description', 'free_guide_text', 'free_guide_url'),
             'description': 'Configure the free guide offer that appears in the hero section'
