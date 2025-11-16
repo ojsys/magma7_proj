@@ -164,20 +164,33 @@
       <div class="row" style="padding: 40px 0 20px 0;">
         <div class="col s12 m6 l4">
           <h5 style="color: white; font-weight: 800; margin-bottom: 20px;">
-            Magma7 Fitness Center
+            {{ site_settings.brand_name|default:"Magma7 Fitness Center" }}
           </h5>
           <p class="footer-light" style="line-height: 1.6; margin-bottom: 20px;">
-            Transform your body and mind with professional training, state-of-the-art equipment, and a supportive community.
+            {% if site_settings.tagline %}
+              {{ site_settings.tagline }}
+            {% else %}
+              Transform your body and mind with professional training, state-of-the-art equipment, and a supportive community.
+            {% endif %}
           </p>
+          {% if site_settings.address %}
           <p class="footer-light">
             <i class="material-icons tiny" style="color: var(--accent-gold);">location_on</i>
-            No. 30 Zakaria Maimalari Street<br>
-            <span style="margin-left: 20px;">Nasfat Layout, Kaduna</span>
+            {{ site_settings.address }}
           </p>
+          {% endif %}
+          {% if site_settings.phone %}
           <p class="footer-light">
             <i class="material-icons tiny" style="color: var(--accent-gold);">phone</i>
-            +234 (0) 123 456 789
+            {{ site_settings.phone }}
           </p>
+          {% endif %}
+          {% if site_settings.email %}
+          <p class="footer-light">
+            <i class="material-icons tiny" style="color: var(--accent-gold);">email</i>
+            <a href="mailto:{{ site_settings.email }}" class="footer-link">{{ site_settings.email }}</a>
+          </p>
+          {% endif %}
         </div>
 
         <div class="col s12 m6 l2">
@@ -235,7 +248,7 @@
         <div class="row" style="align-items: center;">
           <div class="col s12 m6">
             <p style="margin: 0; color: var(--text-muted);">
-              © <span id="year"></span> Magma7Fitness. All rights reserved.
+              © <span id="year"></span> {{ site_settings.brand_name|default:"Magma7Fitness" }}. All rights reserved.
             </p>
           </div>
           <div class="col s12 m6" style="text-align: right;">
