@@ -108,11 +108,11 @@
 
 <!-- Statistics Section -->
 {% if statistics %}
-<section style="padding: 0; margin-top: -50px; position: relative; z-index: 10;">
-  <div class="container">
+<section class="stats-section" style="padding: 0; margin-top: -50px; position: relative; z-index: 10;">
+  <div class="container" style="padding-left: 0.75rem; padding-right: 0.75rem;">
     <div style="display: grid; grid-template-columns: repeat({{ statistics|length }}, 1fr); gap: 20px;">
       {% for stat in statistics %}
-      <div style="padding: 0 10px;">
+      <div class="stat-wrapper">
         <div class="card" style="text-align: center; padding: 40px 20px; background: var(--card-bg); border: 2px solid var(--border-color); transition: all 0.3s ease;">
           <i class="material-icons" style="font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 15px;">{{ stat.icon }}</i>
           <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--primary-green); margin-bottom: 10px;">{{ stat.value }}</h3>
@@ -125,87 +125,101 @@
 </section>
 
 <style>
+/* Stats section - ensure equal spacing on all sides */
+.stats-section .container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.stat-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
 /* Ensure stats stay in one line on smaller screens with smaller text */
 @media only screen and (max-width: 992px) {
-  section[style*="margin-top: -50px"] .card h3 {
+  .stats-section .card h3 {
     font-size: 2rem !important;
   }
-  section[style*="margin-top: -50px"] .card i {
+  .stats-section .card i {
     font-size: 2.5rem !important;
   }
-  section[style*="margin-top: -50px"] .card p {
+  .stats-section .card p {
     font-size: 0.85rem !important;
   }
-  section[style*="margin-top: -50px"] .card {
+  .stats-section .card {
     padding: 30px 15px !important;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  section[style*="margin-top: -50px"] .card h3 {
+  .stats-section .container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .stats-section .card h3 {
     font-size: 1.4rem !important;
   }
-  section[style*="margin-top: -50px"] .card i {
+  .stats-section .card i {
     font-size: 1.8rem !important;
     margin-bottom: 8px !important;
   }
-  section[style*="margin-top: -50px"] .card p {
+  .stats-section .card p {
     font-size: 0.7rem !important;
   }
-  section[style*="margin-top: -50px"] .card {
+  .stats-section .card {
     padding: 16px 8px !important;
   }
-  section[style*="margin-top: -50px"] > div > div {
+  .stats-section > div > div {
     gap: 8px !important;
-  }
-  section[style*="margin-top: -50px"] > div {
-    padding: 0 5px !important;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  section[style*="margin-top: -50px"] .card h3 {
+  .stats-section .container {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  .stats-section .card h3 {
     font-size: 1.2rem !important;
   }
-  section[style*="margin-top: -50px"] .card i {
+  .stats-section .card i {
     font-size: 1.5rem !important;
     margin-bottom: 6px !important;
   }
-  section[style*="margin-top: -50px"] .card p {
+  .stats-section .card p {
     font-size: 0.65rem !important;
     letter-spacing: 0.5px !important;
   }
-  section[style*="margin-top: -50px"] .card {
+  .stats-section .card {
     padding: 12px 4px !important;
   }
-  section[style*="margin-top: -50px"] > div > div {
+  .stats-section > div > div {
     gap: 6px !important;
-  }
-  section[style*="margin-top: -50px"] > div {
-    padding: 0 2px !important;
   }
 }
 
 @media only screen and (max-width: 480px) {
-  section[style*="margin-top: -50px"] .card h3 {
+  .stats-section .container {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+  .stats-section .card h3 {
     font-size: 1rem !important;
   }
-  section[style*="margin-top: -50px"] .card i {
+  .stats-section .card i {
     font-size: 1.3rem !important;
     margin-bottom: 4px !important;
   }
-  section[style*="margin-top: -50px"] .card p {
+  .stats-section .card p {
     font-size: 0.6rem !important;
     letter-spacing: 0.3px !important;
   }
-  section[style*="margin-top: -50px"] .card {
+  .stats-section .card {
     padding: 10px 2px !important;
   }
-  section[style*="margin-top: -50px"] > div > div {
+  .stats-section > div > div {
     gap: 4px !important;
-  }
-  section[style*="margin-top: -50px"] > div {
-    padding: 0 !important;
   }
 }
 </style>
