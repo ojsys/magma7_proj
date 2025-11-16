@@ -113,8 +113,10 @@
     <div style="display: grid; grid-template-columns: repeat({{ statistics|length }}, 1fr); gap: 20px;">
       {% for stat in statistics %}
       <div class="stat-wrapper" style="display: flex;">
-        <div class="card" style="text-align: center; padding: 40px 20px; background: var(--card-bg); border: 2px solid var(--border-color); transition: all 0.3s ease; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-          <i class="material-icons" style="font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 15px;">{{ stat.icon }}</i>
+        <div class="card" style="text-align: center; padding: 40px 20px; background: var(--card-bg); border: 2px solid var(--border-color); transition: all 0.3s ease; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+            <i class="material-icons" style="font-size: 3rem; color: var(--accent-gold);">{{ stat.icon }}</i>
+          </div>
           <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--primary-green); margin-bottom: 10px;">{{ stat.value }}</h3>
           <p style="color: var(--text-secondary); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin: 0;">{{ stat.label }}</p>
         </div>
@@ -151,13 +153,16 @@
     font-size: 2rem !important;
   }
   .stats-section .card i {
-    font-size: 2.5rem !important;
+    font-size: 2.2rem !important;
   }
   .stats-section .card p {
     font-size: 0.85rem !important;
   }
   .stats-section .card {
     padding: 30px 15px !important;
+  }
+  .stats-section .card > div {
+    margin-bottom: 10px !important;
   }
 }
 
@@ -170,14 +175,16 @@
     font-size: 1.4rem !important;
   }
   .stats-section .card i {
-    font-size: 1.8rem !important;
-    margin-bottom: 8px !important;
+    font-size: 1.6rem !important;
   }
   .stats-section .card p {
     font-size: 0.7rem !important;
   }
   .stats-section .card {
     padding: 16px 8px !important;
+  }
+  .stats-section .card > div {
+    margin-bottom: 8px !important;
   }
   .stats-section > div > div {
     gap: 8px !important;
@@ -193,8 +200,7 @@
     font-size: 1.2rem !important;
   }
   .stats-section .card i {
-    font-size: 1.5rem !important;
-    margin-bottom: 6px !important;
+    font-size: 1.3rem !important;
   }
   .stats-section .card p {
     font-size: 0.65rem !important;
@@ -202,6 +208,9 @@
   }
   .stats-section .card {
     padding: 12px 4px !important;
+  }
+  .stats-section .card > div {
+    margin-bottom: 6px !important;
   }
   .stats-section > div > div {
     gap: 6px !important;
@@ -217,8 +226,7 @@
     font-size: 1rem !important;
   }
   .stats-section .card i {
-    font-size: 1.3rem !important;
-    margin-bottom: 4px !important;
+    font-size: 1.1rem !important;
   }
   .stats-section .card p {
     font-size: 0.6rem !important;
@@ -226,6 +234,9 @@
   }
   .stats-section .card {
     padding: 10px 2px !important;
+  }
+  .stats-section .card > div {
+    margin-bottom: 4px !important;
   }
   .stats-section > div > div {
     gap: 4px !important;
